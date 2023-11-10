@@ -1,34 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { CreateAdminDto } from './dto/create-admin.dto';
-import { UpdateAdminDto } from './dto/update-admin.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SignUpAdminDto } from './dto/signupAdmin.dto';
+import { Response } from 'express';
 
+@ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Post()
-  create(@Body() createAdminDto: CreateAdminDto) {
-    return this.adminService.create(createAdminDto);
+  //SignUpAdmin
+  @ApiOperation({ summary: 'SignUp admin' })
+  @ApiResponse({ status: 201, description: 'Admin successfully created' })
+  @ApiResponse({ status: 400, description: 'Something wrong' })
+  @Post('signup')
+  async signUp(
+    @Body() signUpAdminDto: SignUpAdminDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.adminService.signupAdmin(signUpAdminDto, res);
   }
 
-  @Get()
-  findAll() {
-    return this.adminService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.adminService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
-    return this.adminService.update(+id, updateAdminDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.adminService.remove(+id);
+  //Activate admin
+  @ApiOperation({ summary: 'Activate admin' })
+  @Get('activate/:link')
+  activate(@Param('link') link: string) {
+    return this.adminService.activateAdmin(link);
   }
 }

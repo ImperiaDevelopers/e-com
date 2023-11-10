@@ -37,13 +37,13 @@ export class Admin extends Model<Admin, AdminAtr> {
     allowNull: false,
     unique: true,
   })
-  phone: string;
+  email: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  role: string;
+  phone_number: string;
 
   @Column({
     type: DataType.STRING,
@@ -52,13 +52,18 @@ export class Admin extends Model<Admin, AdminAtr> {
   password: string;
 
   @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
+  is_active: boolean;
+
+  @Column({
     type: DataType.STRING,
   })
   refresh_token: string;
 
   @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: true,
+    type: DataType.STRING,
   })
-  status: boolean;
+  unique_id: string;
 }

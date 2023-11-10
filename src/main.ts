@@ -13,7 +13,7 @@ const start = async () => {
 
     const config = new DocumentBuilder()
       .setTitle('ERP')
-      .setDescription('A project named ERP by Tolibjon')
+      .setDescription('A project named ERP by Imperia Developers')
       .setVersion('1.0.0')
       .addTag('NestJS, Postgres, Sequelize, Vuejs, TailwindCss')
       .build();
