@@ -1,12 +1,13 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 interface AdminAtr {
-  first_name: String;
-  last_name: String;
-  phone: String;
-  image: String;
-  password: String;
-  refresh_token: String;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  image: string;
+  password: string;
+  refresh_token: string;
+  status: boolean;
 }
 
 @Table({ tableName: 'Admin' })
@@ -35,8 +36,13 @@ export class Admin extends Model<Admin, AdminAtr> {
     allowNull: false,
     unique: true,
   })
-  phone_number: string;
+  email: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  phone_number: string;
 
   @Column({
     type: DataType.STRING,
@@ -45,9 +51,18 @@ export class Admin extends Model<Admin, AdminAtr> {
   password: string;
 
   @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
+  is_active: boolean;
+
+  @Column({
     type: DataType.STRING,
   })
   refresh_token: string;
 
- 
+  @Column({
+    type: DataType.STRING,
+  })
+  unique_id: string;
 }
