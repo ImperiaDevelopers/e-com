@@ -5,10 +5,8 @@ interface AdminAtr {
   last_name: String;
   phone: String;
   image: String;
-  role: String;
   password: String;
   refresh_token: String;
-  status: Boolean;
 }
 
 @Table({ tableName: 'Admin' })
@@ -37,13 +35,8 @@ export class Admin extends Model<Admin, AdminAtr> {
     allowNull: false,
     unique: true,
   })
-  phone: string;
+  phone_number: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  role: string;
 
   @Column({
     type: DataType.STRING,
@@ -56,9 +49,5 @@ export class Admin extends Model<Admin, AdminAtr> {
   })
   refresh_token: string;
 
-  @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: true,
-  })
-  status: boolean;
+ 
 }
