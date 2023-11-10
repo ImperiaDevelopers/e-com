@@ -2,12 +2,16 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AdminModule } from './admin/admin.module';
+<<<<<<< HEAD
 import { Admin } from './admin/models/admin.model';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
 import { ProductBrandModule } from './product_brand/product_brand.module';
 import { Comment } from './comment/models/comment.model';
 import { CommentModule } from './comment/comment.module';
+=======
+import { ProInfoModule } from './pro_info/pro_info.module';
+>>>>>>> c12ca04d5ac81762bc9f2424c2e4a7092e8631eb
 
 @Module({
   imports: [
@@ -24,9 +28,13 @@ import { CommentModule } from './comment/comment.module';
       logging: false,
     }),
     AdminModule,
+<<<<<<< HEAD
     ProductModule,
     ProductBrandModule,
     CommentModule,
+=======
+    ProInfoModule,
+>>>>>>> c12ca04d5ac81762bc9f2424c2e4a7092e8631eb
   ],
   controllers: [],
   providers: [],
