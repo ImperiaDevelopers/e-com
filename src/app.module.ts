@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AdminModule } from './admin/admin.module';
+import { ProInfoModule } from './pro_info/pro_info.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AdminModule } from './admin/admin.module';
       logging: false,
     }),
     AdminModule,
+    ProInfoModule,
   ],
   controllers: [],
   providers: [],
