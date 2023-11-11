@@ -6,6 +6,7 @@ import { Admin } from './admin/models/admin.model';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
 import { ProductBrandModule } from './product_brand/product_brand.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ProductBrandModule } from './product_brand/product_brand.module';
     AdminModule,
     ProductModule,
     ProductBrandModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],
