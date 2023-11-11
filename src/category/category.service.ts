@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Category } from './models/category.model';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Response } from 'express';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()

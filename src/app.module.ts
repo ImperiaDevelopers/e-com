@@ -9,6 +9,8 @@ import { ProductBrandModule } from './product_brand/product_brand.module';
 import { CategoryModule } from './category/category.module';
 import { PerformanceModule } from './performance/performance.module';
 import { Performance } from './performance/models/performance.model';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/models/order.model';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { Performance } from './performance/models/performance.model';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      models: [Admin, Product, Performance],
+      models: [Admin, Product, Performance, Order],
       autoLoadModels: true,
       logging: false,
     }),
@@ -29,6 +31,7 @@ import { Performance } from './performance/models/performance.model';
     ProductBrandModule,
     CategoryModule,
     PerformanceModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],
