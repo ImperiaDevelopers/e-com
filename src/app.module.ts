@@ -21,6 +21,11 @@ import { PaymentModule } from './payment/payment.module';
 import { StatusModule } from './status/status.module';
 import { ProductInStockModule } from './product_in_stock/product_in_stock.module';
 import { ProductInStock } from './product_in_stock/models/product_in_stock.model';
+import { CategoryModule } from './category/category.module';
+import { PerformanceModule } from './performance/performance.module';
+import { Performance } from './performance/models/performance.model';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/models/order.model';
 
 @Module({
   imports: [
@@ -43,6 +48,8 @@ import { ProductInStock } from './product_in_stock/models/product_in_stock.model
         ProductInStock,
         Sale,
         Status,
+        Performance,
+        Order,
       ],
       autoLoadModels: true,
       logging: false,
@@ -57,6 +64,9 @@ import { ProductInStock } from './product_in_stock/models/product_in_stock.model
     SaleModule,
     StatusModule,
     ProductInStockModule,
+    CategoryModule,
+    PerformanceModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],
