@@ -2,16 +2,25 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AdminModule } from './admin/admin.module';
-<<<<<<< HEAD
 import { Admin } from './admin/models/admin.model';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
 import { ProductBrandModule } from './product_brand/product_brand.module';
 import { Comment } from './comment/models/comment.model';
 import { CommentModule } from './comment/comment.module';
-=======
+import { SaleModule } from './sale/sale.module';
+import { ProductModelModule } from './product_model/product_model.module';
+import { ProInfo } from './pro_info/models/pro_info.model';
 import { ProInfoModule } from './pro_info/pro_info.module';
->>>>>>> c12ca04d5ac81762bc9f2424c2e4a7092e8631eb
+import { Sale } from './sale/models/sale.model';
+import { Status } from './status/models/status.model';
+import { Payment } from './payment/models/payment.model';
+import { ProductBrand } from './product_brand/models/product_brand.model';
+import { ProductModel } from './product_model/models/product_model.model';
+import { PaymentModule } from './payment/payment.module';
+import { StatusModule } from './status/status.module';
+import { ProductInStockModule } from './product_in_stock/product_in_stock.module';
+import { ProductInStock } from './product_in_stock/models/product_in_stock.model';
 
 @Module({
   imports: [
@@ -23,18 +32,31 @@ import { ProInfoModule } from './pro_info/pro_info.module';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      models: [Admin, Product, Comment],
+      models: [
+        Admin,
+        Comment,
+        Payment,
+        ProInfo,
+        Product,
+        ProductBrand,
+        ProductModel,
+        ProductInStock,
+        Sale,
+        Status,
+      ],
       autoLoadModels: true,
       logging: false,
     }),
     AdminModule,
-<<<<<<< HEAD
+    CommentModule,
+    PaymentModule,
+    ProInfoModule,
     ProductModule,
     ProductBrandModule,
-    CommentModule,
-=======
-    ProInfoModule,
->>>>>>> c12ca04d5ac81762bc9f2424c2e4a7092e8631eb
+    ProductModelModule,
+    SaleModule,
+    StatusModule,
+    ProductInStockModule,
   ],
   controllers: [],
   providers: [],
