@@ -44,7 +44,7 @@ export class Client extends Model<Client, ClientAttrs> {
 
   @ApiProperty({ example: 'phone', description: 'enter phone number' })
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
   })
   phone_number: string;
 
