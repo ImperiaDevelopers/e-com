@@ -32,6 +32,11 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
+import { Region } from './region/model/region.model.dto';
+import { District } from './district/model/district.model';
+import { Image } from './image/model/image.model';
+import { DistrictModule } from './district/district.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -62,6 +67,9 @@ import { Otp } from './otp/models/otp.model';
         ProCatBrand,
         ProductBrand,
         Otp,
+        Region,
+        Image,
+        District
       ],
       autoLoadModels: true,
       logging: false,
@@ -87,6 +95,9 @@ import { Otp } from './otp/models/otp.model';
     ProCatBrandModule,
     FavouritiesModule,
     ClientModule,
+    DistrictModule,
+    ImageModule,
+    DistrictModule
   ],
   controllers: [],
   providers: [],
