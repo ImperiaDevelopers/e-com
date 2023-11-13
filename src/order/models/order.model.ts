@@ -7,6 +7,9 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from '../../product/models/product.model';
+import { Payment } from '../../payment/models/payment.model';
+import { Status } from '../../status/models/status.model';
+// import { Client } from '../../client/models/client.model';
 
 interface OrderAtr {
   client_id: number;
@@ -33,7 +36,7 @@ export class Order extends Model<Order, OrderAtr> {
   })
   client_id: number;
   // @BelongsTo(() => Client)
-  // parent_category: Client;
+  // client: Client;
 
   @ForeignKey(() => Product)
   @Column({
@@ -59,21 +62,21 @@ export class Order extends Model<Order, OrderAtr> {
   // @BelongsTo(() => District)
   // parent_category: District;
 
-  // @ForeignKey(() => Payment)
+  @ForeignKey(() => Payment)
   @Column({
     type: DataType.INTEGER,
   })
   payment_id: number;
-  // @BelongsTo(() => Payment)
-  // parent_category: Payment;
+  @BelongsTo(() => Payment)
+  payment: Payment;
 
-  // @ForeignKey(() => Status)
+  @ForeignKey(() => Status)
   @Column({
     type: DataType.INTEGER,
   })
   status_id: number;
-  // @BelongsTo(() => Status)
-  // parent_category: Status;
+  @BelongsTo(() => Status)
+  status: Status;
 
   // @ForeignKey(() => Card)
   @Column({

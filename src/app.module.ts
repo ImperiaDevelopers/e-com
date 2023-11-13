@@ -32,6 +32,10 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
+import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance_group.model';
+import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
+import { Deliver } from './deliver/models/deliver.model';
+import { DeliverModule } from './deliver/deliver.module';
 
 @Module({
   imports: [
@@ -60,8 +64,10 @@ import { Otp } from './otp/models/otp.model';
         Comment,
         ProInfo,
         ProCatBrand,
-        ProductBrand,
         Otp,
+        ProPerfomanceGroup,
+        Deliver,
+        ProductBrand,
       ],
       autoLoadModels: true,
       logging: false,
@@ -71,7 +77,6 @@ import { Otp } from './otp/models/otp.model';
     PaymentModule,
     ProInfoModule,
     ProductModule,
-    ProductBrandModule,
     ProductModelModule,
     SaleModule,
     StatusModule,
@@ -87,6 +92,9 @@ import { Otp } from './otp/models/otp.model';
     ProCatBrandModule,
     FavouritiesModule,
     ClientModule,
+    ProPerfomanceGroupModule,
+    DeliverModule,
+    ProductBrandModule,
   ],
   controllers: [],
   providers: [],
