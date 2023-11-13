@@ -11,11 +11,9 @@ import { CommentModule } from './comment/comment.module';
 import { SaleModule } from './sale/sale.module';
 import { ProductModelModule } from './product_model/product_model.module';
 import { ProInfo } from './pro_info/models/pro_info.model';
-import { ProInfoModule } from './pro_info/pro_info.module';
 import { Sale } from './sale/models/sale.model';
 import { Status } from './status/models/status.model';
 import { Payment } from './payment/models/payment.model';
-import { ProductBrand } from './product_brand/models/product_brand.model';
 import { ProductModel } from './product_model/models/product_model.model';
 import { PaymentModule } from './payment/payment.module';
 import { StatusModule } from './status/status.module';
@@ -26,6 +24,14 @@ import { PerformanceModule } from './performance/performance.module';
 import { Performance } from './performance/models/performance.model';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/models/order.model';
+import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
+import { ProInfoModule } from './pro_info/pro_info.module';
+import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
+import { ProductBrand } from './product_brand/models/product_brand.model';
+import { FavouritiesModule } from './favourities/favourities.module';
+import { ClientModule } from './client/client.module';
+import { OtpModule } from './otp/otp.module';
+import { Otp } from './otp/models/otp.model';
 
 @Module({
   imports: [
@@ -50,6 +56,12 @@ import { Order } from './order/models/order.model';
         Status,
         Performance,
         Order,
+        Product,
+        Comment,
+        ProInfo,
+        ProCatBrand,
+        ProductBrand,
+        Otp,
       ],
       autoLoadModels: true,
       logging: false,
@@ -67,6 +79,14 @@ import { Order } from './order/models/order.model';
     CategoryModule,
     PerformanceModule,
     OrderModule,
+    ProInfoModule,
+    ProductModule,
+    ProductBrandModule,
+    CommentModule,
+    OtpModule,
+    ProCatBrandModule,
+    FavouritiesModule,
+    ClientModule,
   ],
   controllers: [],
   providers: [],
