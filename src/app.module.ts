@@ -17,6 +17,7 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { Otp } from './otp/models/otp.model';
     ProCatBrandModule,
     FavouritiesModule,
     ClientModule,
+    StatisticsModule,
   ],
   controllers: [],
   providers: [],
