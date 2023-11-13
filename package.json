@@ -21,6 +21,7 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
@@ -29,6 +30,8 @@
     "@nestjs/swagger": "^7.1.15",
     "class-validator": "^0.14.0",
 =======
+=======
+>>>>>>> bfa6a0b1e07d8803aea24a20792bdb6c503f8a60
     "@apollo/server": "^4.9.5",
     "@nestjs-modules/mailer": "^1.9.1",
     "@nestjs/apollo": "^12.0.10",
@@ -50,7 +53,10 @@
     "handlebars": "^4.7.8",
     "nodemailer": "^6.9.7",
     "otp-generator": "^4.0.1",
+<<<<<<< HEAD
 >>>>>>> 9cc78294f3166cd8657cd6ee996525b1c800e339
+=======
+>>>>>>> bfa6a0b1e07d8803aea24a20792bdb6c503f8a60
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",

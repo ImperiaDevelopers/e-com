@@ -39,6 +39,7 @@ import { ImageModule } from './image/image.module';
 import { DistrictModule } from './district/district.module';
 import { RegionModule } from './region/region.module';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
@@ -70,7 +71,9 @@ import { RegionModule } from './region/region.module';
         Otp,
         Image,
         District,
-        Region
+        Region,
+        Image,
+        District
       ],
       autoLoadModels: true,
       logging: false,
@@ -98,7 +101,7 @@ import { RegionModule } from './region/region.module';
     ClientModule,
     ImageModule,
     DistrictModule,
-    RegionModule
+    RegionModule,
   ],
   controllers: [],
   providers: [],
