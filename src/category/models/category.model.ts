@@ -40,7 +40,6 @@ export class Category extends Model<Category, CategoryAtr> {
     type: DataType.INTEGER,
   })
   parent_category_id: number;
-
-  @BelongsTo(() => Category)
+  @BelongsTo(() => Category, 'parent_category_id')
   parent_category: Category;
 }

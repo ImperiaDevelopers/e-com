@@ -1,11 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  DataType,
-  ForeignKey,
-  Model,
-  Table,
-} from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 interface ProductBrandAttrs {
   name: string;
@@ -14,7 +7,6 @@ interface ProductBrandAttrs {
 
 @Table({ tableName: 'product_brand' })
 export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
-  @ApiProperty({ example: 1, description: 'Unikal Id' })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -22,12 +14,11 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'product_brand1', description: 'ProductBrand nomi' })
   @Column({
     type: DataType.STRING,
   })
   name: string;
-  @ApiProperty({ example: 'image.jpg', description: 'ProductBrand rasmi' })
+
   @Column({
     type: DataType.STRING,
   })

@@ -12,7 +12,6 @@ interface ClientAttrs {
 
 @Table({ tableName: 'client' })
 export class Client extends Model<Client, ClientAttrs> {
-  @ApiProperty({ example: 1, description: 'Unikal ID' })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -20,29 +19,22 @@ export class Client extends Model<Client, ClientAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'Sobir', description: 'Client first name' })
   @Column({
     type: DataType.STRING,
   })
   first_name: string;
 
-  @ApiProperty({
-    example: 'Karimov',
-    description: 'Client last name',
-  })
   @Column({
     type: DataType.STRING,
   })
   last_name: string;
 
-  @ApiProperty({ example: 'email', description: 'enter email' })
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
   email: string;
 
-  @ApiProperty({ example: 'phone', description: 'enter phone number' })
   @Column({
     type: DataType.INTEGER,
   })

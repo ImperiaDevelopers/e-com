@@ -6,6 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ProPerfomanceGroup } from '../../pro_perfomance_group/models/pro_perfomance_group.model';
 
 interface PerformanceAtr {
   name: string;
@@ -34,12 +35,11 @@ export class Performance extends Model<Performance, PerformanceAtr> {
   })
   desc: string;
 
-  // @ForeignKey(() => Pro_performance)
+  @ForeignKey(() => ProPerfomanceGroup)
   @Column({
     type: DataType.INTEGER,
   })
   pro_performance_group_id: number;
-
-  // @BelongsTo(() => Pro_performance)
-  // pro_performance_group: Pro_performance;
+  @BelongsTo(() => ProPerfomanceGroup)
+  pro_performance_group: ProPerfomanceGroup;
 }
