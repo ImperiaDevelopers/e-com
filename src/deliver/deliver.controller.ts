@@ -12,8 +12,8 @@ import { CreateDeliverDto } from './dto/create_deliver.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UpdateDeliverDto } from './dto/update_deliver.dto';
 
-@ApiTags('Deliver')
 @Controller('deliver')
+@ApiTags('Deliver')
 export class DeliverController {
   constructor(private readonly deliverService: DeliverService) {}
   @ApiOperation({ summary: 'Deliver yaratish' })

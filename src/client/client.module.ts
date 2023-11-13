@@ -15,5 +15,6 @@ import { OtpModule } from '../otp/otp.module';
   ],
   controllers: [ClientController],
   providers: [ClientService],
+  exports: [ClientService],
 })
 export class ClientModule {}

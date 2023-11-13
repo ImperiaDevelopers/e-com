@@ -37,6 +37,13 @@ import { District } from './district/model/district.model';
 import { Image } from './image/model/image.model';
 import { DistrictModule } from './district/district.module';
 import { ImageModule } from './image/image.module';
+import { Deliver } from './deliver/models/deliver.model';
+import { DeliverModule } from './deliver/deliver.module';
+import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance_group.model';
+import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
+import { Client } from './client/models/client.model';
+import { RegionModule } from './region/region.module';
+import { Category } from './category/models/category.model';
 
 @Module({
   imports: [
@@ -61,15 +68,16 @@ import { ImageModule } from './image/image.module';
         Status,
         Performance,
         Order,
-        Product,
         Comment,
-        ProInfo,
         ProCatBrand,
-        ProductBrand,
         Otp,
         Region,
         Image,
-        District
+        District,
+        Deliver,
+        Client,
+        ProPerfomanceGroup,
+        Category,
       ],
       autoLoadModels: true,
       logging: false,
@@ -77,10 +85,10 @@ import { ImageModule } from './image/image.module';
     AdminModule,
     CommentModule,
     PaymentModule,
-    ProInfoModule,
     ProductModule,
     ProductBrandModule,
     ProductModelModule,
+    ProPerfomanceGroupModule,
     SaleModule,
     StatusModule,
     ProductInStockModule,
@@ -88,8 +96,6 @@ import { ImageModule } from './image/image.module';
     PerformanceModule,
     OrderModule,
     ProInfoModule,
-    ProductModule,
-    ProductBrandModule,
     CommentModule,
     OtpModule,
     ProCatBrandModule,
@@ -97,7 +103,8 @@ import { ImageModule } from './image/image.module';
     ClientModule,
     DistrictModule,
     ImageModule,
-    DistrictModule
+    DeliverModule,
+    RegionModule,
   ],
   controllers: [],
   providers: [],
