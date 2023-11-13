@@ -56,4 +56,5 @@ export class Product extends Model<Product, ProductAttrs> {
     type: DataType.INTEGER,
   })
   product_model_id: number;
+  
 }

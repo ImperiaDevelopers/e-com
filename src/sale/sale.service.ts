@@ -29,7 +29,9 @@ export class SaleService {
       include: { all: true },
     });
     return sale;
-  }
+  } 
+
+ 
 
   async update(id: number, updateSaleDto: UpdateSaleDto) {
     const updatedSale = await this.saleRepository.update(updateSaleDto, {

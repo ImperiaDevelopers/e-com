@@ -32,18 +32,19 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
-import { Region } from './region/model/region.model.dto';
+import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance_group.model';
+import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
+import { Deliver } from './deliver/models/deliver.model';
+import { DeliverModule } from './deliver/deliver.module';
+import { Region } from './region/model/region.model';
 import { District } from './district/model/district.model';
 import { Image } from './image/model/image.model';
 import { DistrictModule } from './district/district.module';
 import { ImageModule } from './image/image.module';
-import { Deliver } from './deliver/models/deliver.model';
-import { DeliverModule } from './deliver/deliver.module';
-import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance_group.model';
-import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
+import { Card } from './card/models/card.model';
+import { CardModule } from './card/card.module';
 import { Client } from './client/models/client.model';
-import { RegionModule } from './region/region.module';
-import { Category } from './category/models/category.model';
+import { Favourity } from './favourities/models/favourity.model';
 
 @Module({
   imports: [
@@ -57,54 +58,53 @@ import { Category } from './category/models/category.model';
       database: process.env.POSTGRES_DB,
       models: [
         Admin,
+        Card,
+        Client,
         Comment,
+        Deliver,
+        District,
+        Favourity,
+        Image,
+        Order,
+        Otp,
         Payment,
         ProInfo,
         Product,
         ProductBrand,
         ProductModel,
         ProductInStock,
+        Performance,
+        ProCatBrand,
+        ProPerfomanceGroup,
+        Region,
         Sale,
         Status,
-        Performance,
-        Order,
-        Comment,
-        ProCatBrand,
-        Otp,
-        Region,
-        Image,
-        District,
-        Deliver,
-        Client,
-        ProPerfomanceGroup,
-        Category,
       ],
       autoLoadModels: true,
       logging: false,
     }),
     AdminModule,
-    CommentModule,
-    PaymentModule,
-    ProductModule,
-    ProductBrandModule,
-    ProductModelModule,
-    ProPerfomanceGroupModule,
-    SaleModule,
-    StatusModule,
-    ProductInStockModule,
     CategoryModule,
-    PerformanceModule,
-    OrderModule,
-    ProInfoModule,
     CommentModule,
-    OtpModule,
-    ProCatBrandModule,
-    FavouritiesModule,
+    CardModule,
     ClientModule,
+    DeliverModule,
     DistrictModule,
     ImageModule,
-    DeliverModule,
-    RegionModule,
+    FavouritiesModule,
+    OrderModule,
+    OtpModule,
+    PaymentModule,
+    ProductModule,
+    ProductModelModule,
+    ProPerfomanceGroupModule,
+    ProductInStockModule,
+    PerformanceModule,
+    ProCatBrandModule,
+    ProPerfomanceGroupModule,
+    ProInfoModule,
+    SaleModule,
+    StatusModule,
   ],
   controllers: [],
   providers: [],

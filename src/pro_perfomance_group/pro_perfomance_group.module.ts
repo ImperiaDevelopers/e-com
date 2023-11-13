@@ -8,5 +8,6 @@ import { ProPerfomanceGroup } from './models/pro_perfomance_group.model';
   imports: [SequelizeModule.forFeature([ProPerfomanceGroup])],
   controllers: [ProPerfomanceGroupController],
   providers: [ProPerfomanceGroupService],
+  exports: [ProPerfomanceGroupService],
 })
 export class ProPerfomanceGroupModule {}

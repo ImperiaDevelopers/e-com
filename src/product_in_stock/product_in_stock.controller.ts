@@ -12,7 +12,7 @@ import { CreateProductInStockDto } from './dto/create-product_in_stock.dto';
 import { UpdateProductInStockDto } from './dto/update-product_in_stock.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('ProductInStock')
+@ApiTags('Product In Stock')
 @Controller('product_in_stock')
 export class ProductInStockController {
   constructor(

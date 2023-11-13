@@ -12,7 +12,7 @@ import { CreateProPerfomanceGroupDto } from './dto/create_pro_perfomance_group.d
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UpdateProPerfomanceGroupDto } from './dto/update_pro_perfomance_group.dto';
 
-@ApiTags('ProPerfomanceGroup')
+@ApiTags('ProDuct Perfomance Group')
 @Controller('pro_perfomance_group')
 export class ProPerfomanceGroupController {
   constructor(

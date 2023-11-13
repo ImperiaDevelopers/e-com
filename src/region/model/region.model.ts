@@ -1,11 +1,11 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
-import { ApiProperty } from "@nestjs/swagger";
+import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import { ApiProperty } from '@nestjs/swagger';
 
-@Table({ tableName: "region" })
+@Table({ tableName: 'region' })
 export class Region extends Model<Region> {
   @ApiProperty({
     example: 1,
-    description: "Region ID",
+    description: 'Region ID',
   })
   @Column({
     type: DataType.INTEGER,
@@ -15,8 +15,8 @@ export class Region extends Model<Region> {
   id: number;
 
   @ApiProperty({
-    example: "Region A",
-    description: "Name of the region",
+    example: 'Region',
+    description: 'Name of the region',
   })
   @Column({
     type: DataType.STRING,
