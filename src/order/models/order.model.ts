@@ -9,6 +9,7 @@ import {
 import { Product } from '../../product/models/product.model';
 import { Payment } from '../../payment/models/payment.model';
 import { Status } from '../../status/models/status.model';
+import { Region } from '../../region/model/region.model';
 // import { Client } from '../../client/models/client.model';
 
 interface OrderAtr {
@@ -46,7 +47,7 @@ export class Order extends Model<Order, OrderAtr> {
   @BelongsTo(() => Product)
   product: Product;
 
-  // @ForeignKey(() => Region)
+  @ForeignKey(() => Region)
   @Column({
     type: DataType.INTEGER,
   })

@@ -36,6 +36,13 @@ import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance
 import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
 import { Deliver } from './deliver/models/deliver.model';
 import { DeliverModule } from './deliver/deliver.module';
+import { Region } from './region/model/region.model';
+import { District } from './district/model/district.model';
+import { Image } from './image/model/image.model';
+import { DistrictModule } from './district/district.module';
+import { ImageModule } from './image/image.module';
+import { Card } from './card/models/card.model';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -68,6 +75,10 @@ import { DeliverModule } from './deliver/deliver.module';
         ProPerfomanceGroup,
         Deliver,
         ProductBrand,
+        Region,
+        Image,
+        District,
+        Card,
       ],
       autoLoadModels: true,
       logging: false,
@@ -94,7 +105,9 @@ import { DeliverModule } from './deliver/deliver.module';
     ClientModule,
     ProPerfomanceGroupModule,
     DeliverModule,
-    ProductBrandModule,
+    DistrictModule,
+    ImageModule,
+    CardModule,
   ],
   controllers: [],
   providers: [],
