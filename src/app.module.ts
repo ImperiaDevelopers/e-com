@@ -43,6 +43,7 @@ import { DistrictModule } from './district/district.module';
 import { ImageModule } from './image/image.module';
 import { Card } from './card/models/card.model';
 import { CardModule } from './card/card.module';
+import { Client } from './client/models/client.model';
 
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { CardModule } from './card/card.module';
         Image,
         District,
         Card,
+        Client,
       ],
       autoLoadModels: true,
       logging: false,
