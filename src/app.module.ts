@@ -32,11 +32,17 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
-import { Region } from './region/model/region.model.dto';
+import { ProPerfomanceGroup } from './pro_perfomance_group/models/pro_perfomance_group.model';
+import { ProPerfomanceGroupModule } from './pro_perfomance_group/pro_perfomance_group.module';
+import { Deliver } from './deliver/models/deliver.model';
+import { DeliverModule } from './deliver/deliver.module';
+import { Region } from './region/model/region.model';
 import { District } from './district/model/district.model';
 import { Image } from './image/model/image.model';
 import { DistrictModule } from './district/district.module';
 import { ImageModule } from './image/image.module';
+import { Card } from './card/models/card.model';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -65,11 +71,14 @@ import { ImageModule } from './image/image.module';
         Comment,
         ProInfo,
         ProCatBrand,
-        ProductBrand,
         Otp,
+        ProPerfomanceGroup,
+        Deliver,
+        ProductBrand,
         Region,
         Image,
-        District
+        District,
+        Card,
       ],
       autoLoadModels: true,
       logging: false,
@@ -79,7 +88,6 @@ import { ImageModule } from './image/image.module';
     PaymentModule,
     ProInfoModule,
     ProductModule,
-    ProductBrandModule,
     ProductModelModule,
     SaleModule,
     StatusModule,
@@ -95,9 +103,11 @@ import { ImageModule } from './image/image.module';
     ProCatBrandModule,
     FavouritiesModule,
     ClientModule,
+    ProPerfomanceGroupModule,
+    DeliverModule,
     DistrictModule,
     ImageModule,
-    DistrictModule
+    CardModule,
   ],
   controllers: [],
   providers: [],

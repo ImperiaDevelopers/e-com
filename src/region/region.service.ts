@@ -1,8 +1,13 @@
-import { Injectable,ForbiddenException, HttpStatus,NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  HttpStatus,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
-import { Region } from './model/region.model.dto';
+import { Region } from './model/region.model';
 
 @Injectable()
 export class RegionService {
@@ -27,20 +32,19 @@ export class RegionService {
   }
 
   async deleteRegionById(id: number): Promise<number> {
-    const region = await this.regionRepo.findOne({where: {id:id}})
-    if(region) {
+    const region = await this.regionRepo.findOne({ where: { id: id } });
+    if (region) {
       return this.regionRepo.destroy({ where: { id } });
     }
-    throw new NotFoundException("Region not found");
+    throw new NotFoundException('Region not found');
   }
-
 
   async updateRegion(
     id: number,
     updateRegionDto: UpdateRegionDto,
   ): Promise<Region> {
-    const region = await this.regionRepo.findOne({where: {id:id}})
-    if(region) {
+    const region = await this.regionRepo.findOne({ where: { id: id } });
+    if (region) {
       const [_, [updatedRegion]] = await this.regionRepo.update(
         updateRegionDto,
         {
@@ -50,6 +54,6 @@ export class RegionService {
       );
       return updatedRegion;
     }
-    throw new NotFoundException("Region not found")
+    throw new NotFoundException('Region not found');
   }
 }
