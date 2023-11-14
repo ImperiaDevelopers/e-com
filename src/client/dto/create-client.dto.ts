@@ -28,7 +28,4 @@ export class CreateClientDto {
   })
   @Matches(/^\+998\d{9}$/, { message: 'Invalid phone number format' })
   phone_number: string;
-
-  @ApiProperty({ example: 'Uzbek1$t0n', description: 'Client password' })
-  password: number;
 }

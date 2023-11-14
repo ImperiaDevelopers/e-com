@@ -44,6 +44,9 @@ import { ImageModule } from './image/image.module';
 import { Card } from './card/models/card.model';
 import { CardModule } from './card/card.module';
 import { Client } from './client/models/client.model';
+import { Category } from './category/models/category.model';
+import { Favourity } from './favourities/models/favourity.model';
+// import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -61,6 +64,7 @@ import { Client } from './client/models/client.model';
         Payment,
         ProInfo,
         Product,
+        Category,
         ProductBrand,
         ProductModel,
         ProductInStock,
@@ -81,6 +85,7 @@ import { Client } from './client/models/client.model';
         District,
         Card,
         Client,
+        Favourity,
       ],
       autoLoadModels: true,
       logging: false,

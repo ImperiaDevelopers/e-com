@@ -11,6 +11,7 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ProductByPrice } from './dto/productPrice.dto';
 
 @ApiTags('Product')
 @Controller('product')
@@ -26,6 +27,12 @@ export class ProductController {
   findAll() {
     return this.productService.findAll();
   }
+
+  @Post('price-product')
+  probyprice(@Body() productPriceDto: ProductByPrice) {
+    return this.productService.getProductByPrice(productPriceDto);
+  }
+
   @ApiOperation({ summary: "Productni ko'rish" })
   @Get(':id')
   findOne(@Param('id') id: string) {

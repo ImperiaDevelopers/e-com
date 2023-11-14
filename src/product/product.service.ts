@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
+import { Op } from 'sequelize';
+import { ProductByPrice } from './dto/productPrice.dto';
 
 @Injectable()
 export class ProductService {
@@ -29,6 +31,18 @@ export class ProductService {
       include: { all: true },
     });
     return product;
+  }
+
+  async getProductByPrice(getProductPrice: ProductByPrice) {
+    const priceProduct = await this.productRepository.findAll({
+      where: {
+        price: {
+          [Op.gte]: getProductPrice.from,
+          [Op.lt]: getProductPrice.to,
+        },
+      },
+    });
+    return priceProduct;
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
