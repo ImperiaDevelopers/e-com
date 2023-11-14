@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { ProductBrand } from '../../product_brand/models/product_brand.model';
 import { ProductModel } from '../../product_model/models/product_model.model';
-import { Categor } from '../../category/models/category.model';
+import { Category } from '../../category/models/category.model';
 
 interface ProductAttrs {
   name: string;
@@ -37,13 +37,13 @@ export class Product extends Model<Product, ProductAttrs> {
   })
   price: number;
 
-  @ForeignKey(() => Categor)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
-  @BelongsTo(() => Categor)
-    category: Categor;
+  @BelongsTo(() => Category)
+    category: Category;
 
   @ForeignKey(() => ProductBrand)
   @Column({

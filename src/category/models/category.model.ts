@@ -8,15 +8,15 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-interface CategorAttrs {
+interface CategoryAttrs {
   rating: number;
   category_name: string;
   parent_category_id: number;
   icon: string;
 }
 
-@Table({ tableName: 'categor' })
-export class Categor extends Model<Categor, CategorAttrs> {
+@Table({ tableName: 'category' })
+export class Category extends Model<Category, CategoryAttrs> {
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
 
@@ -24,14 +24,14 @@ export class Categor extends Model<Categor, CategorAttrs> {
   @Column({ type: DataType.STRING })
   category_name: string;
 
-  @ForeignKey(() => Categor)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   parent_category_id: number;
-  @BelongsTo(() => Categor, 'parent_category_id')
-  parent_category: Categor;
+  @BelongsTo(() => Category, 'parent_category_id')
+  parent_category: Category;
 
   @ApiProperty({ example: 'icon', description: 'icon category' })
   @Column({ type: DataType.STRING })

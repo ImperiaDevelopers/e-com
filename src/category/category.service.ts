@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Categor } from './models/category.model';
+import { Category } from './models/category.model';
 
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectModel(Categor) private readonly CategoryRepo: typeof Categor,
+    @InjectModel(Category) private readonly CategoryRepo: typeof Category,
   ) {}
   async create(createCategoryDto: CreateCategoryDto) {
     return await this.CategoryRepo.create(createCategoryDto);

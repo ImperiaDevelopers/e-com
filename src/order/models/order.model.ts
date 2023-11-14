@@ -13,7 +13,6 @@ import { Region } from '../../region/model/region.model';
 import { Client } from '../../client/models/client.model';
 import { District } from '../../district/model/district.model';
 import { Card } from '../../card/models/card.model';
-// import { Client } from '../../client/models/client.model';
 
 interface OrderAtr {
   client_id: number;

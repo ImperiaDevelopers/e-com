@@ -8,10 +8,8 @@ import { Product } from './product/models/product.model';
 import { ProductBrandModule } from './product_brand/product_brand.module';
 import { Comment } from './comment/models/comment.model';
 import { CommentModule } from './comment/comment.module';
-import { SaleModule } from './sale/sale.module';
 import { ProductModelModule } from './product_model/product_model.module';
 import { ProInfo } from './pro_info/models/pro_info.model';
-import { Sale } from './sale/models/sale.model';
 import { Status } from './status/models/status.model';
 import { Payment } from './payment/models/payment.model';
 import { ProductModel } from './product_model/models/product_model.model';
@@ -46,6 +44,7 @@ import { Client } from './client/models/client.model';
 import { Favourity } from './favourities/models/favourity.model';
 import { RegionModule } from './region/region.module';
 import { CategoryModule } from './category/category.module';
+import { Category } from './category/models/category.model';
 
 @Module({
   imports: [
@@ -62,6 +61,7 @@ import { CategoryModule } from './category/category.module';
         Card,
         Client,
         Comment,
+        Category,
         Deliver,
         District,
         Favourity,
@@ -78,7 +78,6 @@ import { CategoryModule } from './category/category.module';
         ProCatBrand,
         ProPerfomanceGroup,
         Region,
-        Sale,
         Status,
       ],
       autoLoadModels: true,
@@ -106,7 +105,6 @@ import { CategoryModule } from './category/category.module';
     ProPerfomanceGroupModule,
     ProInfoModule,
     RegionModule,
-    SaleModule,
     StatusModule,
   ],
   controllers: [],
