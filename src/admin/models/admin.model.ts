@@ -10,7 +10,7 @@ interface AdminAtr {
   status: boolean;
 }
 
-@Table({ tableName: 'Admin' })
+@Table({ tableName: 'admin' })
 export class Admin extends Model<Admin, AdminAtr> {
   @Column({
     type: DataType.INTEGER,

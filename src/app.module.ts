@@ -3,12 +3,27 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AdminModule } from './admin/admin.module';
 import { Admin } from './admin/models/admin.model';
-import { ProInfo } from './pro_info/models/pro_info.model';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
 import { ProductBrandModule } from './product_brand/product_brand.module';
 import { Comment } from './comment/models/comment.model';
 import { CommentModule } from './comment/comment.module';
+import { SaleModule } from './sale/sale.module';
+import { ProductModelModule } from './product_model/product_model.module';
+import { ProInfo } from './pro_info/models/pro_info.model';
+import { Sale } from './sale/models/sale.model';
+import { Status } from './status/models/status.model';
+import { Payment } from './payment/models/payment.model';
+import { ProductModel } from './product_model/models/product_model.model';
+import { PaymentModule } from './payment/payment.module';
+import { StatusModule } from './status/status.module';
+import { ProductInStockModule } from './product_in_stock/product_in_stock.module';
+import { ProductInStock } from './product_in_stock/models/product_in_stock.model';
+import { CategoryModule } from './category/category.module';
+import { PerformanceModule } from './performance/performance.module';
+import { Performance } from './performance/models/performance.model';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/models/order.model';
 import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
 import { ProInfoModule } from './pro_info/pro_info.module';
 import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
@@ -17,7 +32,6 @@ import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/models/otp.model';
-import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -31,17 +45,46 @@ import { StatisticsModule } from './statistics/statistics.module';
       database: process.env.POSTGRES_DB,
       models: [
         Admin,
+        Comment,
+        Payment,
+        ProInfo,
+        Product,
+        ProductBrand,
+        ProductModel,
+        ProductInStock,
+        Sale,
+        Status,
+        Performance,
+        Order,
         Product,
         Comment,
         ProInfo,
         ProCatBrand,
-        ProductBrand,
         Otp,
+        ProPerfomanceGroup,
+        Deliver,
+        ProductBrand,
+        Region,
+        Image,
+        District,
+        Card,
+        Client,
       ],
       autoLoadModels: true,
       logging: false,
     }),
     AdminModule,
+    CommentModule,
+    PaymentModule,
+    ProInfoModule,
+    ProductModule,
+    ProductModelModule,
+    SaleModule,
+    StatusModule,
+    ProductInStockModule,
+    CategoryModule,
+    PerformanceModule,
+    OrderModule,
     ProInfoModule,
     ProductModule,
     ProductBrandModule,
@@ -51,6 +94,11 @@ import { StatisticsModule } from './statistics/statistics.module';
     FavouritiesModule,
     ClientModule,
     StatisticsModule,
+    ProPerfomanceGroupModule,
+    DeliverModule,
+    DistrictModule,
+    ImageModule,
+    CardModule,
   ],
   controllers: [],
   providers: [],
