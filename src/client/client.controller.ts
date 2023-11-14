@@ -18,6 +18,7 @@ import { Response } from 'express';
 import { PhoneNumberDto } from './dto/phone-for-otp.dto';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
 
+@ApiTags('Client')
 @Controller('client')
 @ApiTags('Client')
 export class ClientController {

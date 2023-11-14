@@ -17,40 +17,26 @@ interface ProCatBrandAttrs {
 
 @Table({ tableName: 'pro_cat_brand' })
 export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
-  @ApiProperty({
-    example: 'id',
-    description: 'The id of the pro_cat_brand',
-  })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   })
   id: number;
-
-  @ApiProperty({
-    example: '5',
-    description: 'the id of category',
-  })
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
+  @BelongsTo(() => Category)
+  category: Category;
 
-  @ApiProperty({
-    example: '5',
-    description: 'the id of pro_brand_id',
-  })
   @ForeignKey(() => ProductBrand)
   @Column({
     type: DataType.INTEGER,
   })
   pro_brend_id: number;
 
-  @BelongsTo(() => Category)
-  category: Category
-
   @BelongsTo(() => ProductBrand)
-  proBrand: ProductBrand;
+  proBrand: ProCatBrand;
 }
