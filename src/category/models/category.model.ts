@@ -3,10 +3,11 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
-
+import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
 interface CategoryAtr {
   category_name: string;
   icon: string;
@@ -43,4 +44,7 @@ export class Category extends Model<Category, CategoryAtr> {
 
   @BelongsTo(() => Category)
   parent_category: Category;
+  
+  // @HasMany(() => ProCatBrand)
+  // pro_cat_brands: ProCatBrand[];
 }

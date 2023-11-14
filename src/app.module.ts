@@ -45,6 +45,7 @@ import { Card } from './card/models/card.model';
 import { CardModule } from './card/card.module';
 import { Client } from './client/models/client.model';
 import { Favourity } from './favourities/models/favourity.model';
+import { RegionModule } from './region/region.module';
 
 @Module({
   imports: [
@@ -100,9 +101,11 @@ import { Favourity } from './favourities/models/favourity.model';
     ProPerfomanceGroupModule,
     ProductInStockModule,
     PerformanceModule,
+    ProductBrandModule,
     ProCatBrandModule,
     ProPerfomanceGroupModule,
     ProInfoModule,
+    RegionModule,
     SaleModule,
     StatusModule,
   ],

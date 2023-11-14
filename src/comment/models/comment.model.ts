@@ -1,3 +1,4 @@
+import { BelongsTo } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
@@ -6,6 +7,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Product } from '../../product/models/product.model';
+import { Client } from '../../client/models/client.model';
 
 interface CommentAttrs {
   rating: number;
@@ -16,6 +19,7 @@ interface CommentAttrs {
 
 @Table({ tableName: 'comment' })
 export class Comment extends Model<Comment, CommentAttrs> {
+  
   @ApiProperty({ example: 1, description: 'Unique ID' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
@@ -25,18 +29,22 @@ export class Comment extends Model<Comment, CommentAttrs> {
   text: string;
 
   @ApiProperty({ example: 7, description: 'Client Id' })
-  // @ForeignKey(() => Client)
+  @ForeignKey(() => Client)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   client_id: number;
+  @BelongsTo(() => Client)
+  client: Client;
 
   @ApiProperty({ example: 7, description: 'Product Id' })
-  // @ForeignKey(() => Product)
+  @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   product_id: number;
+  @BelongsTo(() => Product)
+  product: Product;
 }

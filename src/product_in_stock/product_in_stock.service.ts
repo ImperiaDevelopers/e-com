@@ -53,6 +53,8 @@ export class ProductInStockService {
 
     return newProductInStock;
   }
+
+  
   async findAll(): Promise<ProductInStock[]> {
     const product_in_stocks = await this.productInStockRepository.findAll({
       include: { all: true },
