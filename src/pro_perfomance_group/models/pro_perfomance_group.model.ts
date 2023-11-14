@@ -7,7 +7,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Category } from '../../category/models/category.model';
+import { Categor } from '../../category/models/category.model';
 
 interface ProPerfomanceGroupAttrs {
   name: string;
@@ -31,11 +31,11 @@ export class ProPerfomanceGroup extends Model<
   })
   name: string;
 
-  // @ForeignKey(() => Category)
+  @ForeignKey(() => Categor)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
-  // @BelongsTo(() => Category)
-  // category: Category;
+  @BelongsTo(() => Categor)
+  category: Categor;
 }
