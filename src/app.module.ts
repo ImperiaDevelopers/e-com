@@ -46,6 +46,7 @@ import { RegionModule } from './region/region.module';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/models/category.model';
 import { ViewsModule } from './views/views.module';
+import { View } from './views/models/view.model';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { ViewsModule } from './views/views.module';
         ProPerfomanceGroup,
         Region,
         Status,
+        View,
       ],
       autoLoadModels: true,
       logging: false,
