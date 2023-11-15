@@ -45,6 +45,8 @@ import { Card } from './card/models/card.model';
 import { CardModule } from './card/card.module';
 import { Client } from './client/models/client.model';
 import { Favourity } from './favourities/models/favourity.model';
+import { RegionModule } from './region/region.module';
+import { ViewsModule } from './views/views.module';
 
 @Module({
   imports: [
@@ -94,6 +96,8 @@ import { Favourity } from './favourities/models/favourity.model';
     FavouritiesModule,
     OrderModule,
     OtpModule,
+    RegionModule,
+    ProductBrandModule,
     PaymentModule,
     ProductModule,
     ProductModelModule,
@@ -105,6 +109,7 @@ import { Favourity } from './favourities/models/favourity.model';
     ProInfoModule,
     SaleModule,
     StatusModule,
+    ViewsModule,
   ],
   controllers: [],
   providers: [],
