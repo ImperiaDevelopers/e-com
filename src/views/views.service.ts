@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreateViewDto } from './dto/create-view.dto';
 import { UpdateViewDto } from './dto/update-view.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { View } from './models/view.model';
 
 @Injectable()
 export class ViewsService {
-  create(createViewDto: CreateViewDto) {
-    return 'This action adds a new view';
+  constructor(@InjectModel(View) private readonly ViewRepo: typeof View) {}
+  async create(createViewDto: CreateViewDto) {
+    return await this.ViewRepo.create(createViewDto);
   }
 
-  findAll() {
-    return `This action returns all views`;
+  async findAll() {
+    return await this.ViewRepo.findAll({ include: { all: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} view`;
+  async findOne(id: number) {
+    return await this.ViewRepo.findByPk(id, {
+      include: { all: true },
+    });
   }
 
-  update(id: number, updateViewDto: UpdateViewDto) {
-    return `This action updates a #${id} view`;
+  async update(id: number, updateViewDto: UpdateViewDto) {
+    return await this.ViewRepo.update(updateViewDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} view`;
+  async remove(id: number) {
+    return await this.ViewRepo.destroy({ where: { id } });
   }
 }
