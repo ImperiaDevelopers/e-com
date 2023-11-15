@@ -7,12 +7,13 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Sale } from '../../sale/models/sale.model';
 import { Product } from '../../product/models/product.model';
 
 interface ProductInStockAttrs {
   product_id: number;
-  sale_id: number;
+  duration: number;
+  from: string;
+  to: string;
 }
 
 @Table({ tableName: 'product_in_stock' })
@@ -32,11 +33,24 @@ export class ProductInStock extends Model<ProductInStock, ProductInStockAttrs> {
   @BelongsTo(() => Product)
   product: Product;
 
-  @ForeignKey(() => Sale)
   @Column({
     type: DataType.INTEGER,
   })
-  sale_id: number;
-  @BelongsTo(() => Sale)
-  sale: Sale;
+  duration: number;
+
+  @Column({
+    type: DataType.INTEGER,
+  })
+  percent: number;
+
+  @Column({
+    type: DataType.STRING,
+    defaultValue: new Date()
+  })
+  from: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  to: string;
 }

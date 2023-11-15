@@ -20,6 +20,7 @@ import { VerifyOtpDto } from './dto/verify-otp.dto';
 
 @ApiTags('Client')
 @Controller('client')
+@ApiTags('Client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 

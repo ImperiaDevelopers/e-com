@@ -7,8 +7,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Category } from '../../category/models/category.model';
 import { ProductBrand } from '../../product_brand/models/product_brand.model';
+import { Category } from '../../category/models/category.model';
 
 interface ProCatBrandAttrs {
   category_id: number;
@@ -23,13 +23,20 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
     primaryKey: true,
   })
   id: number;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4a7b3513e764d2082aba4bf44f21ae86a6e40ded
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
+<<<<<<< HEAD
   @BelongsTo(() => Category)
+=======
+  @BelongsTo(() =>Category,'category_id')
+>>>>>>> 4a7b3513e764d2082aba4bf44f21ae86a6e40ded
   category: Category;
 
   @ForeignKey(() => ProductBrand)

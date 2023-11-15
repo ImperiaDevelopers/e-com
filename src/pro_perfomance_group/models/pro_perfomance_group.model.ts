@@ -31,11 +31,11 @@ export class ProPerfomanceGroup extends Model<
   })
   name: string;
 
-  // @ForeignKey(() => Category)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
-  // @BelongsTo(() => Category)
-  // category: Category;
+  @BelongsTo(() => Category)
+  category: Category;
 }

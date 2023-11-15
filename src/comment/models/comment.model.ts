@@ -26,21 +26,26 @@ export class Comment extends Model<Comment, CommentAttrs> {
   @Column({ type: DataType.STRING })
   text: string;
 
-  // @ForeignKey(() => Client)
+  @ForeignKey(() => Client)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   client_id: number;
+<<<<<<< HEAD
   // @BelongsTo(() => Client)
   // client: Client;
+=======
+  @BelongsTo(() => Client)
+  client = Client;
+>>>>>>> 4a7b3513e764d2082aba4bf44f21ae86a6e40ded
 
-  // @ForeignKey(() => Product)
+  @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   product_id: number;
-  // @BelongsTo(() => Product)
-  // product: Product;
+  @BelongsTo(() => Product)
+  product: Product;
 }

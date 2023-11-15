@@ -36,7 +36,7 @@ export class Client extends Model<Client, ClientAttrs> {
   email: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
   })
   phone_number: string;
 

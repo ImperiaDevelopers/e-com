@@ -13,8 +13,8 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Comment } from './models/comment.model';
 
-@Controller('comment')
 @ApiTags('Comment')
+@Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 

@@ -8,6 +8,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Performance } from '../../performance/models/performance.model';
+import { Product } from '../../product/models/product.model';
 
 interface ProInfoAttrs {
   product_id: number;
@@ -25,21 +26,21 @@ export class ProInfo extends Model<ProInfo, ProInfoAttrs> {
   })
   id: number;
 
-  // @ForeignKey(() => Product)
+  @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
   })
   product_id: number;
-  // @BelongsTo(() => Product)
-  // product: Product;
+  @BelongsTo(() => Product)
+  product: Product;
 
-  // @ForeignKey(() => Performance)
+  @ForeignKey(() => Performance)
   @Column({
     type: DataType.INTEGER,
   })
   performers_id: number;
-  // @BelongsTo(() => Performance)
-  // performance: Performance;
+  @BelongsTo(() => Performance)
+  performance: Performance;
 
   @Column({
     type: DataType.STRING,
