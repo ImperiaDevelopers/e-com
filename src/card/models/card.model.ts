@@ -17,11 +17,9 @@ interface CardAttrs {
 
 @Table({ tableName: 'card' })
 export class Card extends Model<Card, CardAttrs> {
-  @ApiProperty({ example: 1, description: 'Unique ID' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
 
-  @ApiProperty({ example: 7, description: 'Product Id' })
   @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
@@ -31,7 +29,7 @@ export class Card extends Model<Card, CardAttrs> {
   @BelongsTo(() => Product)
   product: Product;
 
-  @ApiProperty({ example: 23000, description: 'Price ' })
+  @ApiProperty({ example: 23000, description: 'Price' })
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

@@ -4,10 +4,9 @@ import { ProductInStockController } from './product_in_stock.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ProductInStock } from './models/product_in_stock.model';
 import { Product } from '../product/models/product.model';
-import { Sale } from '../sale/models/sale.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([ProductInStock,Product,Sale])],
+  imports: [SequelizeModule.forFeature([ProductInStock,Product])],
   controllers: [ProductInStockController],
   providers: [ProductInStockService],
 })

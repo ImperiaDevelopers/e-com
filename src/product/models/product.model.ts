@@ -1,11 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ProductBrand } from '../../product_brand/models/product_brand.model';
+import { ProductModel } from '../../product_model/models/product_model.model';
+import { Category } from '../../category/models/category.model';
 
 interface ProductAttrs {
   name: string;
@@ -17,7 +20,6 @@ interface ProductAttrs {
 
 @Table({ tableName: 'product' })
 export class Product extends Model<Product, ProductAttrs> {
-  @ApiProperty({ example: 1, description: 'Unikal Id' })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -25,36 +27,37 @@ export class Product extends Model<Product, ProductAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'product1', description: 'Product nomi' })
   @Column({
     type: DataType.STRING,
   })
   name: string;
 
-  @ApiProperty({ example: 1000, description: 'Product narxi' })
   @Column({
     type: DataType.INTEGER,
   })
   price: number;
 
-  @ApiProperty({ example: 1000, description: 'Product Category' })
-  //   @ForeignKey(() => Category)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
-  @ApiProperty({ example: 1000, description: 'Product Brand' })
-  //   @ForeignKey(() => ProductBrand)
+  @BelongsTo(() => Category)
+    category: Category;
+
+  @ForeignKey(() => ProductBrand)
   @Column({
     type: DataType.INTEGER,
   })
   product_brand_id: number;
+  @BelongsTo(() => ProductBrand)
+  product_brand: ProductBrand;
 
-  @ApiProperty({ example: 1000, description: 'Product Model' })
-  //   @ForeignKey(()=>ProductModel)
+  @ForeignKey(() => ProductModel)
   @Column({
     type: DataType.INTEGER,
   })
   product_model_id: number;
-  
+  @BelongsTo(() => ProductModel)
+  product_model: ProductModel;
 }
