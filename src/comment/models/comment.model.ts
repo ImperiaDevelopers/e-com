@@ -32,13 +32,10 @@ export class Comment extends Model<Comment, CommentAttrs> {
     allowNull: false,
   })
   client_id: number;
-<<<<<<< HEAD
   // @BelongsTo(() => Client)
   // client: Client;
-=======
   @BelongsTo(() => Client)
   client = Client;
->>>>>>> 4a7b3513e764d2082aba4bf44f21ae86a6e40ded
 
   @ForeignKey(() => Product)
   @Column({

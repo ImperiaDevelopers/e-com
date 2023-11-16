@@ -40,7 +40,15 @@ export class ProductService {
           [Op.gte]: getProductPrice.from,
           [Op.lt]: getProductPrice.to,
         },
+        product_brand:{
+          id:{
+            name: getProductPrice.brend
+          }
+        },
       },
+      include:{
+        all: true,        
+      }
     });
     return priceProduct;
   }
