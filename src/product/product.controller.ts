@@ -11,6 +11,7 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { FindBySortDto } from './dto/findBySort.dto';
 
 @ApiTags('Product')
 @Controller('product')
@@ -31,6 +32,17 @@ export class ProductController {
   findOne(@Param('id') id: string) {
     return this.productService.findOne(+id);
   }
+
+  @Post("filter")
+  filterPro(@Body() productFilter: FindBySortDto){
+    return this.productService.findBySort(productFilter)
+  }
+
+  @Get('pro-cat')
+  getCatPro(@Param('id') id: string){
+    return this.productService.categoryPro(+id)
+  }
+
   @ApiOperation({ summary: "Productni o'zgartirish" })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {

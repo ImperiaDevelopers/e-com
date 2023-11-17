@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
 
 interface ProductBrandAttrs {
   name: string;
@@ -23,4 +24,7 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
     type: DataType.STRING,
   })
   image: string;
+
+  @HasMany(() => ProCatBrand)
+  pro_cat_brand: ProCatBrand;
 }

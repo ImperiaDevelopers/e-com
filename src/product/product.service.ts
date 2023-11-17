@@ -3,6 +3,8 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
+import { FindBySortDto } from './dto/findBySort.dto';
+import { Op } from "sequelize"
 
 @Injectable()
 export class ProductService {
@@ -22,6 +24,39 @@ export class ProductService {
     });
     return products;
   }
+
+  async findBySort(findBySortDto:FindBySortDto): Promise<Product[]> {
+    const products = await this.productRepository.findAll({
+      include:{all: true},
+      where:{
+        price:{
+          [Op.gte]: findBySortDto.from,
+          [Op.lte]: findBySortDto.to
+        },
+        product_brand: {
+          name: findBySortDto.brend
+        },
+        pro_info: {
+          performers_value: findBySortDto.ram
+        },
+        $pro_info$:{
+          performers_value: findBySortDto.acc
+        }
+      }
+    });
+    return products;
+  }
+
+  async categoryPro(id: number): Promise<Product[]>{
+    const catPro = await this.productRepository.findAll({
+      include: {all: true},
+      where: {
+        category_id: id
+      }
+    }) 
+    return catPro
+  }
+xxxxxxx
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({
