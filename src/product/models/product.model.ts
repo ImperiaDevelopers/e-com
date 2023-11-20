@@ -3,12 +3,14 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { ProductBrand } from '../../product_brand/models/product_brand.model';
 import { ProductModel } from '../../product_model/models/product_model.model';
 import { Category } from '../../category/models/category.model';
+import { ProInfo } from '../../pro_info/models/pro_info.model';
 
 interface ProductAttrs {
   name: string;
@@ -43,7 +45,7 @@ export class Product extends Model<Product, ProductAttrs> {
   })
   category_id: number;
   @BelongsTo(() => Category)
-    category: Category;
+  category: Category;
 
   @ForeignKey(() => ProductBrand)
   @Column({
@@ -60,4 +62,7 @@ export class Product extends Model<Product, ProductAttrs> {
   product_model_id: number;
   @BelongsTo(() => ProductModel)
   product_model: ProductModel;
+
+  @HasMany(() => ProInfo)
+  pro_info: ProInfo;
 }
