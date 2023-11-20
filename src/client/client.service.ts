@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { OtpService } from '../otp/otp.service';
 import { dates, decode, encode } from '../common/helpers/crypto';
 import * as bcrypt from 'bcrypt';
-import otpGenerator from 'otp-generator';
+import * as otpGenerator from 'otp-generator';
 import { AddMinutesToDate } from '../common/helpers/addMinutes';
 import { IOtpType } from '../common/types/decode-otp.type';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
