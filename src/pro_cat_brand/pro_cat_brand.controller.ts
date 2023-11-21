@@ -16,6 +16,7 @@ import { ProCatBrand } from './models/pro_cat_brand.model';
 
 @ApiTags('Product-Category-Brand')
 @Controller('pro-cat-brand')
+@ApiTags('Product Category Brand')
 export class ProCatBrandController {
   constructor(private readonly proCatBrandService: ProCatBrandService) {}
 

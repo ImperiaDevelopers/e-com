@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Performance } from '../../performance/models/performance.model';
+import { Product } from '../../product/models/product.model';
 
 interface ProInfoAttrs {
   product_id: number;
@@ -16,10 +19,6 @@ interface ProInfoAttrs {
 
 @Table({ tableName: 'pro_info' })
 export class ProInfo extends Model<ProInfo, ProInfoAttrs> {
-  @ApiProperty({
-    example: 'id',
-    description: 'The id of the pro_info',
-  })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -27,47 +26,29 @@ export class ProInfo extends Model<ProInfo, ProInfoAttrs> {
   })
   id: number;
 
-  @ApiProperty({
-    example: '5',
-    description: 'the id of product',
-  })
-  //   @ForeignKey(() => Product)
+  @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
   })
   product_id: number;
+  @BelongsTo(() => Product)
+  product: Product;
 
-  @ApiProperty({
-    example: '5',
-    description: 'the id of performers',
-  })
-  //   @ForeignKey(() => Performers)
+  @ForeignKey(() => Performance)
   @Column({
     type: DataType.INTEGER,
   })
   performers_id: number;
+  @BelongsTo(() => Performance)
+  performance: Performance;
 
-  @ApiProperty({
-    example: 'value => 15px',
-    description: 'the value of performers',
-  })
   @Column({
     type: DataType.STRING,
   })
   performers_value: string;
 
-  @ApiProperty({
-    example: 'main info',
-    description: 'the info for product',
-  })
   @Column({
     type: DataType.STRING,
   })
   main: string;
-
-  //   @BelongsTo(() => Product)
-  //   product: Product[]
-
-  //   @BelongsTo(() => Performers)
-  //   performers: Performers
 }

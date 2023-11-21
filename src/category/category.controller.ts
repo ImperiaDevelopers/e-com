@@ -1,65 +1,51 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Category } from './models/category.model';
 
-@ApiTags('Category')
 @Controller('category')
+@ApiTags('Category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  //Create Category
-  @ApiResponse({ status: 201, description: 'Category successfully created' })
-  @ApiResponse({ status: 400, description: 'Something wrong' })
-  @ApiOperation({ summary: 'Create category' })
-  @Post('create')
-  async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.createCategory(createCategoryDto);
+  @ApiOperation({ summary: 'Create Category' })
+  @ApiResponse({ status: 201, type: Category })
+  @Post('add')
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoryService.create(createCategoryDto);
   }
-
-  //Get all categories
-  @ApiResponse({ status: 200, description: 'All categories are here' })
-  @ApiResponse({
-    status: 400,
-    description: 'Any category not found or smt wrong',
-  })
-  @ApiOperation({ summary: 'Get all categories' })
+  @ApiOperation({ summary: 'Get Category' })
+  @ApiResponse({ status: 201, type: Category })
   @Get('all')
-  async getAllCategory() {
-    return this.categoryService.getAllCategories();
+  findAll() {
+    return this.categoryService.findAll();
   }
-
-  //Get category by id
-  @ApiResponse({ status: 200, description: 'Category are here' })
-  @ApiResponse({
-    status: 400,
-    description: 'At this id category not found or smt wrong',
-  })
-  @ApiOperation({ summary: 'Get category by id' })
+  @ApiOperation({ summary: 'Get Category By Id' })
+  @ApiResponse({ status: 201, type: Category })
   @Get(':id')
-  async getCategoryById(@Param('id') id: number) {
-    return this.categoryService.getCategoryById(id);
+  findOne(@Param('id') id: string) {
+    return this.categoryService.findOne(+id);
   }
-
-  //Update category
-  @ApiResponse({ status: 200, description: 'Category successfully updated' })
-  @ApiResponse({ status: 400, description: 'Category not found or smt wrong' })
-  @ApiOperation({ summary: 'Update category by id' })
-  @Put('update/:id')
-  async updateCategoryById(
-    @Param('id') id: number,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
-    return this.categoryService.updateCategoryById(id, updateCategoryDto);
+  @ApiOperation({ summary: 'Update Category' })
+  @ApiResponse({ status: 201, type: Category })
+  @Patch('update/:id')
+  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return this.categoryService.update(+id, updateCategoryDto);
   }
-
-  //Delete category
-  @ApiResponse({ status: 200, description: 'Category successfully deleted' })
-  @ApiResponse({ status: 400, description: 'Category not found or smt wrong' })
-  @ApiOperation({ summary: 'Delete category by id' })
-  @Delete('delete/:id')
-  async deleteCategoryById(@Param('id') id: number) {
-    return this.categoryService.deleteCategory(id);
+  @ApiOperation({ summary: 'Delete Category' })
+  @ApiResponse({ status: 201, type: Category })
+  @Delete('delstroy/:id')
+  remove(@Param('id') id: string) {
+    return this.categoryService.remove(+id);
   }
 }

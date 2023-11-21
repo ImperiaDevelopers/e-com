@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Category } from '../../category/models/category.model';
 
 interface ProPerfomanceGroupAttrs {
   name: string;
@@ -17,7 +19,6 @@ export class ProPerfomanceGroup extends Model<
   ProPerfomanceGroup,
   ProPerfomanceGroupAttrs
 > {
-  @ApiProperty({ example: 1, description: 'Unikal Id' })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -25,20 +26,16 @@ export class ProPerfomanceGroup extends Model<
   })
   id: number;
 
-  @ApiProperty({
-    example: 'pro_perfomance_group1',
-    description: 'ProPerfomanceGroup nomi',
-  })
   @Column({
     type: DataType.STRING,
   })
   name: string;
-  @ApiProperty({
-    example: 'category_id',
-    description: 'ProPerfomanceGroup "category_id"si',
-  })
+
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
+  @BelongsTo(() => Category)
+  category: Category;
 }

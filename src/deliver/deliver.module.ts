@@ -8,5 +8,6 @@ import { Deliver } from './models/deliver.model';
   imports: [SequelizeModule.forFeature([Deliver])],
   controllers: [DeliverController],
   providers: [DeliverService],
+  exports: [DeliverService],
 })
 export class DeliverModule {}

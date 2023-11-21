@@ -12,7 +12,7 @@ import { CreateProductModelDto } from './dto/create-product_model.dto';
 import { UpdateProductModelDto } from './dto/update-product_model.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('ProductModel')
+@ApiTags('Product  Model')
 @Controller('product_model')
 export class ProductModelController {
   constructor(private readonly product_modelService: ProductModelService) {}

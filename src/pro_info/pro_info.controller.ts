@@ -14,7 +14,7 @@ import { UpdateProInfoDto } from './dto/update-pro_info.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProInfo } from './models/pro_info.model';
 
-@ApiTags('PROINFO')
+@ApiTags('Product Information')
 @Controller('pro-info')
 export class ProInfoController {
   constructor(private readonly proInfoService: ProInfoService) {}
