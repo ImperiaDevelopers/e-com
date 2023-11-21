@@ -17,6 +17,7 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
 
   @Column({
     type: DataType.STRING,
+    unique:true
   })
   name: string;
 
