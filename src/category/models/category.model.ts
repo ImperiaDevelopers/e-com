@@ -36,4 +36,5 @@ export class Category extends Model<Category, CategoryAttrs> {
   @ApiProperty({ example: 'icon', description: 'icon category' })
   @Column({ type: DataType.STRING })
   icon: string;
+  
 }

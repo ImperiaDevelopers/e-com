@@ -23,6 +23,7 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
     primaryKey: true,
   })
   id: number;
+
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,

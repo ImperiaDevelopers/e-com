@@ -35,6 +35,11 @@ export class ClientController {
     return response;
   }
 
+  @Get('main/:clientId')
+  async getMainStatistics(@Param('clientId') clientId: number) {
+    return this.clientService.findOrder(clientId);
+  }
+
   @Get('all')
   @ApiOperation({ summary: 'Get a list of all client' })
   @ApiResponse({

@@ -44,7 +44,7 @@ export class Product extends Model<Product, ProductAttrs> {
     type: DataType.INTEGER,
   })
   category_id: number;
-  @BelongsTo(() => Category)
+  @BelongsTo(() => Category,'category_id')
   category: Category;
 
   @ForeignKey(() => ProductBrand)

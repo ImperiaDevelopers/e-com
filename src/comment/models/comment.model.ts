@@ -32,6 +32,8 @@ export class Comment extends Model<Comment, CommentAttrs> {
     allowNull: false,
   })
   client_id: number;
+  // @BelongsTo(() => Client)
+  // client: Client;
   @BelongsTo(() => Client)
   client = Client;
 
