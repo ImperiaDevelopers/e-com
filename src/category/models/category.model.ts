@@ -27,7 +27,6 @@ export class Category extends Model<Category, CategoryAttrs> {
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
   })
   parent_category_id: number;
   @BelongsTo(() => Category, 'parent_category_id')

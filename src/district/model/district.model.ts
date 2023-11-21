@@ -36,7 +36,8 @@ export class District extends Model<District> {
   @Column({
     type: DataType.INTEGER,
   })
-  district_id: number;
+  region_id: number;
+
   @BelongsTo(() => Region)
   district: Region;
 }
