@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadGatewayException, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
 import { FindBySortDto } from './dto/findBySort.dto';
-import { Op } from "sequelize"
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ProductService {
@@ -18,11 +18,23 @@ export class ProductService {
     return newProduct;
   }
 
-  async findAll(): Promise<Product[]> {
-    const products = await this.productRepository.findAll({
-      include: { all: true },
-    });
-    return products;
+  async findAll(page: number, limit: number) {
+    try {
+      let limit_1: number;
+      let page_1: number;
+      page_1 = +page > 1 ? +page : 1;
+      limit_1 = +limit > 0 ? +limit : null;
+
+      const products = await this.productRepository.findAll({
+        include: { all: true },
+        offset: (page_1 - 1) * limit_1,
+        limit: limit_1,
+      });
+
+      return products;
+    } catch (error) {
+      throw new BadGatewayException('Неверный запрос от клиента');
+    }
   }
 
   // async findBySort(findBySortDto: FindBySortDto): Promise<Product[]> {
@@ -80,6 +92,46 @@ export class ProductService {
 
     return products;
   }
+
+  // async findBySort(filterProductDto: FindBySortDto) {
+  //   try {
+  //     let filter: any = {};
+  //     if (filterProductDto.brand_id) {
+  //       filter.brand_id = filterProductDto.brand_id;
+  //     }
+  //     if (Object.entries(filterProductDto.price).length > 0) {
+  //       filter.price = {
+  //         [Op.gte]: filterProductDto.price.from,
+  //         [Op.lt]: filterProductDto.price.to,
+  //       };
+  //     }
+  //     let products: Product[];
+  //     if (filterProductDto.attributes.length > 0) {
+  //       const attributesConditions = filterProductDto.attributes.map(
+  //         (attribute) => ({
+  //           attribute_id: { [Op.eq]: attribute.attribute_id },
+  //           attribute_value: { [Op.eq]: attribute.attribute_value },
+  //         }),
+  //       );
+  //       products = await this.productRepo.findAll({
+  //         where: filter,
+  //         include: [
+  //           {
+  //             model: ProductInfo,
+  //             where: {
+  //               [Op.or]: attributesConditions,
+  //             },
+  //           },
+  //         ],
+  //       });
+  //     } else {
+  //       products = await this.productRepo.findAll({ where: filter });
+  //     }
+  //     return products;
+  //   } catch (error) {
+  //     throw new BadRequestException(error.message);
+  //   }
+  // }
 
   async categoryPro(id: number): Promise<Product[]> {
     const catPro = await this.productRepository.findAll({
