@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -22,25 +23,27 @@ export class ProductController {
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
+
   @ApiOperation({ summary: "Productlarni ko'rish" })
-  @Get()
-  findAll() {
-    return this.productService.findAll();
+  @Get('all/:q')
+  findAll(@Query() q: any) {
+    return this.productService.findAll(q?.page, q?.limit);
   }
+
   @ApiOperation({ summary: "Productni ko'rish" })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(+id);
   }
 
-  @Post("filter")
-  filterPro(@Body() productFilter: FindBySortDto){
-    return this.productService.findBySort(productFilter)
+  @Post('filter')
+  filterPro(@Body() productFilter: FindBySortDto) {
+    return this.productService.findBySort(productFilter);
   }
 
   @Get('pro-cat')
-  getCatPro(@Param('id') id: string){
-    return this.productService.categoryPro(+id)
+  getCatPro(@Param('id') id: string) {
+    return this.productService.categoryPro(+id);
   }
 
   @ApiOperation({ summary: "Productni o'zgartirish" })
