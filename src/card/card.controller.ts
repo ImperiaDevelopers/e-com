@@ -32,6 +32,13 @@ export class CardController {
     return this.cardService.findAll();
   }
 
+  @ApiOperation({ summary: 'Get all client cards' })
+  @ApiResponse({ status: 201, type: Card })
+  @Get('client/:id')
+  findAllClientCards(client_id: number) {
+    return this.cardService.findAllClientCards(client_id);
+  }
+
   @ApiOperation({ summary: 'Create Card By Id' })
   @ApiResponse({ status: 201, type: Card })
   @Get(':id')

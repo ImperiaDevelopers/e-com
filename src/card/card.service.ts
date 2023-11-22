@@ -15,6 +15,13 @@ export class CardService {
     return await this.CardRepo.findAll({ include: { all: true } });
   }
 
+  async findAllClientCards(client_id: number) {
+    return await this.CardRepo.findAll({
+      where: { client_id: client_id },
+      include: { all: true },
+    });
+  }
+
   async findOne(id: number) {
     return await this.CardRepo.findByPk(id, { include: { all: true } });
   }
