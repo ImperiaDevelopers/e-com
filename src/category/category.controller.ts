@@ -24,24 +24,38 @@ export class CategoryController {
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
+
   @ApiOperation({ summary: 'Get Category' })
   @ApiResponse({ status: 201, type: Category })
   @Get('all')
   findAll() {
     return this.categoryService.findAll();
   }
+
+  @ApiOperation({ summary: 'Get only parent category bors )' })
+  @ApiResponse({ status: 201, type: Category })
+  @Get('parcat')
+  findOnlyParCats() {
+    return this.categoryService.findOnlyParCats();
+  }
+
   @ApiOperation({ summary: 'Get Category By Id' })
   @ApiResponse({ status: 201, type: Category })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(+id);
   }
+
   @ApiOperation({ summary: 'Update Category' })
   @ApiResponse({ status: 201, type: Category })
   @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
     return this.categoryService.update(+id, updateCategoryDto);
   }
+
   @ApiOperation({ summary: 'Delete Category' })
   @ApiResponse({ status: 201, type: Category })
   @Delete('delstroy/:id')

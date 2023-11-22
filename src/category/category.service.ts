@@ -3,6 +3,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Category } from './models/category.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class CategoryService {
@@ -15,6 +16,13 @@ export class CategoryService {
 
   async findAll() {
     return await this.CategoryRepo.findAll({ include: { all: true } });
+  }
+
+  async findOnlyParCats() {
+    return await this.CategoryRepo.findAll({
+      where: { parent_category_id: { [Op.not]: null } },
+      include: { all: true },
+    });
   }
 
   async findOne(id: number) {

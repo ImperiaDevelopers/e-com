@@ -53,7 +53,7 @@ export class ImageController {
     return images;
   }
 
-  @ApiOperation({ summary: 'Get an image by ID' })
+  @ApiOperation({ summary: 'Get an image by0 ID' })
   @ApiResponse({
     status: 200,
     description: 'Returns the image with the specified ID.',
