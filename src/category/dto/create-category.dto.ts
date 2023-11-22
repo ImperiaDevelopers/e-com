@@ -8,5 +8,5 @@ export class CreateCategoryDto {
   parent_category_id: number;
 
   @ApiProperty({ example: 'icon', description: 'icon category' })
-  icon: string;
+  image?: string;
 }
