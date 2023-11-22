@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   HttpStatus,
   Injectable,
@@ -8,6 +9,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateImageDto } from '../image/dto/create-image.dto';
 import { UpdateImageDto } from '../image/dto/update-image.dto';
 import { Image } from './model/image.model';
+import { uploadFile } from '../units/file-upload';
 
 @Injectable()
 export class ImageService {
@@ -16,6 +18,15 @@ export class ImageService {
   async createImage(createImageDto: CreateImageDto): Promise<Image> {
     const image = await this.imageRepo.create(createImageDto);
     return image;
+  }
+
+  async uploadImage(image: any) {
+    try {
+      const filename = await uploadFile(image);
+      return { image: filename };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async getAllImages(): Promise<Image[]> {

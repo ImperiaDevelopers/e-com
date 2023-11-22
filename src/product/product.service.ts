@@ -18,6 +18,22 @@ export class ProductService {
     return newProduct;
   }
 
+  async searchPro(createProductDto: CreateProductDto) {
+    try {
+      const client = await this.productRepository.findAll({
+        include: { all: true },
+        where: {
+          name: {
+            [Op.iLike]: `%${createProductDto.name}%`,
+          },
+        },
+      });
+      return client;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async findAll(page: number, limit: number) {
     try {
       let limit_1: number;
@@ -141,7 +157,6 @@ export class ProductService {
     });
     return catPro;
   }
-  xxxxxxx;
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({

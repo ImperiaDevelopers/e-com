@@ -11,6 +11,7 @@ import { ProductBrand } from '../../product_brand/models/product_brand.model';
 import { ProductModel } from '../../product_model/models/product_model.model';
 import { Category } from '../../category/models/category.model';
 import { ProInfo } from '../../pro_info/models/pro_info.model';
+import { Image } from '../../image/model/image.model';
 
 interface ProductAttrs {
   name: string;
@@ -65,4 +66,6 @@ export class Product extends Model<Product, ProductAttrs> {
 
   @HasMany(() => ProInfo)
   pro_info: ProInfo;
+  @HasMany(() => Image)
+  image: Image[];
 }

@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductModelDto } from './dto/create-product_model.dto';
 import { UpdateProductModelDto } from './dto/update-product_model.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { ProductModel } from './models/product_model.model';
+import { uploadFile } from '../units/file-upload';
 
 @Injectable()
 export class ProductModelService {
@@ -18,6 +19,15 @@ export class ProductModelService {
       createProductModelDto,
     );
     return newProductModel;
+  }
+
+  async uploadImage(image: any) {
+    try {
+      const filename = await uploadFile(image);
+      return { image: filename };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async findAll(): Promise<ProductModel[]> {
