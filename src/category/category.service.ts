@@ -14,11 +14,14 @@ export class CategoryService {
   }
 
   async findAll() {
-    return await this.CategoryRepo.findAll();
+    return await this.CategoryRepo.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    await this.CategoryRepo.findByPk(id);
+    await this.CategoryRepo.findOne({
+      where: { id: id },
+      include: { all: true },
+    });
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {

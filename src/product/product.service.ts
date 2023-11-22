@@ -31,7 +31,6 @@ export class ProductService {
         limit: limit_1,
       });
 
-      return products;
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
     }
