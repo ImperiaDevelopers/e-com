@@ -37,7 +37,6 @@ export class District extends Model<District> {
     type: DataType.INTEGER,
   })
   region_id: number;
-
   @BelongsTo(() => Region)
-  district: Region;
+  region: Region;
 }

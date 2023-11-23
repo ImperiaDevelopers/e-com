@@ -3,15 +3,29 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  ParseFilePipe,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
 import { Image } from './model/image.model';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiTags,
+  ApiResponse,
+  ApiBody,
+  ApiConsumes,
+} from '@nestjs/swagger';
+import { FileUploadDto } from './dto/file-upload.dto';
+import { ValidFileValidator } from '../validators/file-validators';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Image')
 @Controller('image')
@@ -29,14 +43,46 @@ export class ImageController {
     return this.imageService.createImage(imageDto);
   }
 
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Image (png, jpeg)*',
+    type: FileUploadDto,
+  })
+  @ApiOperation({ summary: 'Upload new image' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'succesfully uploaded',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid image',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Token is not found',
+  })
+  @Post('upload-image')
+  @HttpCode(HttpStatus.CREATED)
+  uploadImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new ValidFileValidator({})],
+      }),
+    )
+    image: FileUploadDto,
+  ) {
+    return this.imageService.uploadImage(image);
+  }
+
   @ApiOperation({ summary: 'Get all images' })
   @ApiResponse({
     status: 200,
-    description: 'Returns all product images.',
+    description: 'Returns all images.',
     type: [Image],
   })
   @Get('all')
-  async getAllProductImages(): Promise<Image[]> {
+  async getAllImages(): Promise<Image[]> {
     const images = await this.imageService.getAllImages();
     return images;
   }
@@ -48,7 +94,7 @@ export class ImageController {
     type: [Image],
   })
   @Get('products/:id')
-  async getAllImages(@Param('id') id: number): Promise<Image[]> {
+  async getAllProductImages(@Param('id') id: number): Promise<Image[]> {
     const images = await this.imageService.getProfuctImageById(id);
     return images;
   }

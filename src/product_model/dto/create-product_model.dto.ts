@@ -8,5 +8,5 @@ export class CreateProductModelDto {
   category_brand_id: number;
 
   @ApiProperty({ example: 'image.png', description: 'ProductModel rasmi' })
-  image: string;
+  image?: string;
 }

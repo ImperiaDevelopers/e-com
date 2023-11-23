@@ -19,6 +19,7 @@ import * as otpGenerator from 'otp-generator';
 import { AddMinutesToDate } from '../common/helpers/addMinutes';
 import { IOtpType } from '../common/types/decode-otp.type';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
+import { Order } from '../order/models/order.model';
 
 @Injectable()
 export class ClientService {
@@ -171,6 +172,25 @@ export class ClientService {
       throw new NotFoundException('Client with such id is not found');
     }
     return client;
+  }
+
+  async findOrder(id: number) {
+    const client = await this.clientRepo.findAll({
+      where: { id: id },
+      include: {
+        model: Order,
+        attributes: ['card_id'],
+      },
+    });
+    if (!client) {
+      throw new NotFoundException('Client with such id is not found');
+    }
+    const totalAmount = await Order.sum('card_id', {
+      where: { id },
+    });
+
+    // Если totalAmount не определено, вернуть 0
+    return totalAmount || 0;
   }
 
   async update(id: number, updateClientDto: UpdateClientDto) {
