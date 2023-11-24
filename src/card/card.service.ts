@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Card } from './models/card.model';
 import { Product } from '../product/models/product.model';
 import { Category } from '../category/models/category.model';
-import { ProductBrand } from '../product_brand/models/product_brand.model';
+import { Image } from '../image/model/image.model';
 
 @Injectable()
 export class CardService {
@@ -24,7 +24,7 @@ export class CardService {
       include: [
         {
           model: Product,
-          include: [{ model: Category }, { model: ProductBrand }],
+          include: [{ model: Category }, { model: Image }],
         },
       ],
     });
