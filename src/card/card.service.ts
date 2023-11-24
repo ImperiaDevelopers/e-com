@@ -4,6 +4,8 @@ import { UpdateCardDto } from './dto/update-card.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Card } from './models/card.model';
 import { Product } from '../product/models/product.model';
+import { Category } from '../category/models/category.model';
+import { ProductBrand } from '../product_brand/models/product_brand.model';
 
 @Injectable()
 export class CardService {
@@ -19,7 +21,12 @@ export class CardService {
   async findAllClientCards(client_id: number) {
     return await this.CardRepo.findAll({
       where: { client_id: client_id },
-      include: [{ all: true,attributes:[''] }],
+      include: [
+        {
+          model: Product,
+          include: [{ model: Category }, { model: ProductBrand }],
+        },
+      ],
     });
   }
 
