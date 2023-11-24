@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ParseFilePipe,
@@ -11,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   UseInterceptors,
+  Put,
 } from '@nestjs/common';
 import { ProductBrandService } from './product_brand.service';
 import { CreateProductBrandDto } from './dto/create-product_brand.dto';
@@ -84,7 +84,7 @@ export class ProductBrandController {
   }
 
   @ApiOperation({ summary: "ProductBrandni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProductBrandDto: UpdateProductBrandDto,
