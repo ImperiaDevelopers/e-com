@@ -24,7 +24,7 @@ export class CardService {
       include: [
         {
           model: Product,
-          include: [{ model: Category }, { model: Image }],
+          include: [{ model: Image }],
         },
       ],
     });
