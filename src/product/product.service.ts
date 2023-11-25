@@ -46,7 +46,6 @@ export class ProductService {
         offset: (page_1 - 1) * limit_1,
         limit: limit_1,
       });
-
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
     }
@@ -95,7 +94,6 @@ export class ProductService {
       whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
     }
 
-    // Если ни один параметр не предоставлен, вернуть все продукты
     if (Object.keys(whereClause).length === 0) {
       return await this.productRepository.findAll({ include: { all: true } });
     }
@@ -148,11 +146,12 @@ export class ProductService {
   //   }
   // }
 
-  async categoryPro(id: number): Promise<Product[]> {
+  //Find products by category_id
+  async categoryPro(category_id: number): Promise<Product[]> {
     const catPro = await this.productRepository.findAll({
       include: { all: true },
       where: {
-        category_id: id,
+        category_id: category_id,
       },
     });
     return catPro;
