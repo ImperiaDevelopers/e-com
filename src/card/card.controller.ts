@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { CardService } from './card.service';
 import { CreateCardDto } from './dto/create-card.dto';
@@ -48,7 +48,7 @@ export class CardController {
 
   @ApiOperation({ summary: 'Update Card' })
   @ApiResponse({ status: 201, type: Card })
-  @Patch('update/:id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateCardDto: UpdateCardDto) {
     return this.cardService.update(+id, updateCardDto);
   }

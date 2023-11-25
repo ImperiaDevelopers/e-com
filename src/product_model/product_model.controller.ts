@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ParseFilePipe,
@@ -11,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   UseInterceptors,
+  Put,
 } from '@nestjs/common';
 import { ProductModelService } from './product_model.service';
 import { CreateProductModelDto } from './dto/create-product_model.dto';
@@ -79,7 +79,7 @@ export class ProductModelController {
     return this.product_modelService.findOne(+id);
   }
   @ApiOperation({ summary: "ProductModelni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProductModelDto: UpdateProductModelDto,

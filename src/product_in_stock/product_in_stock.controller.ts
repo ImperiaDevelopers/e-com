@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { ProductInStockService } from './product_in_stock.service';
 import { CreateProductInStockDto } from './dto/create-product_in_stock.dto';
@@ -34,7 +34,7 @@ export class ProductInStockController {
     return this.product_in_stockService.findOne(+id);
   }
   @ApiOperation({ summary: "ProductInStockni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProductInStockDto: UpdateProductInStockDto,

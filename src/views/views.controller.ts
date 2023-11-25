@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import { CreateViewDto } from './dto/create-view.dto';
@@ -41,7 +41,7 @@ export class ViewsController {
 
   @ApiOperation({ summary: 'Update Views' })
   @ApiResponse({ status: 201, type: View })
-  @Patch('update/:id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateViewDto: UpdateViewDto) {
     return this.viewsService.update(+id, updateViewDto);
   }

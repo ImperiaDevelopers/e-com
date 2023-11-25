@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { ProPerfomanceGroupService } from './pro_perfomance_group.service';
 import { CreateProPerfomanceGroupDto } from './dto/create_pro_perfomance_group.dto';
@@ -34,7 +34,7 @@ export class ProPerfomanceGroupController {
     return this.pro_perfomance_groupService.findOne(+id);
   }
   @ApiOperation({ summary: "ProPerfomanceGroupni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProPerfomanceGroupDto: UpdateProPerfomanceGroupDto,
