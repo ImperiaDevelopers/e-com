@@ -46,7 +46,7 @@ export class ProductService {
         offset: (page_1 - 1) * limit_1,
         limit: limit_1,
       });
-
+      return products;
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
     }
@@ -95,7 +95,6 @@ export class ProductService {
       whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
     }
 
-    // Если ни один параметр не предоставлен, вернуть все продукты
     if (Object.keys(whereClause).length === 0) {
       return await this.productRepository.findAll({ include: { all: true } });
     }

@@ -26,4 +26,9 @@ export class VerifyOtpDto {
     example: '1234',
   })
   otp: string;
+  @ApiProperty({
+    description: 'UserId',
+    example: '1',
+  })
+  userId: string;
 }
