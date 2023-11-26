@@ -30,16 +30,8 @@ export class ClientService {
     private readonly otpService: OtpService,
   ) {}
 
-  async createClient(createClientDto: CreateClientDto, res: Response) {
-  
-    const client =this.clientRepo.create(createClientDto)
-  
-    try {
-      // await client.save();
-    } catch (error) {
-      console.log(error);
-    }
-
+  async createClient(createClientDto: CreateClientDto) {
+    const client = await this.clientRepo.create(createClientDto); 
     return client
   }
 

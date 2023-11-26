@@ -29,9 +29,8 @@ export class ClientController {
   @ApiResponse({ status: 200, description: 'Profile created' })
   setClientNames(
     @Body() createClientDto: CreateClientDto,
-    @Res() res: Response,
   ) {
-    const response = this.clientService.createClient(createClientDto, res);
+    const response = this.clientService.createClient(createClientDto);
     return response;
   }
 
