@@ -40,7 +40,7 @@ export class ClientService {
       console.log(error);
     }
 
-    return res.status(200).json(client);
+    return client
   }
 
   async findAll({

@@ -101,7 +101,10 @@ export class ProductService {
 
     const products = await this.productRepository.findAll({
       include: { all: true },
-      where: whereClause,
+      where: {
+        ...whereClause,
+        category_id: findBySortDto.category_id,
+      },
     });
 
     return products;

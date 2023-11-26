@@ -6,4 +6,5 @@ export class FindBySortDto {
   brend?: string;
   ram?: string;
   acc?: string;
+  category_id:string
 }
