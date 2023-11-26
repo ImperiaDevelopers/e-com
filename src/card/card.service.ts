@@ -11,6 +11,21 @@ import { Image } from '../image/model/image.model';
 export class CardService {
   constructor(@InjectModel(Card) private readonly CardRepo: typeof Card) {}
   async create(createCardDto: CreateCardDto) {
+    const isClientProductExists = await this.CardRepo.findOne({
+      where: {
+        product_id: createCardDto.product_id,
+        client_id: createCardDto.client_id,
+      },
+    });
+    if (isClientProductExists) {
+      const payload = {
+        product_id: createCardDto.product_id,
+        client_id: createCardDto.client_id,
+        price: createCardDto.price,
+        quantity: createCardDto.quantity + 1,
+      };
+      return await this.CardRepo.create(payload);
+    }
     return await this.CardRepo.create(createCardDto);
   }
 
