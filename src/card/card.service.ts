@@ -4,7 +4,6 @@ import { UpdateCardDto } from './dto/update-card.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Card } from './models/card.model';
 import { Product } from '../product/models/product.model';
-import { Category } from '../category/models/category.model';
 import { Image } from '../image/model/image.model';
 
 @Injectable()
@@ -22,7 +21,7 @@ export class CardService {
         product_id: createCardDto.product_id,
         client_id: createCardDto.client_id,
         price: createCardDto.price,
-        quantity: createCardDto.quantity + 1,
+        quantity: isClientProductExists.quantity + 1,
       };
       return await this.CardRepo.update(payload, {
         where: {
