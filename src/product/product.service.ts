@@ -104,7 +104,7 @@ export class ProductService {
 
     const products = await this.productRepository.findAll({
       include: { all: true },
-      where: whereClause
+      where: whereClause  
     });
 
     return products;
