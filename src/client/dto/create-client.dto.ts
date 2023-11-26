@@ -11,21 +11,19 @@ export class CreateClientDto {
     example: 'Karimov',
     description: 'Client Familiyasi',
   })
-  @IsNotEmpty()
-  @IsString()
+
   last_name: string;
 
-  @IsEmail()
   @ApiProperty({
     example: 'email@gmail.com',
     description: 'Client email',
   })
   email?: string;
 
-  @ApiProperty({
-    example: '91-777-25-97',
-    description: 'Client phone_number',
-  })
-  @Matches(/^\+998\d{9}$/, { message: 'Invalid phone number format' })
-  phone_number: string;
+  // @ApiProperty({
+  //   example: '91-777-25-97',
+  //   description: 'Client phone_number',
+  // })
+  // @Matches(/^\+998\d{9}$/, { message: 'Invalid phone number format' })
+  // phone_number: string;
 }

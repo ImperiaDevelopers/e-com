@@ -46,6 +46,7 @@ export class ProductService {
         offset: (page_1 - 1) * limit_1,
         limit: limit_1,
       });
+      return products;
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
     }
