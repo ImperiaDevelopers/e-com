@@ -86,6 +86,9 @@ export class ProductService {
     if (findBySortDto.brend !== undefined) {
       whereClause.product_brand = { name: findBySortDto.brend };
     }
+    if (findBySortDto.category_id !== undefined) {
+      whereClause.category = { id: findBySortDto.category_id };
+    }
 
     if (findBySortDto.ram !== undefined) {
       whereClause.pro_info = { performers_value: findBySortDto.ram };
@@ -101,10 +104,7 @@ export class ProductService {
 
     const products = await this.productRepository.findAll({
       include: { all: true },
-      where: {
-        ...whereClause,
-        category_id: findBySortDto.category_id,
-      },
+      where: whereClause
     });
 
     return products;
