@@ -24,7 +24,12 @@ export class CardService {
         price: createCardDto.price,
         quantity: createCardDto.quantity + 1,
       };
-      return await this.CardRepo.create(payload);
+      return await this.CardRepo.update(payload, {
+        where: {
+          product_id: createCardDto.product_id,
+          client_id: createCardDto.client_id,
+        },
+      });
     }
     return await this.CardRepo.create(createCardDto);
   }
