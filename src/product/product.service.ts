@@ -133,8 +133,8 @@ export class ProductService {
       if (attributes.length > 0) {
         const attributesConditions = filterProductDto.attributes.map(
           (attribute) => ({
-            attribute_id: { [Op.eq]: attribute.attribute_id },
-            attribute_value: { [Op.eq]: attribute.attribute_value },
+            id: { [Op.eq]: attribute.attribute_id },
+            performers_value: { [Op.eq]: attribute.attribute_value },
           }),
         );
         products = await this.productRepository.findAll({
