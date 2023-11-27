@@ -5,7 +5,8 @@ export class FindBySortDto {
     from?: number;
     to?: number;
   };
-  category_id?: number;
+  category?: number;
   brend?: number;
   attributes: { attribute_id: number; attribute_value: string }[];
+
 }

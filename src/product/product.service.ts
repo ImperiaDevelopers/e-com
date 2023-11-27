@@ -126,13 +126,16 @@ export class ProductService {
           [Op.lt]: filterProductDto.price.to,
         };
       }
+      if (filterProductDto.category) {
+        filter.category_id = filterProductDto.category;
+      }
       let products: Product[];
-      products = await this.productRepository.findAll({
-        where: filter,
-        include: [
-          { model: Category, where: { id: filterProductDto.category_id } },
-        ],
-      });
+      // products = await this.productRepository.findAll({
+      //   where: filter,
+      //   include: [
+      //     { model: Category, where: { id: filterProductDto.category_id } },
+      //   ],
+      // });
       if (attributes.length > 0) {
         const attributesConditions = filterProductDto.attributes.map(
           (attribute) => ({
@@ -153,7 +156,7 @@ export class ProductService {
         });
         products = products.filter(
           (product) =>
-            product?.dataValues?.pro_info?.length == attributes.length,
+            product?.dataValues?.pro_info?.length == attributes?.length,
         );
       } else {
         products = await this.productRepository.findAll({ where: filter });
