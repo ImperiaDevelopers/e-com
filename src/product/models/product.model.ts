@@ -64,5 +64,5 @@ export class Product extends Model<Product, ProductAttrs> {
   product_model: ProductModel;
 
   @HasMany(() => ProInfo)
-  pro_info: ProInfo;
+  pro_info: ProInfo[];
 }

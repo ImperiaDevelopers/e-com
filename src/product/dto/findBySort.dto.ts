@@ -1,9 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class FindBySortDto {
-  from?: number;
-  to?: number;
-  brend?: string;
-  ram?: string;
-  acc?: string;
+  price?: {
+    from?: number;
+    to?: number;
+  };
+  category_id?: number;
+  brend?: number;
+  attributes: { attribute_id: number; attribute_value: string }[];
 }
