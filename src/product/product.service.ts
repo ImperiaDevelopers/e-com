@@ -118,7 +118,7 @@ export class ProductService {
       const { attributes } = filterProductDto;
       let filter: any = {};
       if (filterProductDto.brend) {
-        filter.brand_id = filterProductDto.brend;
+        filter.product_brand_id = filterProductDto.brend;
       }
       if (Object.entries(filterProductDto.price).length > 0) {
         filter.price = {
@@ -130,12 +130,6 @@ export class ProductService {
         filter.category_id = filterProductDto.category;
       }
       let products: Product[];
-      // products = await this.productRepository.findAll({
-      //   where: filter,
-      //   include: [
-      //     { model: Category, where: { id: filterProductDto.category_id } },
-      //   ],
-      // });
       if (attributes.length > 0) {
         const attributesConditions = filterProductDto.attributes.map(
           (attribute) => ({
