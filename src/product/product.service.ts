@@ -153,7 +153,10 @@ export class ProductService {
             product?.dataValues?.pro_info?.length == attributes?.length,
         );
       } else {
-        products = await this.productRepository.findAll({ where: filter });
+        products = await this.productRepository.findAll({
+          where: filter,
+          include: { all: true },
+        });
       }
       return products;
     } catch (error) {
