@@ -7,8 +7,8 @@ export class CreateCategoryDto {
   category_name: string;
 
   @ApiProperty({ example: 1, description: 'Parent c. id' })
-  @IsNumber()
-  parent_category_id: number;
+  // @IsNumber()
+  parent_category_id?: number;
 
   @ApiProperty({ example: 'icon', description: 'icon category' })
   @IsString()

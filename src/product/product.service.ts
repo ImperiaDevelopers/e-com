@@ -1,10 +1,16 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  BadRequestException,
+  Injectable,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
 import { FindBySortDto } from './dto/findBySort.dto';
 import { Op } from 'sequelize';
+import { ProInfo } from '../pro_info/models/pro_info.model';
+import { Category } from '../category/models/category.model';
 
 @Injectable()
 export class ProductService {
@@ -73,82 +79,90 @@ export class ProductService {
   //   });
   //   return products;
   // }
-  async findBySort(findBySortDto: FindBySortDto): Promise<Product[]> {
-    const whereClause: any = {};
+  // async findBySort(findBySortDto: FindBySortDto): Promise<Product[]> {
+  //   const whereClause: any = {};
 
-    if (findBySortDto.from !== undefined && findBySortDto.to !== undefined) {
-      whereClause.price = {
-        [Op.gte]: findBySortDto.from,
-        [Op.lte]: findBySortDto.to,
-      };
-    }
-
-    if (findBySortDto.brend !== undefined) {
-      whereClause.product_brand = { name: findBySortDto.brend };
-    }
-    if (findBySortDto.category_id !== undefined) {
-      whereClause.category = { id: findBySortDto.category_id };
-    }
-
-    if (findBySortDto.ram !== undefined) {
-      whereClause.pro_info = { performers_value: findBySortDto.ram };
-    }
-
-    if (findBySortDto.acc !== undefined) {
-      whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
-    }
-
-    if (Object.keys(whereClause).length === 0) {
-      return await this.productRepository.findAll({ include: { all: true } });
-    }
-
-    const products = await this.productRepository.findAll({
-      include: { all: true },
-      where: whereClause
-    });
-
-    return products;
-  }
-
-  // async findBySort(filterProductDto: FindBySortDto) {
-  //   try {
-  //     let filter: any = {};
-  //     if (filterProductDto.brand_id) {
-  //       filter.brand_id = filterProductDto.brand_id;
-  //     }
-  //     if (Object.entries(filterProductDto.price).length > 0) {
-  //       filter.price = {
-  //         [Op.gte]: filterProductDto.price.from,
-  //         [Op.lt]: filterProductDto.price.to,
-  //       };
-  //     }
-  //     let products: Product[];
-  //     if (filterProductDto.attributes.length > 0) {
-  //       const attributesConditions = filterProductDto.attributes.map(
-  //         (attribute) => ({
-  //           attribute_id: { [Op.eq]: attribute.attribute_id },
-  //           attribute_value: { [Op.eq]: attribute.attribute_value },
-  //         }),
-  //       );
-  //       products = await this.productRepo.findAll({
-  //         where: filter,
-  //         include: [
-  //           {
-  //             model: ProductInfo,
-  //             where: {
-  //               [Op.or]: attributesConditions,
-  //             },
-  //           },
-  //         ],
-  //       });
-  //     } else {
-  //       products = await this.productRepo.findAll({ where: filter });
-  //     }
-  //     return products;
-  //   } catch (error) {
-  //     throw new BadRequestException(error.message);
+  //   if (findBySortDto.from !== undefined && findBySortDto.to !== undefined) {
+  //     whereClause.price = {
+  //       [Op.gte]: findBySortDto.from,
+  //       [Op.lte]: findBySortDto.to,
+  //     };
   //   }
+
+  //   if (findBySortDto.brend !== undefined) {
+  //     whereClause.product_brand = { name: findBySortDto.brend };
+  //   }
+
+  //   if (findBySortDto.ram !== undefined) {
+  //     whereClause.pro_info = { performers_value: findBySortDto.ram };
+  //   }
+
+  //   if (findBySortDto.acc !== undefined) {
+  //     whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
+  //   }
+
+  //   if (Object.keys(whereClause).length === 0) {
+  //     return await this.productRepository.findAll({ include: { all: true } });
+  //   }
+
+  //   const products = await this.productRepository.findAll({
+  //     include: { all: true },
+  //     where: whereClause,
+  //   });
+
+  //   return products;
   // }
+
+  async findBySort(filterProductDto: FindBySortDto) {
+    try {
+      const { attributes } = filterProductDto;
+      let filter: any = {};
+      if (filterProductDto.brend) {
+        filter.brand_id = filterProductDto.brend;
+      }
+      if (Object.entries(filterProductDto.price).length > 0) {
+        filter.price = {
+          [Op.gte]: filterProductDto.price.from,
+          [Op.lt]: filterProductDto.price.to,
+        };
+      }
+      let products: Product[];
+      products = await this.productRepository.findAll({
+        where: filter,
+        include: [
+          { model: Category, where: { id: filterProductDto.category_id } },
+        ],
+      });
+      if (attributes.length > 0) {
+        const attributesConditions = filterProductDto.attributes.map(
+          (attribute) => ({
+            attribute_id: { [Op.eq]: attribute.attribute_id },
+            attribute_value: { [Op.eq]: attribute.attribute_value },
+          }),
+        );
+        products = await this.productRepository.findAll({
+          where: filter,
+          include: [
+            {
+              model: ProInfo,
+              where: {
+                [Op.or]: attributesConditions,
+              },
+            },
+          ],
+        });
+        products = products.filter(
+          (product) =>
+            product?.dataValues?.pro_info?.length == attributes.length,
+        );
+      } else {
+        products = await this.productRepository.findAll({ where: filter });
+      }
+      return products;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
 
   async categoryPro(id: number): Promise<Product[]> {
     const catPro = await this.productRepository.findAll({
