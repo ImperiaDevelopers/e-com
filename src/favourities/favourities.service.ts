@@ -21,6 +21,14 @@ export class FavouritiesService {
     return favourite;
   }
 
+  async findClientLiked(client_id: number): Promise<Favourity[]> {
+    const favourite = await this.favourityRepo.findAll({
+      include: { all: true },
+      where: { client_id: client_id },
+    });
+    return favourite;
+  }
+
   async findOne(id: number): Promise<Favourity> {
     const favourite = await this.favourityRepo.findOne({
       where: { id },

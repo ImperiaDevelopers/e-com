@@ -47,26 +47,21 @@ export class ProductController {
     return this.productService.findAll(q?.page, q?.limit);
   }
 
-  @ApiOperation({ summary: "Productni id boyicha ko'rish" })
+  @ApiOperation({ summary: 'Productni id boyicha olish' })
   @ApiResponse({ status: 201, type: Product })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(+id);
   }
 
-  @ApiOperation({ summary: 'Productni Filter' })
+  @ApiOperation({ summary: 'Product filter' })
   @ApiResponse({ status: 201, type: Product })
   @Post('filter')
   filterPro(@Body() productFilter: FindBySortDto) {
     return this.productService.findBySort(productFilter);
   }
 
-  @ApiOperation({ summary: 'Product-Category' })
-  @ApiResponse({ status: 201, type: Product })
-  @Get('pro-cat')
-  getCatPro(@Param('id') id: string) {
-    return this.productService.categoryPro(+id);
-  }
+ 
 
   @ApiOperation({ summary: "Productni o'zgartirish" })
   @ApiResponse({ status: 201, type: Product })
@@ -74,6 +69,7 @@ export class ProductController {
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(+id, updateProductDto);
   }
+
   @ApiOperation({ summary: "Productni o'chirish" })
   @ApiResponse({ status: 201, type: Product })
   @Delete(':id')

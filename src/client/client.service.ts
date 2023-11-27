@@ -152,7 +152,10 @@ export class ClientService {
     }
   }
   async findOne(id: number) {
-    const client = await this.clientRepo.findOne({ where: { id: id } });
+    const client = await this.clientRepo.findOne({
+      where: { id: id },
+      include: { all: true },
+    });
     if (!client) {
       throw new NotFoundException('Client with such id is not found');
     }

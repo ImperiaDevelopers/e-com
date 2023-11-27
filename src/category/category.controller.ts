@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
@@ -11,6 +10,7 @@ import {
   HttpCode,
   UploadedFile,
   ParseFilePipe,
+  Put,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -90,21 +90,31 @@ export class CategoryController {
   findAll() {
     return this.categoryService.findAll();
   }
+
+  @ApiOperation({ summary: 'Get only parent category bors )' })
+  @ApiResponse({ status: 201, type: Category })
+  @Get('parcat')
+  findOnlyParCats() {
+    return this.categoryService.findOnlyParCats();
+  }
+
   @ApiOperation({ summary: 'Get Category By Id' })
   @ApiResponse({ status: 201, type: Category })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(+id);
   }
+
   @ApiOperation({ summary: 'Update Category' })
   @ApiResponse({ status: 201, type: Category })
-  @Patch('update/:id')
+  @Put('update/:id')
   update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return this.categoryService.update(+id, updateCategoryDto);
   }
+
   @ApiOperation({ summary: 'Delete Category' })
   @ApiResponse({ status: 201, type: Category })
   @Delete('delstroy/:id')

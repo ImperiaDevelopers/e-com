@@ -44,6 +44,13 @@ export class CategoryService {
     return await this.categoryRepo.findAll({ include: { all: true } });
   }
 
+  async findOnlyParCats() {
+    return await this.categoryRepo.findAll({
+      where: { parent_category_id: { [Op.not]: null } },
+      include: { all: true },
+    });
+  }
+
   async findOne(id: number) {
     await this.categoryRepo.findOne({
       where: { id: id },

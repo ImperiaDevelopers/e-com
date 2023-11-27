@@ -164,15 +164,7 @@ export class ProductService {
     }
   }
 
-  async categoryPro(id: number): Promise<Product[]> {
-    const catPro = await this.productRepository.findAll({
-      include: { all: true },
-      where: {
-        category_id: id,
-      },
-    });
-    return catPro;
-  }
+
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({

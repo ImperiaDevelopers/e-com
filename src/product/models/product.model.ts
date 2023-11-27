@@ -12,6 +12,7 @@ import { ProductModel } from '../../product_model/models/product_model.model';
 import { Category } from '../../category/models/category.model';
 import { ProInfo } from '../../pro_info/models/pro_info.model';
 import { Image } from '../../image/model/image.model';
+import { Comment } from '../../comment/models/comment.model';
 
 interface ProductAttrs {
   name: string;
@@ -45,7 +46,7 @@ export class Product extends Model<Product, ProductAttrs> {
     type: DataType.INTEGER,
   })
   category_id: number;
-  @BelongsTo(() => Category,'category_id')
+  @BelongsTo(() => Category, 'category_id')
   category: Category;
 
   @ForeignKey(() => ProductBrand)

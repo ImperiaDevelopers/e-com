@@ -21,23 +21,30 @@ export class FavouritiesController {
 
   @ApiOperation({ summary: 'post Favourity' })
   @ApiResponse({ status: 201, type: Favourity })
-  @Post()
+  @Post('add')
   async create(@Body() createFavourityDto: CreateFavourityDto) {
     return this.favouritiesService.create(createFavourityDto);
   }
 
   @ApiOperation({ summary: 'get Favourity' })
   @ApiResponse({ status: 201, type: Favourity })
-  @Get()
+  @Get('all')
   async findAll(): Promise<Favourity[]> {
     return this.favouritiesService.findAll();
   }
 
-  @ApiOperation({ summary: 'get/:id Favourity' })
+  @ApiOperation({ summary: 'get client favouriteds' })
+  @ApiResponse({ status: 201, type: Favourity })
+  @Get('clientliked/:id')
+  async findClientLiked(@Param('id') client_id: number): Promise<Favourity[]> {
+    return this.favouritiesService.findClientLiked(client_id);
+  }
+
+  @ApiOperation({ summary: 'get favourity by id' })
   @ApiResponse({ status: 201, type: Favourity })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Favourity> {
-    return this.favouritiesService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<Favourity> {
+    return this.favouritiesService.findOne(id);
   }
 
   @ApiOperation({ summary: 'put/:id Favourity' })
