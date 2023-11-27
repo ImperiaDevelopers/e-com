@@ -153,15 +153,16 @@ export class ProductService {
             product?.dataValues?.pro_info?.length == attributes?.length,
         );
       } else {
-        products = await this.productRepository.findAll({ where: filter });
+        products = await this.productRepository.findAll({
+          where: filter,
+          include: { all: true },
+        });
       }
       return products;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
-
-
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({
