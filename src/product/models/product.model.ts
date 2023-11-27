@@ -67,4 +67,7 @@ export class Product extends Model<Product, ProductAttrs> {
 
   @HasMany(() => ProInfo)
   pro_info: ProInfo[];
+
+  @HasMany(() => Image)
+  image: Image[];
 }
