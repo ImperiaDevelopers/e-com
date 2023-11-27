@@ -7,11 +7,11 @@ export class CreateClientDto {
   @IsString()
   first_name: string;
 
+
   @ApiProperty({
     example: 'Karimov',
     description: 'Client Familiyasi',
   })
-
   last_name: string;
 
   @ApiProperty({
