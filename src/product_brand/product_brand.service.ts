@@ -4,6 +4,7 @@ import { UpdateProductBrandDto } from './dto/update-product_brand.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { ProductBrand } from './models/product_brand.model';
 import { uploadFile } from '../units/file-upload';
+import { ProCatBrand } from '../pro_cat_brand/models/pro_cat_brand.model';
 
 @Injectable()
 export class ProductBrandService {
@@ -32,7 +33,7 @@ export class ProductBrandService {
 
   async findAll(): Promise<ProductBrand[]> {
     const product_brands = await this.productbrandRepository.findAll({
-      include: { all: true },
+      include: [{ model: ProCatBrand, include: [{ model: ProductBrand }] }],
     });
     return product_brands;
   }
