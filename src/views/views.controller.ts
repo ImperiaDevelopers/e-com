@@ -39,6 +39,13 @@ export class ViewsController {
     return this.viewsService.findOne(+id);
   }
 
+  @ApiOperation({ summary: 'Get client views by client_id' })
+  @ApiResponse({ status: 201, type: View })
+  @Get('client/:id')
+  findAllClientViews(@Param('id') id: string) {
+    return this.viewsService.findAllClientViews(+id);
+  }
+
   @ApiOperation({ summary: 'Update Views' })
   @ApiResponse({ status: 201, type: View })
   @Put('update/:id')

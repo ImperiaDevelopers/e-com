@@ -15,6 +15,13 @@ export class ViewsService {
     return await this.ViewRepo.findAll({ include: { all: true } });
   }
 
+  async findAllClientViews(id: number) {
+    return await this.ViewRepo.findAll({
+      where: { client_id: id },
+      include: { all: true },
+    });
+  }
+
   async findOne(id: number) {
     return await this.ViewRepo.findByPk(id, {
       include: { all: true },
