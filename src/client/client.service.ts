@@ -111,7 +111,7 @@ export class ClientService {
               };
               return response;
             } else {
-              const clientup = await this.clientRepo.update(
+              await this.clientRepo.update(
                 {
                   phone_number: phone_number,
                   last_name: null,
