@@ -35,7 +35,7 @@ export class Product extends Model<Product, ProductAttrs> {
   name: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.FLOAT,
   })
   price: number;
 
