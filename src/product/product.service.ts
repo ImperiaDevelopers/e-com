@@ -113,8 +113,16 @@ export class ProductService {
   //   return products;
   // }
 
-  async findBySort(filterProductDto: FindBySortDto) {
+  async findBySort(
+    filterProductDto: FindBySortDto,
+    page: number,
+    limit: number,
+  ) {
     try {
+      let limit_2: number;
+      let page_2: number;
+      page_2 = +page > 1 ? +page : 1;
+      limit_2 = +limit > 0 ? +limit : null;
       const { attributes } = filterProductDto;
       let filter: any = {};
       if (filterProductDto.brend) {
@@ -155,7 +163,8 @@ export class ProductService {
       } else {
         products = await this.productRepository.findAll({
           where: filter,
-          include: { all: true },
+          offset: (page_2 - 1) * limit_2,
+          limit: limit_2,
         });
       }
       return products;
