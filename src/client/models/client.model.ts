@@ -37,6 +37,7 @@ export class Client extends Model<Client, ClientAttrs> {
 
   @Column({
     type: DataType.STRING,
+    unique: true,
   })
   phone_number: string;
 
