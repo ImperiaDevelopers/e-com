@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateProCatBrandDto {
   @ApiProperty({
-    example: '5 => (telefon, mebel va h.k.)',
+    example: '5',
     description: 'the id of category',
   })
   @IsNotEmpty()
@@ -18,3 +18,6 @@ export class CreateProCatBrandDto {
   @IsNumber()
   pro_brend_id: number;
 }
+
+
+

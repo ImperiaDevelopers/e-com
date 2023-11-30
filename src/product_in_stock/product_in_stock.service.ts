@@ -17,9 +17,7 @@ export class ProductInStockService {
     private productRepository: typeof Product,
   ) {}
 
-  async create(
-    createProductInStockDto: CreateProductInStockDto,
-  ): Promise<ProductInStock> {
+  async create(createProductInStockDto: CreateProductInStockDto): Promise<any> {
     const product = await this.productRepository.findByPk(
       createProductInStockDto.product_id,
     );
@@ -33,7 +31,9 @@ export class ProductInStockService {
     const newToDate = new Date(
       new Date(createProductInStockDto.from).getTime() + durationInMilliseconds,
     );
-    const productPrice = await this.productRepository.update(
+    console.log(new Date(createProductInStockDto.from));
+    console.log(newToDate);
+    await this.productRepository.update(
       {
         price:
           product.price -
@@ -45,9 +45,12 @@ export class ProductInStockService {
       {
         to: String(newToDate),
       },
-      { where: { id: createProductInStockDto.product_id } },
+      { where: { product_id: product.id } },
     );
-    return newProductInStock;
+    const updateProduct = this.productInStockRepository.findOne({
+      where: { product_id: product.id },
+    });
+    return updateProduct;
   }
 
   async findAll(): Promise<ProductInStock[]> {

@@ -38,6 +38,9 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
   })
   pro_brend_id: number;
 
+
+
+  
   @BelongsTo(() => ProductBrand)
   proBrand: ProCatBrand;
 }

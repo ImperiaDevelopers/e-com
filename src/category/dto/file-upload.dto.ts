@@ -4,3 +4,5 @@ export class FileUploadDto {
   @ApiProperty({ type: String, format: 'binary', required: true })
   image: any;
 }
+
+

@@ -7,12 +7,13 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
+import { Category } from '../../category/models/category.model';
+import { ProductBrand } from '../../product_brand/models/product_brand.model';
 
 interface ProductModelAttrs {
   name: string;
-  category_brand_id: number;
-  image: string;
+  category_id: number;
+  brand_id: number;
 }
 
 @Table({ tableName: 'product_model' })
@@ -32,17 +33,22 @@ export class ProductModel extends Model<ProductModel, ProductModelAttrs> {
   name: string;
 
   @ApiProperty({ example: 1, description: 'ProductModel Category' })
-  @ForeignKey(() => ProCatBrand)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
-  category_brand_id: number;
-  @BelongsTo(() => ProCatBrand)
-  category_brand: ProCatBrand;
+  category_id: number;
+  @BelongsTo(() => Category)
+  category: Category;
 
-  @ApiProperty({ example: 'image.png', description: 'ProductModel rasmi' })
+  @ApiProperty({ example: 1, description: 'ProductModel Brand' })
+  @ForeignKey(() => ProductBrand)
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
   })
-  image: string;
+  brand_id: number;
+  @BelongsTo(() => ProductBrand)
+  brand: ProductBrand;
 }
+
+

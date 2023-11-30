@@ -59,6 +59,19 @@ export class ProductService {
     }
   }
 
+  // async getAverageRating() {
+  //   try {
+  //     let filter = {};
+  //     const products = await this.productRepository.findAll({
+  //       where: filter,
+  //       include: [{ model: Comment, where: { rating: { [Op.lte]: 5 } } }],
+  //     });
+  //     return products;
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+
   async getAverageRating() {
     try {
       const products = await this.productRepository.findAll({
@@ -115,7 +128,7 @@ export class ProductService {
   //   }
 
   //   if (findBySortDto.brend !== undefined) {
-  //     whereClause.product_brand = { name: findBySortDto.brend };
+  //     whereClause.product_brand = { name: findBySortDto.bnewToDaterend };
   //   }
 
   //   if (findBySortDto.ram !== undefined) {
