@@ -11,10 +11,7 @@ import { ProductBrand } from '../../product_brand/models/product_brand.model';
 import { ProductModel } from '../../product_model/models/product_model.model';
 import { Category } from '../../category/models/category.model';
 import { ProInfo } from '../../pro_info/models/pro_info.model';
-<<<<<<< HEAD
 import { Image } from '../../image/model/image.model';
-=======
->>>>>>> 6d257af08e0e45a4b8a129e69848bc8254e2e39e
 import { Comment } from '../../comment/models/comment.model';
 
 interface ProductAttrs {
@@ -78,11 +75,9 @@ export class Product extends Model<Product, ProductAttrs> {
   @HasMany(() => ProInfo)
   pro_info: ProInfo[];
 
-<<<<<<< HEAD
   @HasMany(() => Image)
   image: Image[];
-=======
+
   @HasMany(() => Comment)
   comments: Comment[];
->>>>>>> 6d257af08e0e45a4b8a129e69848bc8254e2e39e
 }

@@ -188,12 +188,9 @@ export class ProductService {
       } else {
         products = await this.productRepository.findAll({
           where: filter,
-<<<<<<< HEAD
           include: { all: true },
-=======
           offset: (page_2 - 1) * limit_2,
           limit: limit_2,
->>>>>>> 6d257af08e0e45a4b8a129e69848bc8254e2e39e
         });
       }
       return products;

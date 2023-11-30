@@ -47,9 +47,6 @@ export class ProductController {
     return this.productService.findAll(q?.page, q?.limit);
   }
 
-<<<<<<< HEAD
-  @ApiOperation({ summary: 'Productni id boyicha olish' })
-=======
   @ApiOperation({ summary: 'Productlarni reitingi' })
   @ApiResponse({ status: 201, type: Product })
   @Get('reiting')
@@ -58,7 +55,6 @@ export class ProductController {
   }
 
   @ApiOperation({ summary: "Productni id boyicha ko'rish" })
->>>>>>> 6d257af08e0e45a4b8a129e69848bc8254e2e39e
   @ApiResponse({ status: 201, type: Product })
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -71,8 +67,6 @@ export class ProductController {
   filterPro(@Body() productFilter: FindBySortDto, @Query() q: any) {
     return this.productService.findBySort(productFilter, q?.page, q?.limit);
   }
-
- 
 
   @ApiOperation({ summary: "Productni o'zgartirish" })
   @ApiResponse({ status: 201, type: Product })
