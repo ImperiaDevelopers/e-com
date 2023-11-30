@@ -1,4 +1,9 @@
-import { Injectable,ForbiddenException, HttpStatus,NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  HttpStatus,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateDistrictDto } from './dto/create-district.dto';
 import { UpdateDistrictDto } from './dto/update-district.dto';
@@ -8,18 +13,25 @@ import { District } from './model/district.model';
 export class DistrictService {
   constructor(@InjectModel(District) private districtRepo: typeof District) {}
 
-  async createDistrict(createDistrictDto: CreateDistrictDto): Promise<District> {
+  async createDistrict(
+    createDistrictDto: CreateDistrictDto,
+  ): Promise<District> {
     const district = await this.districtRepo.create(createDistrictDto);
     return district;
   }
 
   async getAllDistricts(): Promise<District[]> {
-    const districts = await this.districtRepo.findAll();
+    const districts = await this.districtRepo.findAll({
+      include: { all: true },
+    });
     return districts;
   }
 
   async getDistrictById(id: number): Promise<District> {
-    const district = await this.districtRepo.findByPk(id);
+    const district = await this.districtRepo.findOne({
+      where: { id: id },
+      include: { all: true },
+    });
     if (!district) {
       throw new NotFoundException('District not found');
     }
@@ -27,19 +39,19 @@ export class DistrictService {
   }
 
   async deleteDistrictById(id: number): Promise<number> {
-    const district = await this.districtRepo.findOne({where: {id:id}})
-    if(district) {
+    const district = await this.districtRepo.findOne({ where: { id: id } });
+    if (district) {
       return this.districtRepo.destroy({ where: { id } });
     }
-    throw new NotFoundException("District not found");
+    throw new NotFoundException('District not found');
   }
 
   async updateDistrict(
     id: number,
     updateDistrictDto: UpdateDistrictDto,
   ): Promise<District> {
-    const district = await this.districtRepo.findOne({where: {id:id}})
-    if(district) {
+    const district = await this.districtRepo.findOne({ where: { id: id } });
+    if (district) {
       const [_, [updatedDistrict]] = await this.districtRepo.update(
         updateDistrictDto,
         {
@@ -49,6 +61,6 @@ export class DistrictService {
       );
       return updatedDistrict;
     }
-    throw new NotFoundException("District not found")
+    throw new NotFoundException('District not found');
   }
 }

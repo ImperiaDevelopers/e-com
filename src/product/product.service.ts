@@ -1,10 +1,17 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  BadRequestException,
+  Injectable,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
 import { FindBySortDto } from './dto/findBySort.dto';
 import { Op } from 'sequelize';
+import { ProInfo } from '../pro_info/models/pro_info.model';
+import { Category } from '../category/models/category.model';
+import { Comment } from '../comment/models/comment.model';
 
 @Injectable()
 export class ProductService {
@@ -16,6 +23,22 @@ export class ProductService {
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const newProduct = await this.productRepository.create(createProductDto);
     return newProduct;
+  }
+
+  async searchPro(createProductDto: CreateProductDto) {
+    try {
+      const client = await this.productRepository.findAll({
+        include: { all: true },
+        where: {
+          name: {
+            [Op.iLike]: `%${createProductDto.name}%`,
+          },
+        },
+      });
+      return client;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async findAll(page: number, limit: number) {
@@ -30,10 +53,33 @@ export class ProductService {
         offset: (page_1 - 1) * limit_1,
         limit: limit_1,
       });
-
       return products;
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
+    }
+  }
+
+  async getAverageRating() {
+    try {
+      const products = await this.productRepository.findAll({
+        include: [{ model: Comment, attributes: ['rating'] }],
+      });
+
+      let totalRating = 0;
+      let totalComments = 0;
+
+      products.forEach((product) => {
+        product.Comments.forEach((comment) => {
+          totalRating += comment.rating;
+          totalComments++;
+        });
+      });
+
+      const averageRating = totalComments > 0 ? totalRating / totalComments : 0;
+
+      console.log('Средний рейтинг продуктов:', averageRating);
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -58,91 +104,100 @@ export class ProductService {
   //   });
   //   return products;
   // }
-  async findBySort(findBySortDto: FindBySortDto): Promise<Product[]> {
-    const whereClause: any = {};
+  // async findBySort(findBySortDto: FindBySortDto): Promise<Product[]> {
+  //   const whereClause: any = {};
 
-    if (findBySortDto.from !== undefined && findBySortDto.to !== undefined) {
-      whereClause.price = {
-        [Op.gte]: findBySortDto.from,
-        [Op.lte]: findBySortDto.to,
-      };
-    }
-
-    if (findBySortDto.brend !== undefined) {
-      whereClause.product_brand = { name: findBySortDto.brend };
-    }
-
-    if (findBySortDto.ram !== undefined) {
-      whereClause.pro_info = { performers_value: findBySortDto.ram };
-    }
-
-    if (findBySortDto.acc !== undefined) {
-      whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
-    }
-
-    // Если ни один параметр не предоставлен, вернуть все продукты
-    if (Object.keys(whereClause).length === 0) {
-      return await this.productRepository.findAll({ include: { all: true } });
-    }
-
-    const products = await this.productRepository.findAll({
-      include: { all: true },
-      where: whereClause,
-    });
-
-    return products;
-  }
-
-  // async findBySort(filterProductDto: FindBySortDto) {
-  //   try {
-  //     let filter: any = {};
-  //     if (filterProductDto.brand_id) {
-  //       filter.brand_id = filterProductDto.brand_id;
-  //     }
-  //     if (Object.entries(filterProductDto.price).length > 0) {
-  //       filter.price = {
-  //         [Op.gte]: filterProductDto.price.from,
-  //         [Op.lt]: filterProductDto.price.to,
-  //       };
-  //     }
-  //     let products: Product[];
-  //     if (filterProductDto.attributes.length > 0) {
-  //       const attributesConditions = filterProductDto.attributes.map(
-  //         (attribute) => ({
-  //           attribute_id: { [Op.eq]: attribute.attribute_id },
-  //           attribute_value: { [Op.eq]: attribute.attribute_value },
-  //         }),
-  //       );
-  //       products = await this.productRepo.findAll({
-  //         where: filter,
-  //         include: [
-  //           {
-  //             model: ProductInfo,
-  //             where: {
-  //               [Op.or]: attributesConditions,
-  //             },
-  //           },
-  //         ],
-  //       });
-  //     } else {
-  //       products = await this.productRepo.findAll({ where: filter });
-  //     }
-  //     return products;
-  //   } catch (error) {
-  //     throw new BadRequestException(error.message);
+  //   if (findBySortDto.from !== undefined && findBySortDto.to !== undefined) {
+  //     whereClause.price = {
+  //       [Op.gte]: findBySortDto.from,
+  //       [Op.lte]: findBySortDto.to,
+  //     };
   //   }
+
+  //   if (findBySortDto.brend !== undefined) {
+  //     whereClause.product_brand = { name: findBySortDto.brend };
+  //   }
+
+  //   if (findBySortDto.ram !== undefined) {
+  //     whereClause.pro_info = { performers_value: findBySortDto.ram };
+  //   }
+
+  //   if (findBySortDto.acc !== undefined) {
+  //     whereClause.$pro_info$ = { performers_value: findBySortDto.acc };
+  //   }
+
+  //   if (Object.keys(whereClause).length === 0) {
+  //     return await this.productRepository.findAll({ include: { all: true } });
+  //   }
+
+  //   const products = await this.productRepository.findAll({
+  //     include: { all: true },
+  //     where: whereClause,
+  //   });
+
+  //   return products;
   // }
 
-  async categoryPro(id: number): Promise<Product[]> {
-    const catPro = await this.productRepository.findAll({
-      include: { all: true },
-      where: {
-        category_id: id,
-      },
-    });
-    return catPro;
+  async findBySort(
+    filterProductDto: FindBySortDto,
+    page: number,
+    limit: number,
+  ) {
+    try {
+      let limit_2: number;
+      let page_2: number;
+      page_2 = +page > 1 ? +page : 1;
+      limit_2 = +limit > 0 ? +limit : null;
+      const { attributes } = filterProductDto;
+      let filter: any = {};
+      if (filterProductDto.brend) {
+        filter.product_brand_id = filterProductDto.brend;
+      }
+      if (Object.entries(filterProductDto.price).length > 0) {
+        filter.price = {
+          [Op.gte]: filterProductDto.price.from,
+          [Op.lt]: filterProductDto.price.to,
+        };
+      }
+      if (filterProductDto.category) {
+        filter.category_id = filterProductDto.category;
+      }
+      let products: Product[];
+      if (attributes.length > 0) {
+        const attributesConditions = filterProductDto.attributes.map(
+          (attribute) => ({
+            id: { [Op.eq]: attribute.attribute_id },
+            performers_value: { [Op.eq]: attribute.attribute_value },
+          }),
+        );
+        products = await this.productRepository.findAll({
+          where: filter,
+          include: [
+            {
+              model: ProInfo,
+              where: {
+                [Op.or]: attributesConditions,
+              },
+            },
+          ],
+        });
+        products = products.filter(
+          (product) =>
+            product?.dataValues?.pro_info?.length == attributes?.length,
+        );
+      } else {
+        products = await this.productRepository.findAll({
+          where: filter,
+          include: { all: true },
+          offset: (page_2 - 1) * limit_2,
+          limit: limit_2,
+        });
+      }
+      return products;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
-  xxxxxxx;
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({

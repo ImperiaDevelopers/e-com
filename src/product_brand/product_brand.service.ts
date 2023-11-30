@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductBrandDto } from './dto/create-product_brand.dto';
 import { UpdateProductBrandDto } from './dto/update-product_brand.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { ProductBrand } from './models/product_brand.model';
+import { uploadFile } from '../units/file-upload';
+import { ProCatBrand } from '../pro_cat_brand/models/pro_cat_brand.model';
 
 @Injectable()
 export class ProductBrandService {
@@ -20,9 +22,18 @@ export class ProductBrandService {
     return newProductBrand;
   }
 
+  async uploadImage(image: any) {
+    try {
+      const filename = await uploadFile(image);
+      return { image: filename };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   async findAll(): Promise<ProductBrand[]> {
     const product_brands = await this.productbrandRepository.findAll({
-      include: { all: true },
+      include: [{ model: ProCatBrand, include: [{ model: ProductBrand }] }],
     });
     return product_brands;
   }
@@ -37,14 +48,14 @@ export class ProductBrandService {
 
   async findbrandCat(id: number) {
     const proCat = await this.productbrandRepository.findAll({
-      include: {all: true},
+      include: { all: true },
       where: {
         pro_cat_brand: {
-          pro_brend_id: id
-        }
-      }
+          pro_brend_id: id,
+        },
+      },
     });
-    return proCat
+    return proCat;
   }
 
   async update(id: number, updateProductBrandDto: UpdateProductBrandDto) {

@@ -3,6 +3,8 @@ import { CreateViewDto } from './dto/create-view.dto';
 import { UpdateViewDto } from './dto/update-view.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { View } from './models/view.model';
+import { Product } from '../product/models/product.model';
+import { Image } from '../image/model/image.model';
 
 @Injectable()
 export class ViewsService {
@@ -13,6 +15,18 @@ export class ViewsService {
 
   async findAll() {
     return await this.ViewRepo.findAll({ include: { all: true } });
+  }
+
+  async findAllClientViews(id: number) {
+    return await this.ViewRepo.findAll({
+      where: { client_id: id },
+      include: [
+        {
+          model: Product,
+          include: [{ model: Image }],
+        },
+      ],
+    });
   }
 
   async findOne(id: number) {

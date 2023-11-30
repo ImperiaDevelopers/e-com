@@ -19,6 +19,7 @@ import * as otpGenerator from 'otp-generator';
 import { AddMinutesToDate } from '../common/helpers/addMinutes';
 import { IOtpType } from '../common/types/decode-otp.type';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
+import { Order } from '../order/models/order.model';
 
 @Injectable()
 export class ClientService {
@@ -29,26 +30,9 @@ export class ClientService {
     private readonly otpService: OtpService,
   ) {}
 
-  async setClientName(createClientDto: CreateClientDto, res: Response) {
-    const client = await this.clientRepo.findOne({
-      where: {
-        phone_number: createClientDto.phone_number,
-      },
-    });
-
-    if (!client) {
-      throw new UnauthorizedException('You have to verify your phone number');
-    }
-    client.first_name = createClientDto.first_name;
-    client.last_name = createClientDto.last_name;
-    if (createClientDto.email) client.email = createClientDto.email;
-    try {
-      await client.save();
-    } catch (error) {
-      console.log(error);
-    }
-
-    return res.status(200).json(client);
+  async createClient(createClientDto: CreateClientDto) {
+    const client = await this.clientRepo.create(createClientDto);
+    return client;
   }
 
   async findAll({
@@ -83,7 +67,7 @@ export class ClientService {
   }
 
   async verifyOtpClient(verifyOtpDto: VerifyOtpDto, res: Response) {
-    const { verification_key, otp, phone_number } = verifyOtpDto;
+    const { verification_key, otp, phone_number, userId } = verifyOtpDto;
     const check_number = phone_number;
 
     const obj: IOtpType = JSON.parse(await decode(verification_key));
@@ -127,10 +111,15 @@ export class ClientService {
               };
               return response;
             } else {
-              const client = await this.clientRepo.create({
-                phone_number: phone_number,
-                last_name: null,
-                first_name: null,
+              await this.clientRepo.update(
+                {
+                  phone_number: phone_number,
+                  last_name: null,
+                },
+                { where: { first_name: userId } },
+              );
+              const client = await this.clientRepo.findOne({
+                where: { first_name: userId },
               });
               const tokens = await this.getTokens(client);
               client.hashed_token = await bcrypt.hash(tokens.refresh_token, 7);
@@ -163,11 +152,33 @@ export class ClientService {
     }
   }
   async findOne(id: number) {
-    const client = await this.clientRepo.findOne({ where: { id: id } });
+    const client = await this.clientRepo.findOne({
+      where: { id: id },
+      include: { all: true },
+    });
     if (!client) {
       throw new NotFoundException('Client with such id is not found');
     }
     return client;
+  }
+
+  async findOrder(id: number) {
+    const client = await this.clientRepo.findAll({
+      where: { id: id },
+      include: {
+        model: Order,
+        attributes: ['card_id'],
+      },
+    });
+    if (!client) {
+      throw new NotFoundException('Client with such id is not found');
+    }
+    const totalAmount = await Order.sum('card_id', {
+      where: { id },
+    });
+
+    // Если totalAmount не определено, вернуть 0
+    return totalAmount || 0;
   }
 
   async update(id: number, updateClientDto: UpdateClientDto) {
@@ -194,7 +205,6 @@ export class ClientService {
         specialChars: false,
       }),
     );
-
     await this.otpService.sendOtp(phone_number, otp);
 
     const now = new Date();

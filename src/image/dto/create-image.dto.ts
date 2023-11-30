@@ -8,7 +8,7 @@ export class CreateImageDto {
   })
   @IsNotEmpty()
   @IsString()
-  image: string;
+  image?: string;
 
   @ApiProperty({
     example: '123',

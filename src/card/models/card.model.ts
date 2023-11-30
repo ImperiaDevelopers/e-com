@@ -8,8 +8,10 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from '../../product/models/product.model';
+import { Client } from '../../client/models/client.model';
 
 interface CardAttrs {
+  client_id: number;
   product_id: number;
   price: number;
   quantity: number;
@@ -28,6 +30,15 @@ export class Card extends Model<Card, CardAttrs> {
   product_id: number;
   @BelongsTo(() => Product)
   product: Product;
+
+  @ForeignKey(() => Client)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  client_id: number;
+  @BelongsTo(() => Client)
+  client: Client;
 
   @ApiProperty({ example: 23000, description: 'Price' })
   @Column({

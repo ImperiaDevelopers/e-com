@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { StatusService } from './status.service';
 import { CreateStatusDto } from './dto/create-status.dto';
@@ -41,7 +41,7 @@ export class StatusController {
 
   @ApiOperation({ summary: 'Update Status' })
   @ApiResponse({ status: 201, type: Status })
-  @Patch('update/:id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateStatusDto: UpdateStatusDto) {
     return this.statusService.update(+id, updateStatusDto);
   }

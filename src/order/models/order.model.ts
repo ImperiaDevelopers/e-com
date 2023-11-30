@@ -55,8 +55,8 @@ export class Order extends Model<Order, OrderAtr> {
   })
   region_id: number;
   @BelongsTo(() => Region)
-  parent_category: Region;
-
+  region: Region;
+  
   @ForeignKey(() => District)
   @Column({
     type: DataType.INTEGER,
