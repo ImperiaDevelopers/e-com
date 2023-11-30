@@ -45,6 +45,19 @@ export class ProductBrandService {
     return product_brand;
   }
 
+  async findbrandCat(id: number) {
+    const proCat = await this.productbrandRepository.findAll({
+      include: { all: true },
+      where: {
+        pro_cat_brand: {
+          pro_brend_id: id,
+        },
+      },
+    });
+    return proCat;
+  }
+
+
   async update(id: number, updateProductBrandDto: UpdateProductBrandDto) {
     const updatedProductBrand = await this.productbrandRepository.update(
       updateProductBrandDto,

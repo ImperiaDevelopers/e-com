@@ -18,3 +18,6 @@ export class CreateProCatBrandDto {
   @IsNumber()
   pro_brend_id: number;
 }
+
+
+

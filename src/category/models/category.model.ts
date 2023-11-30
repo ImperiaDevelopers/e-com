@@ -38,6 +38,6 @@ export class Category extends Model<Category, CategoryAttrs> {
   @Column({ type: DataType.STRING })
   icon: string;
 
-  @HasMany(() => ProductBrand)
-  productBrands: ProductBrand[];
+
+  
 }

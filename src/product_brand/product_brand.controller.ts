@@ -94,3 +94,6 @@ export class ProductBrandController {
     return this.product_brandService.remove(+id);
   }
 }
+
+
+

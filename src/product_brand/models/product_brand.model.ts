@@ -46,3 +46,6 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   // @HasMany(() => Category)
   // categories: Category[];
 }
+
+
+

@@ -8,3 +8,6 @@ export class CreateProductBrandDto {
   @ApiProperty({ example: 'Category', description: 'Category' })
   category_id?: number;
 }
+
+
+
