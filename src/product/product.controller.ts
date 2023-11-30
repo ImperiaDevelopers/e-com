@@ -55,9 +55,9 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Productni Filter' })
   @ApiResponse({ status: 201, type: Product })
-  @Post('filter')
-  filterPro(@Body() productFilter: FindBySortDto) {
-    return this.productService.findBySort(productFilter);
+  @Post('filter/:q')
+  filterPro(@Body() productFilter: FindBySortDto, @Query() q: any) {
+    return this.productService.findBySort(productFilter, q?.page, q?.limit);
   }
 
   @ApiOperation({ summary: 'Product-Category' })
