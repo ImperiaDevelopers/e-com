@@ -11,6 +11,7 @@ import { FindBySortDto } from './dto/findBySort.dto';
 import { Op } from 'sequelize';
 import { ProInfo } from '../pro_info/models/pro_info.model';
 import { Category } from '../category/models/category.model';
+import { Comment } from '../comment/models/comment.model';
 
 @Injectable()
 export class ProductService {
@@ -56,6 +57,30 @@ export class ProductService {
       return products;
     } catch (error) {
       throw new BadGatewayException('Неверный запрос от клиента');
+    }
+  }
+
+  async getAverageRating() {
+    try {
+      const products = await this.productRepository.findAll({
+        include: [{ model: Comment, attributes: ['rating'] }],
+      });
+
+      let totalRating = 0;
+      let totalComments = 0;
+
+      products.forEach((product) => {
+        product.Comments.forEach((comment) => {
+          totalRating += comment.rating;
+          totalComments++;
+        });
+      });
+
+      const averageRating = totalComments > 0 ? totalRating / totalComments : 0;
+
+      console.log('Средний рейтинг продуктов:', averageRating);
+    } catch (err) {
+      console.error(err);
     }
   }
 

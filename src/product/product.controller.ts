@@ -46,6 +46,13 @@ export class ProductController {
     return this.productService.findAll(q?.page, q?.limit);
   }
 
+  @ApiOperation({ summary: 'Productlarni reitingi' })
+  @ApiResponse({ status: 201, type: Product })
+  @Get('reiting')
+  findReiting() {
+    return this.productService.getAverageRating();
+  }
+
   @ApiOperation({ summary: "Productni id boyicha ko'rish" })
   @ApiResponse({ status: 201, type: Product })
   @Get(':id')

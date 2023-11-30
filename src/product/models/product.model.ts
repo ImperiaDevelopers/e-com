@@ -18,10 +18,12 @@ interface ProductAttrs {
   price: number;
   product_brand_id: number;
   product_model_id: number;
+  quantity: number;
 }
 
 @Table({ tableName: 'product' })
 export class Product extends Model<Product, ProductAttrs> {
+  [x: string]: any;
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -54,6 +56,11 @@ export class Product extends Model<Product, ProductAttrs> {
   product_brand_id: number;
   @BelongsTo(() => ProductBrand)
   product_brand: ProductBrand;
+
+  @Column({
+    type: DataType.INTEGER,
+  })
+  quantity: number;
 
   @ForeignKey(() => ProductModel)
   @Column({
