@@ -5,6 +5,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { JwtModule } from '@nestjs/jwt';
 import { ProCatBrand } from './models/pro_cat_brand.model';
 
+
+
+
 @Module({
   imports: [SequelizeModule.forFeature([ProCatBrand]), JwtModule.register({})],
   controllers: [ProCatBrandController],

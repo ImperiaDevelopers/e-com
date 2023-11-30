@@ -58,6 +58,9 @@ export class ProductBrandService {
     return proCat;
   }
 
+
+  
+
   async update(id: number, updateProductBrandDto: UpdateProductBrandDto) {
     const updatedProductBrand = await this.productbrandRepository.update(
       updateProductBrandDto,

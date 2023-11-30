@@ -66,3 +66,6 @@ export class CategoryService {
     return await this.categoryRepo.destroy({ where: { id } });
   }
 }
+
+
+

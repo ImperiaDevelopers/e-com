@@ -6,3 +6,6 @@ export class CreateProductBrandDto {
   @ApiProperty({ example: 'image.jpg', description: 'ProductBrand rasmi' })
   image?: string;
 }
+
+
+

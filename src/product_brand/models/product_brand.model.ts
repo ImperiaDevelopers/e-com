@@ -29,3 +29,6 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   @HasMany(() => ProCatBrand)
   pro_cat_brand: ProCatBrand;
 }
+
+
+

@@ -13,4 +13,6 @@ export class CreateCategoryDto {
   @ApiProperty({ example: 'icon', description: 'icon category' })
   @IsString()
   icon: string;
+
+  
 }
