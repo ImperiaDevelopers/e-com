@@ -31,7 +31,6 @@ export class Client extends Model<Client, ClientAttrs> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: true,
   })
   email: string;
 
@@ -50,7 +49,6 @@ export class Client extends Model<Client, ClientAttrs> {
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: true,
-    allowNull: true,
   })
   is_active: boolean;
 
