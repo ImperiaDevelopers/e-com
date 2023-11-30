@@ -225,7 +225,7 @@ export class AdminService {
         first_name: admin.first_name,
         last_name: admin.last_name,
         email: admin.email,
-        phone_number: admin.password,
+        phone_number: admin.phone_number,
         is_active: admin.is_active,
       };
       return payload;
