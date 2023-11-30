@@ -205,8 +205,10 @@ export class ClientService {
         specialChars: false,
       }),
     );
-    const isExists = await this.clientRepo.findAll({
-      where: { phone_number: phone_number },
+    console.log(typeof phone_number);
+    const isExists = await this.clientRepo.findOne({
+      where: { phone_number: String(phone_number) },
+      include: { all: true },
     });
     if (isExists) throw new BadRequestException('This client already exists ');
     await this.otpService.sendOtp(phone_number, otp);
