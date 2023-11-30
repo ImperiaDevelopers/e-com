@@ -33,6 +33,11 @@ export class Admin extends Model<Admin, AdminAtr> {
 
   @Column({
     type: DataType.STRING,
+  })
+  photo: string;
+
+  @Column({
+    type: DataType.STRING,
     allowNull: false,
     unique: true,
   })
