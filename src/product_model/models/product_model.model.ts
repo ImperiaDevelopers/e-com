@@ -46,3 +46,5 @@ export class ProductModel extends Model<ProductModel, ProductModelAttrs> {
   })
   image: string;
 }
+
+

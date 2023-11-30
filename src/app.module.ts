@@ -48,6 +48,8 @@ import { Category } from './category/models/category.model';
 import { ViewsModule } from './views/views.module';
 import { View } from './views/models/view.model';
 
+
+
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
@@ -114,3 +116,5 @@ import { View } from './views/models/view.model';
   providers: [],
 })
 export class AppModule {}
+
+

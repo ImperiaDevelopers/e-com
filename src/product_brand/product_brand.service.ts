@@ -50,6 +50,7 @@ export class ProductBrandService {
     const proCat = await this.productbrandRepository.findAll({
       include: { all: true },
       where: {
+        
         pro_cat_brand: {
           pro_brend_id: id,
         },
