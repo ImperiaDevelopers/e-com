@@ -50,3 +50,5 @@ export class ProductModel extends Model<ProductModel, ProductModelAttrs> {
   @BelongsTo(() => ProductBrand)
   brand: ProductBrand;
 }
+
+

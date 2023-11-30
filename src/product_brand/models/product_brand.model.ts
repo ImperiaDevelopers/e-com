@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 
 import { Category } from './../../category/models/category.model';
+import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
 interface ProductBrandAttrs {
   name: string;
   image: string;
@@ -35,16 +36,10 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   })
   image: string;
 
-  @ForeignKey(() => Category)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  category_id: number;
-  @BelongsTo(() => Category, 'category_id')
-  category: Category;
+  @HasMany(() => ProCatBrand)
+  pro_cat_brand: ProCatBrand;
 
-  // @HasMany(() => Category)
-  // categories: Category[];
+  
 }
 
 

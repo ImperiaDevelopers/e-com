@@ -45,6 +45,8 @@ import { CategoryModule } from './category/category.module';
 import { Category } from './category/models/category.model';
 import { ViewsModule } from './views/views.module';
 import { View } from './views/models/view.model';
+import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
+import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
 
 @Module({
   imports: [
@@ -78,7 +80,8 @@ import { View } from './views/models/view.model';
         ProPerfomanceGroup,
         Region,
         Status,
-        View
+        View,
+        ProCatBrand,
       ],
       autoLoadModels: true,
       logging: false,
@@ -105,6 +108,7 @@ import { View } from './views/models/view.model';
     RegionModule,
     StatusModule,
     ViewsModule,
+    ProCatBrandModule
   ],
   controllers: [],
   providers: [],
