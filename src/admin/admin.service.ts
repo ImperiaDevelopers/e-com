@@ -219,8 +219,17 @@ export class AdminService {
   //Get admin by id
   async getAdminById(id: number) {
     const admin = await this.AdminRepo.findByPk(id);
-    if (admin) return admin;
-    else throw new NotFoundException('Admin not found at this id');
+    if (admin) {
+      const payload = {
+        id: admin.id,
+        first_name: admin.first_name,
+        last_name: admin.last_name,
+        email: admin.email,
+        phone_number: admin.phone_number,
+        is_active: admin.is_active,
+      };
+      return payload;
+    } else throw new NotFoundException('Admin not found at this id');
   }
 
   //Update admin by id

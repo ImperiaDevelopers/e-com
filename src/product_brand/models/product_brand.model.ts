@@ -1,9 +1,18 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 
+import { Category } from './../../category/models/category.model';
 interface ProductBrandAttrs {
   name: string;
   image: string;
+  category_id: number;
 }
 
 @Table({ tableName: 'product_brand' })
@@ -17,7 +26,7 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
 
   @Column({
     type: DataType.STRING,
-    unique:true
+    unique: true,
   })
   name: string;
 
@@ -26,6 +35,14 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   })
   image: string;
 
-  @HasMany(() => ProCatBrand)
-  pro_cat_brand: ProCatBrand;
+  @ForeignKey(() => Category)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  category_id: number;
+  @BelongsTo(() => Category, 'category_id')
+  category: Category;
+
+  // @HasMany(() => Category)
+  // categories: Category[];
 }

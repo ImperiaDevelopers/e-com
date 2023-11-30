@@ -78,10 +78,7 @@ export class ProductBrandController {
   findOne(@Param('id') id: string) {
     return this.product_brandService.findOne(+id);
   }
-  @Post('filter-brand')
-  findProBrand(@Param('id') id: string) {
-    return this.product_brandService.findbrandCat(+id);
-  }
+ 
 
   @ApiOperation({ summary: "ProductBrandni o'zgartirish" })
   @Put(':id')

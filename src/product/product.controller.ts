@@ -47,7 +47,14 @@ export class ProductController {
     return this.productService.findAll(q?.page, q?.limit);
   }
 
-  @ApiOperation({ summary: 'Productni id boyicha olish' })
+  @ApiOperation({ summary: 'Productlarni reitingi' })
+  @ApiResponse({ status: 201, type: Product })
+  @Get('reiting')
+  findReiting() {
+    return this.productService.getAverageRating();
+  }
+
+  @ApiOperation({ summary: "Productni id boyicha ko'rish" })
   @ApiResponse({ status: 201, type: Product })
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -60,8 +67,6 @@ export class ProductController {
   filterPro(@Body() productFilter: FindBySortDto, @Query() q: any) {
     return this.productService.findBySort(productFilter, q?.page, q?.limit);
   }
-
- 
 
   @ApiOperation({ summary: "Productni o'zgartirish" })
   @ApiResponse({ status: 201, type: Product })

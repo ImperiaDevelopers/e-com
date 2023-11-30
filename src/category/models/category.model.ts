@@ -4,9 +4,11 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ProductBrand } from '../../product_brand/models/product_brand.model';
 
 interface CategoryAttrs {
   rating: number;
@@ -35,4 +37,7 @@ export class Category extends Model<Category, CategoryAttrs> {
   @ApiProperty({ example: 'icon', description: 'icon category' })
   @Column({ type: DataType.STRING })
   icon: string;
+
+  @HasMany(() => ProductBrand)
+  productBrands: ProductBrand[];
 }

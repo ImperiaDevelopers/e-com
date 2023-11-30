@@ -205,7 +205,7 @@ export class ClientService {
         specialChars: false,
       }),
     );
-
+      
     await this.otpService.sendOtp(phone_number, otp);
 
     const now = new Date();

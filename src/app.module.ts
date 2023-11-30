@@ -21,9 +21,7 @@ import { PerformanceModule } from './performance/performance.module';
 import { Performance } from './performance/models/performance.model';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/models/order.model';
-import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
 import { ProInfoModule } from './pro_info/pro_info.module';
-import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
 import { ProductBrand } from './product_brand/models/product_brand.model';
 import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
@@ -77,7 +75,6 @@ import { View } from './views/models/view.model';
         ProductModel,
         ProductInStock,
         Performance,
-        ProCatBrand,
         ProPerfomanceGroup,
         Region,
         Status,
@@ -104,7 +101,6 @@ import { View } from './views/models/view.model';
     ProductModelModule,
     ProductInStockModule,
     PerformanceModule,
-    ProCatBrandModule,
     ProPerfomanceGroupModule,
     RegionModule,
     StatusModule,
