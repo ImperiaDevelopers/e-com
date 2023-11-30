@@ -31,8 +31,8 @@ export class ClientService {
   ) {}
 
   async createClient(createClientDto: CreateClientDto) {
-    const client = await this.clientRepo.create(createClientDto); 
-    return client
+    const client = await this.clientRepo.create(createClientDto);
+    return client;
   }
 
   async findAll({
@@ -205,7 +205,10 @@ export class ClientService {
         specialChars: false,
       }),
     );
-
+    const isExists = await this.clientRepo.findAll({
+      where: { phone_number: phone_number },
+    });
+    if (isExists) throw new BadRequestException('This client already exists ');
     await this.otpService.sendOtp(phone_number, otp);
 
     const now = new Date();
