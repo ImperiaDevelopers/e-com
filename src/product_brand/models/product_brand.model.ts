@@ -37,9 +37,7 @@ export class ProductBrand extends Model<ProductBrand, ProductBrandAttrs> {
   image: string;
 
   @HasMany(() => ProCatBrand)
-  pro_cat_brand: ProCatBrand;
-
-  
+  pro_cat_brand: ProCatBrand;  
 }
 
 

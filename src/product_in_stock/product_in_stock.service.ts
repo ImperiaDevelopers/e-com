@@ -29,10 +29,8 @@ export class ProductInStockService {
       createProductInStockDto.duration * 24 * 60 * 60 * 1000;
 
     const newToDate = new Date(
-      new Date(createProductInStockDto.from).getTime() + durationInMilliseconds,
+      new Date(newProductInStock.from).getTime() + durationInMilliseconds,
     );
-    console.log(new Date(createProductInStockDto.from));
-    console.log(newToDate);
     await this.productRepository.update(
       {
         price:
@@ -47,7 +45,7 @@ export class ProductInStockService {
       },
       { where: { product_id: product.id } },
     );
-    const updateProduct = this.productInStockRepository.findOne({
+    const updateProduct = await this.productInStockRepository.findOne({
       where: { product_id: product.id },
     });
     return updateProduct;
@@ -59,23 +57,28 @@ export class ProductInStockService {
     });
 
     const currentDate = new Date();
+    let count = 0;
 
     for (const productInStock of productInStocks) {
       if (new Date(productInStock.to) < currentDate) {
         const productFromStock = await this.productRepository.findOne({
           where: { id: productInStock.product_id },
         });
+        if (count == 0) {
+          const price =
+            productFromStock.price / (1 - productInStock.percent / 100);
+          console.log(price)
 
-        const price =
-          productFromStock.price / (1 - productInStock.percent / 100);
-        await this.productRepository.update(
-          { price: price },
-          { where: { id: productInStock.product_id } },
-        );
+          await this.productRepository.update(
+            { price: price },
+            { where: { id: productInStock.product_id } },
+          );
 
-        await this.productInStockRepository.destroy({
-          where: { id: productInStock.id },
-        });
+          await this.productInStockRepository.destroy({
+            where: { id: productInStock.id },
+          });
+        }
+        count++
       }
     }
 

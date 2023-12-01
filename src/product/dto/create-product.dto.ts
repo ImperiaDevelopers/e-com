@@ -15,6 +15,6 @@ export class CreateProductDto {
   @ApiProperty({ example: 1000, description: 'Product Model' })
   product_model_id: number;
 
-  @ApiProperty({ example: 1000, description: 'Product quantity' })
-  quantity: number;
+    @ApiProperty({ example: 1000, description: 'Product quantity' })
+    quantity: number;
 }

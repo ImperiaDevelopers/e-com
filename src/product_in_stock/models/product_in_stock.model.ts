@@ -45,7 +45,7 @@ export class ProductInStock extends Model<ProductInStock, ProductInStockAttrs> {
 
   @Column({
     type: DataType.STRING,
-    defaultValue: new Date(),
+    defaultValue: String(new Date()),
   })
   from: string;
 

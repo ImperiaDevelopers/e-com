@@ -14,7 +14,7 @@ export class CreateProductInStockDto {
     example: '10.10.2023=>oy-kun-yil',
     description: 'Qachondan oy-kun-yil',
   })
-  from: string;
+  from?: string;
 
   @ApiProperty({ example: '12.10.2023', description: 'Qachongacha' })
   to?: string;
