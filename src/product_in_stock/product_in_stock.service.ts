@@ -59,23 +59,28 @@ export class ProductInStockService {
     });
 
     const currentDate = new Date();
+    let count = 0;
 
     for (const productInStock of productInStocks) {
       if (new Date(productInStock.to) < currentDate) {
         const productFromStock = await this.productRepository.findOne({
           where: { id: productInStock.product_id },
         });
+        if (count == 0) {
+          const price =
+            productFromStock.price / (1 - productInStock.percent / 100);
+          console.log(price)
 
-        const price =
-          productFromStock.price / (1 - productInStock.percent / 100);
-        await this.productRepository.update(
-          { price: price },
-          { where: { id: productInStock.product_id } },
-        );
+          await this.productRepository.update(
+            { price: price },
+            { where: { id: productInStock.product_id } },
+          );
 
-        await this.productInStockRepository.destroy({
-          where: { id: productInStock.id },
-        });
+          await this.productInStockRepository.destroy({
+            where: { id: productInStock.id },
+          });
+        }
+        count++
       }
     }
 
