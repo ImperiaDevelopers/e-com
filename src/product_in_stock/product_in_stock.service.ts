@@ -29,10 +29,8 @@ export class ProductInStockService {
       createProductInStockDto.duration * 24 * 60 * 60 * 1000;
 
     const newToDate = new Date(
-      new Date(createProductInStockDto.from).getTime() + durationInMilliseconds,
+      new Date(newProductInStock.from).getTime() + durationInMilliseconds,
     );
-    console.log(new Date(createProductInStockDto.from));
-    console.log(newToDate);
     await this.productRepository.update(
       {
         price:
@@ -47,7 +45,7 @@ export class ProductInStockService {
       },
       { where: { product_id: product.id } },
     );
-    const updateProduct = this.productInStockRepository.findOne({
+    const updateProduct = await this.productInStockRepository.findOne({
       where: { product_id: product.id },
     });
     return updateProduct;
