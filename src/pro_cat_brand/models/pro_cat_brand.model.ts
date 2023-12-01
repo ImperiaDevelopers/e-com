@@ -37,10 +37,9 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
     type: DataType.INTEGER,
   })
   pro_brend_id: number;
-
-
-
   
   @BelongsTo(() => ProductBrand)
   proBrand: ProCatBrand;
+
+  
 }
