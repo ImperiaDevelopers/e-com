@@ -39,5 +39,6 @@ export class Category extends Model<Category, CategoryAttrs> {
   icon: string;
 
 
+
   
 }
