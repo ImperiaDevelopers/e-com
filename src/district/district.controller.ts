@@ -12,6 +12,7 @@ import { District } from './model/district.model';
 import { CreateDistrictDto } from './dto/create-district.dto';
 import { UpdateDistrictDto } from './dto/update-district.dto';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { GetDistrictByRegionDto } from './dto/get-district-by-region.dto';
 
 @ApiTags('District')
 @Controller('district')
@@ -59,11 +60,11 @@ export class DistrictController {
     description: 'Returns the districts with the region ID.',
     type: District,
   })
-  @Get('region/:id')
-  async getDistrictsByRegionId(
-    @Param('id') region_id: number,
+  @Post('region')
+  async getDistrictsByRegionName(
+    @Body() getdistrictbyregion: GetDistrictByRegionDto,
   ): Promise<District[]> {
-    return this.districtService.getDistrictsByRegionId(region_id);
+    return this.districtService.getDistrictsByRegionName(getdistrictbyregion);
   }
 
   @ApiOperation({ summary: 'Delete a district by ID' })
