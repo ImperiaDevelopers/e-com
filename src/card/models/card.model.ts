@@ -42,7 +42,7 @@ export class Card extends Model<Card, CardAttrs> {
 
   @ApiProperty({ example: 23000, description: 'Price' })
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.DECIMAL(20, 10),
     allowNull: false,
   })
   price: number;

@@ -39,11 +39,7 @@ export class Product extends Model<Product, ProductAttrs> {
   name: string;
 
   @Column({
-<<<<<<< HEAD
     type: DataType.DECIMAL(20, 10),
-=======
-    type: DataType.DECIMAL(20,10),
->>>>>>> ab09b401f2d9ee2a6d31eeb5c1c4b862522d7dab
   })
   price: number;
 
