@@ -38,6 +38,17 @@ export class DistrictService {
     return district;
   }
 
+  async getDistrictsByRegionId(region_id: number): Promise<District[]> {
+    const districts = await this.districtRepo.findAll({
+      where: { region_id: region_id },
+      include: { all: true },
+    });
+    if (!districts) {
+      throw new NotFoundException('District not found');
+    }
+    return districts;
+  }
+
   async deleteDistrictById(id: number): Promise<number> {
     const district = await this.districtRepo.findOne({ where: { id: id } });
     if (district) {
