@@ -12,6 +12,7 @@ import { District } from './model/district.model';
 import { CreateDistrictDto } from './dto/create-district.dto';
 import { UpdateDistrictDto } from './dto/update-district.dto';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { GetDistrictByNameDto } from './dto/get-district-by-name.dto';
 
 @ApiTags('District')
 @Controller('district')
@@ -29,6 +30,19 @@ export class DistrictController {
     @Body() createDistrictDto: CreateDistrictDto,
   ): Promise<District> {
     return this.districtService.createDistrict(createDistrictDto);
+  }
+
+  @ApiOperation({ summary: 'Get a district by name' })
+  @ApiResponse({
+    status: 201,
+    description: 'The district is here.',
+    type: District,
+  })
+  @Post('name')
+  async getDistrictByName(
+    @Body() getDistrictByName: GetDistrictByNameDto,
+  ): Promise<District> {
+    return this.districtService.getDistrictByName(getDistrictByName);
   }
 
   @ApiOperation({ summary: 'Get all districts' })
