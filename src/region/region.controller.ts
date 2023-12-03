@@ -12,6 +12,7 @@ import { Region } from './model/region.model';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { GetRegionByNameDto } from './dto/get-region-by-name.dto';
 
 @ApiTags('Region')
 @Controller('region')
@@ -51,6 +52,19 @@ export class RegionController {
   @Get(':id')
   async getRegionById(@Param('id') id: number): Promise<Region> {
     return this.regionService.getRegionById(id);
+  }
+
+  @ApiOperation({ summary: 'Get a region by name' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the region with the specified name.',
+    type: Region,
+  })
+  @Post('name')
+  async getRegionByName(
+    @Body() getregionbyname: GetRegionByNameDto,
+  ): Promise<Region> {
+    return this.regionService.getRegionByName(getregionbyname);
   }
 
   @ApiOperation({ summary: 'Delete a region by ID' })

@@ -8,7 +8,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateDistrictDto } from './dto/create-district.dto';
 import { UpdateDistrictDto } from './dto/update-district.dto';
 import { District } from './model/district.model';
-import { GetDistrictByRegionDto } from './dto/get-district-by-region.dto';
 
 @Injectable()
 export class DistrictService {
@@ -39,11 +38,9 @@ export class DistrictService {
     return district;
   }
 
-  async getDistrictsByRegionName(
-    getdistrictbyregion: GetDistrictByRegionDto,
-  ): Promise<District[]> {
+  async getDistrictsByRegionId(id: number): Promise<District[]> {
     const districts = await this.districtRepo.findAll({
-      where: { name: getdistrictbyregion.name },
+      where: { region_id: id },
       include: { all: true },
     });
     if (!districts) {

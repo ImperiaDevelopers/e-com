@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
 import { Region } from './model/region.model';
+import { GetRegionByNameDto } from './dto/get-region-by-name.dto';
 
 @Injectable()
 export class RegionService {
@@ -25,6 +26,16 @@ export class RegionService {
 
   async getRegionById(id: number): Promise<Region> {
     const region = await this.regionRepo.findByPk(id);
+    if (!region) {
+      throw new NotFoundException('Region not found');
+    }
+    return region;
+  }
+
+  async getRegionByName(getregionbyname: GetRegionByNameDto): Promise<Region> {
+    const region = await this.regionRepo.findOne({
+      where: { name: getregionbyname.name },
+    });
     if (!region) {
       throw new NotFoundException('Region not found');
     }
