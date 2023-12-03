@@ -59,8 +59,8 @@ export class DistrictController {
     description: 'Returns the districts with the region ID.',
     type: District,
   })
-  @Post('region/:id')
-  async getDistrictsByRegionName(@Param('id') id: number): Promise<District[]> {
+  @Get('region/:id')
+  async getDistrictsByRegionId(@Param('id') id: number): Promise<District[]> {
     return this.districtService.getDistrictsByRegionId(id);
   }
 
