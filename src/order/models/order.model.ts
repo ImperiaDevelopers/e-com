@@ -16,7 +16,6 @@ import { Card } from '../../card/models/card.model';
 
 interface OrderAtr {
   client_id: number;
-  product_id: number;
   region_id: number;
   district_id: number;
   payment_id: number;
@@ -41,14 +40,6 @@ export class Order extends Model<Order, OrderAtr> {
   @BelongsTo(() => Client)
   client: Client;
 
-  @ForeignKey(() => Product)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  product_id: number;
-  @BelongsTo(() => Product)
-  product: Product;
-
   @ForeignKey(() => Region)
   @Column({
     type: DataType.INTEGER,
@@ -56,7 +47,7 @@ export class Order extends Model<Order, OrderAtr> {
   region_id: number;
   @BelongsTo(() => Region)
   region: Region;
-  
+
   @ForeignKey(() => District)
   @Column({
     type: DataType.INTEGER,
