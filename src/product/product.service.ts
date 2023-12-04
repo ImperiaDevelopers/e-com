@@ -12,7 +12,7 @@ import { Op } from 'sequelize';
 import { ProInfo } from '../pro_info/models/pro_info.model';
 import { Category } from '../category/models/category.model';
 import { Comment } from '../comment/models/comment.model';
-
+import {FindAllDto} from './dto/findAll.dto'
 @Injectable()
 export class ProductService {
   constructor(
@@ -25,17 +25,18 @@ export class ProductService {
     return newProduct;
   }
 
-  async searchPro(createProductDto: CreateProductDto) {
+  async searchPro(findAllDto: FindAllDto): Promise<Product[]>{
     try {
       const client = await this.productRepository.findAll({
         include: { all: true },
         where: {
           name: {
-            [Op.iLike]: `%${createProductDto.name}%`,
+            [Op.like]: `%${findAllDto.name}%`,
           },
         },
       });
       return client;
+
     } catch (error) {
       console.log(error);
     }

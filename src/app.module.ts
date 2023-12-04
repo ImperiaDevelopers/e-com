@@ -39,10 +39,13 @@ import { ImageModule } from './image/image.module';
 import { Card } from './card/models/card.model';
 import { CardModule } from './card/card.module';
 import { Client } from './client/models/client.model';
-import { Favourity } from './favourities/models/favourity.model';
-import { RegionModule } from './region/region.module';
-import { CategoryModule } from './category/category.module';
 import { Category } from './category/models/category.model';
+import { Favourity } from './favourities/models/favourity.model';
+import { CategoryModule } from './category/category.module';
+import { RegionModule } from './region/region.module';
+// import { StatisticsModule } from './statistics/statistics.module';
+
+
 import { ViewsModule } from './views/views.module';
 import { View } from './views/models/view.model';
 import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
