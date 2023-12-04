@@ -186,7 +186,7 @@ export class ProductService {
           }),
         );
         products = await this.productRepository.findAll({
-          where: { ...filter, $productInStock$: { [Op.is]: null } },
+          where: filter,
           include: [
             {
               model: ProInfo,
@@ -202,7 +202,7 @@ export class ProductService {
         );
       } else {
         products = await this.productRepository.findAll({
-          where: { ...filter, $productInStock$: { [Op.is]: null } },
+          where: filter,
           include: {
             all: true,
           },
