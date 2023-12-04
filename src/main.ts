@@ -5,9 +5,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 const start = async () => {
   try {
     const app = await NestFactory.create(AppModule);
-    const PORT = process.env.PORT || 3010
+    const PORT = process.env.PORT || 3010;
     app.setGlobalPrefix('api');
-    
 
     app.enableCors({
       origin: '*',
@@ -24,9 +23,8 @@ const start = async () => {
       .addTag('NodeJs, NestJS, Postgres, Swagger')
       .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
-    
-   
+    SwaggerModule.setup('api/docs', app, document);
+
     await app.listen(PORT, () => {
       console.log(`Server ${PORT}-portda ishga tushdi`);
     });
