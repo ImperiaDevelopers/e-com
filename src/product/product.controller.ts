@@ -62,6 +62,13 @@ export class ProductController {
     return this.productService.findOne(+id);
   }
 
+  @ApiOperation({ summary: "Productni category_id boyicha ko'rish" })
+  @ApiResponse({ status: 201, type: Product })
+  @Get('category/:id')
+  getProductByCatId(@Param('id') id: number) {
+    return this.productService.getProductByCategoryId(id);
+  }
+
   @ApiOperation({ summary: 'Product filter' })
   @ApiResponse({ status: 201, type: Product })
   @Post('filter/:q')

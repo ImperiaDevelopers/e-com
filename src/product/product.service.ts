@@ -225,6 +225,14 @@ export class ProductService {
     return product;
   }
 
+  async getProductByCategoryId(category_id: number): Promise<Product> {
+    const product = await this.productRepository.findOne({
+      where: { category_id: category_id },
+      include: { all: true },
+    });
+    return product;
+  }
+
   async update(id: number, updateProductDto: UpdateProductDto) {
     const updatedProduct = await this.productRepository.update(
       updateProductDto,
