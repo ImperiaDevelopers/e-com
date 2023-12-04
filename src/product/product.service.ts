@@ -8,11 +8,16 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './models/product.model';
 import { FindBySortDto } from './dto/findBySort.dto';
-import { Op } from 'sequelize';
+import { Op, literal } from 'sequelize';
 import { ProInfo } from '../pro_info/models/pro_info.model';
 import { Category } from '../category/models/category.model';
 import { Comment } from '../comment/models/comment.model';
+<<<<<<< HEAD
 import {FindAllDto} from './dto/findAll.dto'
+=======
+import { ProductInStock } from '../product_in_stock/models/product_in_stock.model';
+
+>>>>>>> 7ad5243841c7c01d0089cbe301db07b473abc804
 @Injectable()
 export class ProductService {
   constructor(
@@ -205,8 +210,13 @@ export class ProductService {
         );
       } else {
         products = await this.productRepository.findAll({
-          where: filter,
-          include: { all: true },
+          where: {...filter,'$productInStock$': { [Op.is]: null }
+        },
+          include: {
+            all:true
+          },
+         
+
           offset: (page_2 - 1) * limit_2,
           limit: limit_2,
         });
