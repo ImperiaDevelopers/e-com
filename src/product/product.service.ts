@@ -12,8 +12,7 @@ import { Op, literal } from 'sequelize';
 import { ProInfo } from '../pro_info/models/pro_info.model';
 import { Category } from '../category/models/category.model';
 import { Comment } from '../comment/models/comment.model';
-import { ProductInStock } from '../product_in_stock/models/product_in_stock.model';
-
+import { FindAllDto } from './dto/findAll.dto';
 @Injectable()
 export class ProductService {
   constructor(
@@ -26,13 +25,13 @@ export class ProductService {
     return newProduct;
   }
 
-  async searchPro(createProductDto: CreateProductDto) {
+  async searchPro(findAllDto: FindAllDto): Promise<Product[]> {
     try {
       const client = await this.productRepository.findAll({
         include: { all: true },
         where: {
           name: {
-            [Op.iLike]: `%${createProductDto.name}%`,
+            [Op.like]: `%${findAllDto.name}%`,
           },
         },
       });
@@ -185,7 +184,7 @@ export class ProductService {
           }),
         );
         products = await this.productRepository.findAll({
-          where: filter,
+          where: { ...filter, $productInStock$: { [Op.is]: null } },
           include: [
             {
               model: ProInfo,
@@ -201,12 +200,10 @@ export class ProductService {
         );
       } else {
         products = await this.productRepository.findAll({
-          where: {...filter,'$productInStock$': { [Op.is]: null }
-        },
+          where: { ...filter, $productInStock$: { [Op.is]: null } },
           include: {
-            all:true
+            all: true,
           },
-         
 
           offset: (page_2 - 1) * limit_2,
           limit: limit_2,
