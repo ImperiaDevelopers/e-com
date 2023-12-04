@@ -12,12 +12,9 @@ import { Op, literal } from 'sequelize';
 import { ProInfo } from '../pro_info/models/pro_info.model';
 import { Category } from '../category/models/category.model';
 import { Comment } from '../comment/models/comment.model';
-<<<<<<< HEAD
-import {FindAllDto} from './dto/findAll.dto'
-=======
+import { FindAllDto } from './dto/findAll.dto';
 import { ProductInStock } from '../product_in_stock/models/product_in_stock.model';
 
->>>>>>> 7ad5243841c7c01d0089cbe301db07b473abc804
 @Injectable()
 export class ProductService {
   constructor(
@@ -30,7 +27,7 @@ export class ProductService {
     return newProduct;
   }
 
-  async searchPro(findAllDto: FindAllDto): Promise<Product[]>{
+  async searchPro(findAllDto: FindAllDto): Promise<Product[]> {
     try {
       const client = await this.productRepository.findAll({
         include: { all: true },
@@ -41,7 +38,6 @@ export class ProductService {
         },
       });
       return client;
-
     } catch (error) {
       console.log(error);
     }
@@ -190,16 +186,12 @@ export class ProductService {
           }),
         );
         products = await this.productRepository.findAll({
-          where: filter,
+          where: { ...filter, $productInStock$: { [Op.is]: null } },
           include: [
             {
               model: ProInfo,
               where: {
                 [Op.or]: attributesConditions,
-                productInStock: {
-                  [Op.ne]: null,
-                  [Op.gt]: 0,
-                },
               },
             },
           ],
@@ -210,12 +202,10 @@ export class ProductService {
         );
       } else {
         products = await this.productRepository.findAll({
-          where: {...filter,'$productInStock$': { [Op.is]: null }
-        },
+          where: { ...filter, $productInStock$: { [Op.is]: null } },
           include: {
-            all:true
+            all: true,
           },
-         
 
           offset: (page_2 - 1) * limit_2,
           limit: limit_2,
