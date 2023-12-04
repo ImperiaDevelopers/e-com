@@ -4,6 +4,7 @@ import { UpdateProductInStockDto } from './dto/update-product_in_stock.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { ProductInStock } from './models/product_in_stock.model';
 import { Product } from '../product/models/product.model';
+import { Image } from '../image/model/image.model';
 
 let price = Number();
 
@@ -53,7 +54,12 @@ export class ProductInStockService {
 
   async findAll(): Promise<ProductInStock[]> {
     const productInStocks = await this.productInStockRepository.findAll({
-      include: { all: true },
+      include: [
+        {
+          model: Product,
+          include: [{ model: Image }],
+        },
+      ],
     });
 
     const currentDate = new Date();
@@ -67,7 +73,7 @@ export class ProductInStockService {
         if (count == 0) {
           const price =
             productFromStock.price / (1 - productInStock.percent / 100);
-          console.log(price)
+          console.log(price);
 
           await this.productRepository.update(
             { price: price },
@@ -78,7 +84,7 @@ export class ProductInStockService {
             where: { id: productInStock.id },
           });
         }
-        count++
+        count++;
       }
     }
 
