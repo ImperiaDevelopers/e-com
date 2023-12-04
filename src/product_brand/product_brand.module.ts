@@ -11,3 +11,6 @@ import { ProductBrand } from './models/product_brand.model';
   exports: [ProductBrandService],
 })
 export class ProductBrandModule {}
+
+
+

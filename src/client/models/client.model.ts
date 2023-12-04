@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Order } from '../../order/models/order.model';
 
 interface ClientAttrs {
   first_name: string;
@@ -31,12 +31,12 @@ export class Client extends Model<Client, ClientAttrs> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: true,
   })
   email: string;
 
   @Column({
     type: DataType.STRING,
+    unique: true,
   })
   phone_number: string;
 
@@ -49,7 +49,9 @@ export class Client extends Model<Client, ClientAttrs> {
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: true,
-    allowNull: true,
   })
   is_active: boolean;
+
+  @HasMany(() => Order)
+  orders: Order;
 }

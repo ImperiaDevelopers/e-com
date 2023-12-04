@@ -3,14 +3,28 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  ParseFilePipe,
+  UploadedFile,
+  HttpCode,
+  HttpStatus,
+  UseInterceptors,
+  Put,
 } from '@nestjs/common';
 import { ProductModelService } from './product_model.service';
 import { CreateProductModelDto } from './dto/create-product_model.dto';
 import { UpdateProductModelDto } from './dto/update-product_model.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { FileUploadDto } from './dto/file-upload.dto';
+import { ValidFileValidator } from '../validators/file-validators';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Product  Model')
 @Controller('product_model')
@@ -21,6 +35,39 @@ export class ProductModelController {
   create(@Body() createProductModelDto: CreateProductModelDto) {
     return this.product_modelService.create(createProductModelDto);
   }
+
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Image (png, jpeg)*',
+    type: FileUploadDto,
+  })
+  @ApiOperation({ summary: 'Upload new image' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'succesfully uploaded',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid image',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Token is not found',
+  })
+  @Post('upload-image')
+  @HttpCode(HttpStatus.CREATED)
+  uploadImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new ValidFileValidator({})],
+      }),
+    )
+    image: FileUploadDto,
+  ) {
+    return this.product_modelService.uploadImage(image);
+  }
+
   @ApiOperation({ summary: "ProductModellarni ko'rish" })
   @Get()
   findAll() {
@@ -32,7 +79,7 @@ export class ProductModelController {
     return this.product_modelService.findOne(+id);
   }
   @ApiOperation({ summary: "ProductModelni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProductModelDto: UpdateProductModelDto,

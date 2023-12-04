@@ -23,12 +23,13 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
     primaryKey: true,
   })
   id: number;
+
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
-  @BelongsTo(() =>Category,'category_id')
+  @BelongsTo(() => Category, 'category_id')
   category: Category;
 
   @ForeignKey(() => ProductBrand)
@@ -36,7 +37,9 @@ export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
     type: DataType.INTEGER,
   })
   pro_brend_id: number;
-
+  
   @BelongsTo(() => ProductBrand)
   proBrand: ProCatBrand;
+
+  
 }

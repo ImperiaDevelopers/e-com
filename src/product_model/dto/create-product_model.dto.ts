@@ -6,7 +6,7 @@ export class CreateProductModelDto {
 
   @ApiProperty({ example: 1, description: 'ProductModel Category' })
   category_brand_id: number;
-
-  @ApiProperty({ example: 'image.png', description: 'ProductModel rasmi' })
-  image: string;
+  
+  @ApiProperty({ example: 'image.png', description: 'Image' })
+  image?: string;
 }

@@ -14,17 +14,11 @@ export class CommentService {
   }
 
   async findAll() {
-    return await this.CommentRepo.findAll();
+    return await this.CommentRepo.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    await this.CommentRepo.findByPk(
-      id,
-      //   {include:[
-      //   {model:Client,as:"Client"},
-      //   {model:Product,as:"Product"}
-      // ]}
-    );
+    await this.CommentRepo.findByPk(id, { include: { all: true } });
   }
 
   async update(id: number, updateCommentDto: UpdateCommentDto) {

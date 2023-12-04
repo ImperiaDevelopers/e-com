@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { ProductInStock } from './models/product_in_stock.model';
 import { Product } from '../product/models/product.model';
 
-let price=Number()
+let price = Number();
 
 @Injectable()
 export class ProductInStockService {
@@ -17,13 +17,11 @@ export class ProductInStockService {
     private productRepository: typeof Product,
   ) {}
 
-  async create(
-    createProductInStockDto: CreateProductInStockDto,
-  ): Promise<ProductInStock> {
+  async create(createProductInStockDto: CreateProductInStockDto): Promise<any> {
     const product = await this.productRepository.findByPk(
       createProductInStockDto.product_id,
     );
-    price=product.price
+    price = product.price;
     const newProductInStock = await this.productInStockRepository.create(
       createProductInStockDto,
     );
@@ -31,9 +29,9 @@ export class ProductInStockService {
       createProductInStockDto.duration * 24 * 60 * 60 * 1000;
 
     const newToDate = new Date(
-      new Date(createProductInStockDto.from).getTime() + durationInMilliseconds,
+      new Date(newProductInStock.from).getTime() + durationInMilliseconds,
     );
-    const productPrice = await this.productRepository.update(
+    await this.productRepository.update(
       {
         price:
           product.price -
@@ -45,9 +43,12 @@ export class ProductInStockService {
       {
         to: String(newToDate),
       },
-      { where: { id: createProductInStockDto.product_id } },
+      { where: { product_id: product.id } },
     );
-    return newProductInStock;
+    const updateProduct = await this.productInStockRepository.findOne({
+      where: { product_id: product.id },
+    });
+    return updateProduct;
   }
 
   async findAll(): Promise<ProductInStock[]> {
@@ -56,27 +57,28 @@ export class ProductInStockService {
     });
 
     const currentDate = new Date();
+    let count = 0;
 
     for (const productInStock of productInStocks) {
-      // Check if 'to' date has passed today
       if (new Date(productInStock.to) < currentDate) {
-        // Fetch the original product price
-        // const originalProductPrice = (
-        //   await this.productRepository.findByPk(productInStock.product_id)
-        // )?.price;
+        const productFromStock = await this.productRepository.findOne({
+          where: { id: productInStock.product_id },
+        });
+        if (count == 0) {
+          const price =
+            productFromStock.price / (1 - productInStock.percent / 100);
+          console.log(price)
 
-        if (price) {
-          // Update the ProductInStock with the original price
           await this.productRepository.update(
             { price: price },
             { where: { id: productInStock.product_id } },
           );
-        }
 
-        // Remove the ProductInStock record if needed
-        await this.productInStockRepository.destroy({
-          where: { id: productInStock.id },
-        });
+          await this.productInStockRepository.destroy({
+            where: { id: productInStock.id },
+          });
+        }
+        count++
       }
     }
 

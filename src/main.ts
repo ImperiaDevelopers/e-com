@@ -8,6 +8,15 @@ const start = async () => {
     const PORT = process.env.PORT || 3010
     app.setGlobalPrefix('api');
     
+
+    app.enableCors({
+      origin: '*',
+      methods: 'GET,PUT,POST,DELETE',
+      allowedHeaders: 'Content-Type, Authorization',
+      credentials: true,
+      optionsSuccessStatus: 200,
+    });
+
     const config = new DocumentBuilder()
       .setTitle('E-com')
       .setDescription('E-com app')

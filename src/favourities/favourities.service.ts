@@ -3,6 +3,8 @@ import { CreateFavourityDto } from './dto/create-favourity.dto';
 import { UpdateFavourityDto } from './dto/update-favourity.dto';
 import { Favourity } from './models/favourity.model';
 import { InjectModel } from '@nestjs/sequelize';
+import { Product } from '../product/models/product.model';
+import { Image } from '../image/model/image.model';
 
 @Injectable()
 export class FavouritiesService {
@@ -17,6 +19,19 @@ export class FavouritiesService {
   async findAll(): Promise<Favourity[]> {
     const favourite = await this.favourityRepo.findAll({
       include: { all: true },
+    });
+    return favourite;
+  }
+
+  async findClientLiked(client_id: number): Promise<Favourity[]> {
+    const favourite = await this.favourityRepo.findAll({
+      where: { client_id: client_id },
+      include: [
+        {
+          model: Product,
+          include: [{ model: Image }],
+        },
+      ],
     });
     return favourite;
   }

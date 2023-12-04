@@ -7,11 +7,13 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ProductBrand } from '../../product_brand/models/product_brand.model';
 import { ProCatBrand } from '../../pro_cat_brand/models/pro_cat_brand.model';
 
 interface ProductModelAttrs {
   name: string;
   category_brand_id: number;
+  brand_id: number;
   image: string;
 }
 
@@ -40,7 +42,7 @@ export class ProductModel extends Model<ProductModel, ProductModelAttrs> {
   @BelongsTo(() => ProCatBrand)
   category_brand: ProCatBrand;
 
-  @ApiProperty({ example: 'image.png', description: 'ProductModel rasmi' })
+  @ApiProperty({ example: 'img', description: 'ProductModel Brand' })
   @Column({
     type: DataType.STRING,
   })

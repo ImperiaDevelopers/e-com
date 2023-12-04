@@ -34,6 +34,8 @@ export class ProCatBrandController {
     return this.proCatBrandService.findAll();
   }
 
+
+  
   @ApiOperation({ summary: 'get/:id ProCatBrand' })
   @ApiResponse({ status: 201, type: ProCatBrand })
   @Get(':id')

@@ -21,9 +21,7 @@ import { PerformanceModule } from './performance/performance.module';
 import { Performance } from './performance/models/performance.model';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/models/order.model';
-import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
 import { ProInfoModule } from './pro_info/pro_info.module';
-import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
 import { ProductBrand } from './product_brand/models/product_brand.model';
 import { FavouritiesModule } from './favourities/favourities.module';
 import { ClientModule } from './client/client.module';
@@ -48,6 +46,10 @@ import { RegionModule } from './region/region.module';
 // import { StatisticsModule } from './statistics/statistics.module';
 
 
+import { ViewsModule } from './views/views.module';
+import { View } from './views/models/view.model';
+import { ProCatBrand } from './pro_cat_brand/models/pro_cat_brand.model';
+import { ProCatBrandModule } from './pro_cat_brand/pro_cat_brand.module';
 
 @Module({
   imports: [
@@ -79,7 +81,6 @@ import { RegionModule } from './region/region.module';
         ProductModel,
         ProductInStock,
         Performance,
-        ProCatBrand,
         ProPerfomanceGroup,
         Region,
         Image,
@@ -87,33 +88,36 @@ import { RegionModule } from './region/region.module';
         Card,
         Client,
         Favourity,
+        Status,
+        View,
+        ProCatBrand,
       ],
       autoLoadModels: true,
       logging: false,
     }),
     AdminModule,
-    CategoryModule,
-    CommentModule,
     CardModule,
     ClientModule,
+    CommentModule,
+    CategoryModule,
     DeliverModule,
     DistrictModule,
-    ImageModule,
     FavouritiesModule,
+    ImageModule,
     OrderModule,
     OtpModule,
     PaymentModule,
+    ProInfoModule,
     ProductModule,
+    ProductBrandModule,
     ProductModelModule,
-    ProPerfomanceGroupModule,
     ProductInStockModule,
     PerformanceModule,
-    ProductBrandModule,
-    ProCatBrandModule,
     ProPerfomanceGroupModule,
-    ProInfoModule,
     RegionModule,
     StatusModule,
+    ViewsModule,
+    ProCatBrandModule
   ],
   controllers: [],
   providers: [],

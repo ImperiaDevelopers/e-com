@@ -9,4 +9,7 @@ export class CreateDistrictDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @ApiProperty({ example: 1, description: 'Region id' })
+  region_id: number;
 }

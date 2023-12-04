@@ -24,15 +24,19 @@ import { VerifyOtpDto } from './dto/verify-otp.dto';
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
-  @Post('set-profile')
-  @ApiOperation({ summary: 'Set client names' })
-  @ApiResponse({ status: 200, description: 'Profile set successfully' })
+  @Post('create_client')
+  @ApiOperation({ summary: 'create client' })
+  @ApiResponse({ status: 200, description: 'Profile created' })
   setClientNames(
     @Body() createClientDto: CreateClientDto,
-    @Res() res: Response,
   ) {
-    const response = this.clientService.setClientName(createClientDto, res);
+    const response = this.clientService.createClient(createClientDto);
     return response;
+  }
+
+  @Get('main/:clientId')
+  async getMainStatistics(@Param('clientId') clientId: number) {
+    return this.clientService.findOrder(clientId);
   }
 
   @Get('all')

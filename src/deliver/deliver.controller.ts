@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { DeliverService } from './deliver.service';
 import { CreateDeliverDto } from './dto/create_deliver.dto';
@@ -32,7 +32,7 @@ export class DeliverController {
     return this.deliverService.findOne(+id);
   }
   @ApiOperation({ summary: "Deliverni o'zgartirish" })
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateDeliverDto: UpdateDeliverDto) {
     return this.deliverService.update(+id, updateDeliverDto);
   }
