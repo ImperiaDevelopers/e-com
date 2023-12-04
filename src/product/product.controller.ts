@@ -15,6 +15,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FindBySortDto } from './dto/findBySort.dto';
 import { Product } from './models/product.model';
+import { FindAllDto } from './dto/findAll.dto';
 
 @ApiTags('Product')
 @Controller('product')
@@ -30,9 +31,9 @@ export class ProductController {
   @ApiOperation({ summary: 'Product qidirish' })
   @ApiResponse({ status: 201, type: Product })
   @Post('/search')
-  async searchProducts(@Body() createProductDto: CreateProductDto) {
+  async searchProducts(@Body() findAllDto: FindAllDto) {
     try {
-      const products = await this.productService.searchPro(createProductDto);
+      const products = await this.productService.searchPro(findAllDto);
       return { products };
     } catch (error) {
       console.log(error);

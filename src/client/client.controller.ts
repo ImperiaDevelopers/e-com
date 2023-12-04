@@ -27,9 +27,7 @@ export class ClientController {
   @Post('create_client')
   @ApiOperation({ summary: 'create client' })
   @ApiResponse({ status: 200, description: 'Profile created' })
-  setClientNames(
-    @Body() createClientDto: CreateClientDto,
-  ) {
+  setClientNames(@Body() createClientDto: CreateClientDto) {
     const response = this.clientService.createClient(createClientDto);
     return response;
   }
@@ -66,6 +64,13 @@ export class ClientController {
   @ApiResponse({ status: 200, description: 'OTP sent seccessfully' })
   signInWithOtp(@Body() phoneNumberDto: PhoneNumberDto) {
     return this.clientService.signInWithOtp(phoneNumberDto?.phone_number);
+  }
+
+  @Post('send-order')
+  @ApiOperation({ summary: 'Send message to client about order' })
+  @ApiResponse({ status: 200, description: 'OTP sent seccessfully' })
+  messageOrder(@Body() phoneNumberDto: PhoneNumberDto) {
+    return this.clientService.messageOrder(phoneNumberDto?.phone_number);
   }
 
   @Post('verify-otp')

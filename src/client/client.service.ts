@@ -66,6 +66,21 @@ export class ClientService {
     return decoded;
   }
 
+  async messageOrder(phone_number: string) {
+    const client = Number(
+      phone_number
+        .split('')
+        .filter((num) => !isNaN(+num))
+        .join(''),
+    );
+
+    await this.otpService.auth();
+
+    const decoded = await this.newOrder(client);
+    if (!decoded) throw new BadRequestException('An error ocured...');
+    return decoded;
+  }
+
   async verifyOtpClient(verifyOtpDto: VerifyOtpDto, res: Response) {
     const { verification_key, otp, phone_number, userId } = verifyOtpDto;
     const check_number = phone_number;
@@ -206,6 +221,41 @@ export class ClientService {
       }),
     );
     await this.otpService.sendOtp(phone_number, otp);
+
+    const now = new Date();
+    const expiration_time = AddMinutesToDate(now, 5);
+    await this.otpRepo.destroy({
+      where: { phone_number: `+${phone_number}` },
+    });
+
+    const newOtp = await this.otpRepo.create({
+      unique_id: uuidv4(),
+      otp: otp,
+      expiration_time,
+      phone_number: `+${phone_number}`,
+    });
+
+    const details = {
+      timestamp: now,
+      phone_number: newOtp.phone_number,
+      success: true,
+      message: 'OTP sent to client',
+      otp_id: newOtp.id,
+    };
+
+    const encoded = await encode(JSON.stringify(details));
+    return { status: 'Sent', details: encoded };
+  }
+
+  async newOrder(phone_number: number) {
+    const otp = Number(
+      otpGenerator.generate(4, {
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false,
+      }),
+    );
+    await this.otpService.sendOrder(phone_number);
 
     const now = new Date();
     const expiration_time = AddMinutesToDate(now, 5);

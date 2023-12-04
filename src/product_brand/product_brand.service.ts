@@ -32,7 +32,7 @@ export class ProductBrandService {
 
   async findAll(): Promise<ProductBrand[]> {
     const product_brands = await this.productbrandRepository.findAll({
-      include: [{ include: [{ model: ProductBrand }] }],
+      include: { all: true },
     });
     return product_brands;
   }
@@ -49,7 +49,6 @@ export class ProductBrandService {
     const proCat = await this.productbrandRepository.findAll({
       include: { all: true },
       where: {
-        
         pro_cat_brand: {
           pro_brend_id: id,
         },
@@ -57,7 +56,6 @@ export class ProductBrandService {
     });
     return proCat;
   }
-
 
   async update(id: number, updateProductBrandDto: UpdateProductBrandDto) {
     const updatedProductBrand = await this.productbrandRepository.update(
