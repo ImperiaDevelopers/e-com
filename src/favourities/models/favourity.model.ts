@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Client } from '../../client/models/client.model';
+import { Product } from '../../product/models/product.model';
 
 interface FavourityAttrs {
   client_id: number;
@@ -8,10 +17,6 @@ interface FavourityAttrs {
 
 @Table({ tableName: 'favourity' })
 export class Favourity extends Model<Favourity, FavourityAttrs> {
-  @ApiProperty({
-    example: 'id',
-    description: 'The id of the pro_info',
-  })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -19,22 +24,19 @@ export class Favourity extends Model<Favourity, FavourityAttrs> {
   })
   id: number;
 
-  @ApiProperty({
-    example: 'id',
-    description: 'the id of client',
-  })
+  @ForeignKey(() => Client)
   @Column({
     type: DataType.INTEGER,
   })
   client_id: number;
+  @BelongsTo(() => Client)
+  client = Client;
 
-  @ApiProperty({
-    example: '5',
-    description: 'the id of product',
-  })
-  //   @ForeignKey(() => Product)
+  @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
   })
   product_id: number;
+  @BelongsTo(() => Product)
+  product: Product;
 }

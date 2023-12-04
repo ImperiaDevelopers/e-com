@@ -14,7 +14,7 @@ import { UpdateFavourityDto } from './dto/update-favourity.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Favourity } from './models/favourity.model';
 
-@ApiTags('FAVOURITY')
+@ApiTags('Favourite')
 @Controller('favourities')
 export class FavouritiesController {
   constructor(private readonly favouritiesService: FavouritiesService) {}

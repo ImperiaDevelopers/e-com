@@ -7,6 +7,12 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from '../../product/models/product.model';
+import { Payment } from '../../payment/models/payment.model';
+import { Status } from '../../status/models/status.model';
+import { Region } from '../../region/model/region.model';
+import { Client } from '../../client/models/client.model';
+import { District } from '../../district/model/district.model';
+import { Card } from '../../card/models/card.model';
 
 interface OrderAtr {
   client_id: number;
@@ -27,13 +33,13 @@ export class Order extends Model<Order, OrderAtr> {
   })
   id: number;
 
-  // @ForeignKey(() => Client)
+  @ForeignKey(() => Client)
   @Column({
     type: DataType.INTEGER,
   })
   client_id: number;
-  // @BelongsTo(() => Client)
-  // parent_category: Client;
+  @BelongsTo(() => Client)
+  client: Client;
 
   @ForeignKey(() => Product)
   @Column({
@@ -43,43 +49,43 @@ export class Order extends Model<Order, OrderAtr> {
   @BelongsTo(() => Product)
   product: Product;
 
-  // @ForeignKey(() => Region)
+  @ForeignKey(() => Region)
   @Column({
     type: DataType.INTEGER,
   })
   region_id: number;
-  // @BelongsTo(() => Region)
-  // parent_category: Region;
+  @BelongsTo(() => Region)
+  parent_category: Region;
 
-  // @ForeignKey(() => District)
+  @ForeignKey(() => District)
   @Column({
     type: DataType.INTEGER,
   })
   district_id: number;
-  // @BelongsTo(() => District)
-  // parent_category: District;
+  @BelongsTo(() => District)
+  district: District;
 
-  // @ForeignKey(() => Payment)
+  @ForeignKey(() => Payment)
   @Column({
     type: DataType.INTEGER,
   })
   payment_id: number;
-  // @BelongsTo(() => Payment)
-  // parent_category: Payment;
+  @BelongsTo(() => Payment)
+  payment: Payment;
 
-  // @ForeignKey(() => Status)
+  @ForeignKey(() => Status)
   @Column({
     type: DataType.INTEGER,
   })
   status_id: number;
-  // @BelongsTo(() => Status)
-  // parent_category: Status;
+  @BelongsTo(() => Status)
+  status: Status;
 
-  // @ForeignKey(() => Card)
+  @ForeignKey(() => Card)
   @Column({
     type: DataType.INTEGER,
   })
   card_id: number;
-  // @BelongsTo(() => Card)
-  // parent_category: Card;
+  @BelongsTo(() => Card)
+  card: Card;
 }

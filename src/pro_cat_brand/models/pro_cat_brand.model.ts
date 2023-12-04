@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ProductBrand } from '../../product_brand/models/product_brand.model';
+import { Category } from '../../category/models/category.model';
 
 interface ProCatBrandAttrs {
   category_id: number;
@@ -14,40 +17,26 @@ interface ProCatBrandAttrs {
 
 @Table({ tableName: 'pro_cat_brand' })
 export class ProCatBrand extends Model<ProCatBrand, ProCatBrandAttrs> {
-  @ApiProperty({
-    example: 'id',
-    description: 'The id of the pro_cat_brand',
-  })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   })
   id: number;
-
-  @ApiProperty({
-    example: '5',
-    description: 'the id of category',
-  })
-  //   @ForeignKey(() => Category)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
   })
   category_id: number;
+  @BelongsTo(() =>Category,'category_id')
+  category: Category;
 
-  @ApiProperty({
-    example: '5',
-    description: 'the id of pro_brand_id',
-  })
-  //   @ForeignKey(() => ProBrand)
+  @ForeignKey(() => ProductBrand)
   @Column({
     type: DataType.INTEGER,
   })
   pro_brend_id: number;
 
-  //   @BelongsTo(() => Category)
-  //   category: Category[]
-
-  //   @BelongsTo(() => ProBrand)
-  //   proBrand: ProBrand
+  @BelongsTo(() => ProductBrand)
+  proBrand: ProCatBrand;
 }

@@ -1,11 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Order } from '../../order/models/order.model';
 
 interface DeliverAttrs {
   name: string;
@@ -14,7 +15,6 @@ interface DeliverAttrs {
 
 @Table({ tableName: 'deliver' })
 export class Deliver extends Model<Deliver, DeliverAttrs> {
-  @ApiProperty({ example: 1, description: 'Unikal Id' })
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -22,20 +22,16 @@ export class Deliver extends Model<Deliver, DeliverAttrs> {
   })
   id: number;
 
-  @ApiProperty({
-    example: 'deliver1',
-    description: 'Deliver nomi',
-  })
   @Column({
     type: DataType.STRING,
   })
   name: string;
-  @ApiProperty({
-    example: 'order_id',
-    description: 'Deliver "order_id"si',
-  })
+
+  @ForeignKey(() => Order)
   @Column({
     type: DataType.INTEGER,
   })
   order_id: number;
+  @BelongsTo(() => Order)
+  order: Order;
 }

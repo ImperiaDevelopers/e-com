@@ -11,10 +11,12 @@ import {
 import { ProCatBrandService } from './pro_cat_brand.service';
 import { CreateProCatBrandDto } from './dto/create-pro_cat_brand.dto';
 import { UpdateProCatBrandDto } from './dto/update-pro_cat_brand.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProCatBrand } from './models/pro_cat_brand.model';
 
+@ApiTags('Product-Category-Brand')
 @Controller('pro-cat-brand')
+@ApiTags('Product Category Brand')
 export class ProCatBrandController {
   constructor(private readonly proCatBrandService: ProCatBrandService) {}
 

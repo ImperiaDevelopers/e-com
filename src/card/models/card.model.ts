@@ -9,48 +9,37 @@ import {
 } from 'sequelize-typescript';
 import { Product } from '../../product/models/product.model';
 
-interface ProductInStockAttrs {
+interface CardAttrs {
   product_id: number;
-  duration: number;
-  from: string;
-  to: string;
+  price: number;
+  quantity: number;
 }
 
-@Table({ tableName: 'product_in_stock' })
-export class ProductInStock extends Model<ProductInStock, ProductInStockAttrs> {
-  @Column({
-    type: DataType.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  })
+@Table({ tableName: 'card' })
+export class Card extends Model<Card, CardAttrs> {
+  @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
 
   @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
+    allowNull: false,
   })
   product_id: number;
   @BelongsTo(() => Product)
   product: Product;
 
+  @ApiProperty({ example: 23000, description: 'Price' })
   @Column({
     type: DataType.INTEGER,
+    allowNull: false,
   })
-  duration: number;
+  price: number;
 
+  @ApiProperty({ example: 1, description: 'Quantity' })
   @Column({
     type: DataType.INTEGER,
+    allowNull: false,
   })
-  percent: number;
-
-  @Column({
-    type: DataType.STRING,
-    defaultValue: new Date()
-  })
-  from: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  to: string;
+  quantity: number;
 }

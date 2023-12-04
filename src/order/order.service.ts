@@ -50,7 +50,7 @@ export class OrderService {
     throw new NotFoundException('Order not found at this id or smt is wrong');
   }
 
-  //Update order by id
+  //Delete order by id
   async deleteOrderById(id: number) {
     const order = await this.OrderRepo.findByPk(id);
     if (order) {
