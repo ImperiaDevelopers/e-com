@@ -190,6 +190,10 @@ export class ProductService {
               model: ProInfo,
               where: {
                 [Op.or]: attributesConditions,
+                productInStock: {
+                  [Op.ne]: null,
+                  [Op.gt]: 0,
+                },
               },
             },
           ],

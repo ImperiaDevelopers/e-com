@@ -13,6 +13,7 @@ import { Category } from '../../category/models/category.model';
 import { ProInfo } from '../../pro_info/models/pro_info.model';
 import { Image } from '../../image/model/image.model';
 import { Comment } from '../../comment/models/comment.model';
+import { ProductInStock } from '../../product_in_stock/models/product_in_stock.model';
 
 interface ProductAttrs {
   name: string;
@@ -80,4 +81,7 @@ export class Product extends Model<Product, ProductAttrs> {
 
   @HasMany(() => Comment)
   comments: Comment[];
+
+  @HasMany(() => ProductInStock)
+  productInStock: ProductInStock[];
 }
