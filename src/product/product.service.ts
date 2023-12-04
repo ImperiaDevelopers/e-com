@@ -61,6 +61,17 @@ export class ProductService {
     }
   }
 
+  async findAllllll() {
+    try {
+      const products = await this.productRepository.findAll({
+        include: { all: true },
+      });
+      return products;
+    } catch (error) {
+      throw new BadGatewayException('Неверный запрос от клиента');
+    }
+  }
+
   // async getAverageRating() {
   //   try {
   //     let filter = {};

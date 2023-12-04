@@ -48,6 +48,13 @@ export class ProductController {
     return this.productService.findAll(q?.page, q?.limit);
   }
 
+  @ApiOperation({ summary: "Productlarni hammmmmmmmasini ko'rish" })
+  @ApiResponse({ status: 201, type: Product })
+  @Get('alll')
+  findAlllll() {
+    return this.productService.findAllllll();
+  }
+
   @ApiOperation({ summary: 'Productlarni reitingi' })
   @ApiResponse({ status: 201, type: Product })
   @Get('reiting')
