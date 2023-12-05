@@ -50,6 +50,18 @@ export class OrderController {
     return this.orderService.getOrderById(id);
   }
 
+  //Get  order by client id
+  @ApiResponse({ status: 200, description: 'Orders are here' })
+  @ApiResponse({
+    status: 400,
+    description: 'Orders not found or something is wrong',
+  })
+  @ApiOperation({ summary: 'Get orders by client id' })
+  @Get('client/:id')
+  async getOrderByClientId(@Param('id') id: number) {
+    return this.orderService.getOrderByClientId(id);
+  }
+
   //Update  order by id
   @ApiResponse({ status: 200, description: 'Order is successfully updated' })
   @ApiResponse({

@@ -37,6 +37,16 @@ export class OrderService {
     throw new NotFoundException('Order not found at this id or smt is wrong');
   }
 
+  //Get order by  client id
+  async getOrderByClientId(id: number) {
+    const order = await this.OrderRepo.findAll({
+      where: { client_id: id },
+      include: { all: true },
+    });
+    if (order) return order;
+    throw new NotFoundException('Order not found at this id or smt is wrong');
+  }
+
   //Update order by id
   async updateOrderById(id: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.OrderRepo.findOne({ where: { id: id } });
