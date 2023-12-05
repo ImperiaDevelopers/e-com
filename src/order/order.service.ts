@@ -3,6 +3,8 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Order } from './models/order.model';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Card } from '../card/models/card.model';
+import { Product } from '../product/models/product.model';
 
 @Injectable()
 export class OrderService {
@@ -41,7 +43,12 @@ export class OrderService {
   async getOrderByClientId(id: number) {
     const order = await this.OrderRepo.findAll({
       where: { client_id: id },
-      include: { all: true },
+      include: [
+        {
+          model: Card,
+          include: [{ model: Product }],
+        },
+      ],
     });
     if (order) return order;
     throw new NotFoundException('Order not found at this id or smt is wrong');
