@@ -48,6 +48,7 @@ export class OrderService {
           model: Card,
           include: [{ model: Product }],
         },
+        { all: true },
       ],
     });
     if (order) return order;
