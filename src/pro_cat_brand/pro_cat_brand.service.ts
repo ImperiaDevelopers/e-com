@@ -4,8 +4,6 @@ import { UpdateProCatBrandDto } from './dto/update-pro_cat_brand.dto';
 import { ProCatBrand } from './models/pro_cat_brand.model';
 import { InjectModel } from '@nestjs/sequelize';
 
-
-
 @Injectable()
 export class ProCatBrandService {
   constructor(
@@ -34,9 +32,14 @@ export class ProCatBrandService {
     return proCatBrand;
   }
 
+  async findByCategoryId(id: number): Promise<ProCatBrand[]> {
+    const proCatBrand = await this.proCatBrandRepo.findAll({
+      where: { category_id: id },
+      include: { all: true },
+    });
+    return proCatBrand;
+  }
 
-
-  
   async update(id: number, updateProCatBrandDto: UpdateProCatBrandDto) {
     const proCatBrand = await this.proCatBrandRepo.update(
       updateProCatBrandDto,

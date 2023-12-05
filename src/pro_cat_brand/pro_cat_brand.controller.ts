@@ -34,13 +34,18 @@ export class ProCatBrandController {
     return this.proCatBrandService.findAll();
   }
 
-
-  
   @ApiOperation({ summary: 'get/:id ProCatBrand' })
   @ApiResponse({ status: 201, type: ProCatBrand })
   @Get(':id')
   findOne(@Param('id') id: string): Promise<ProCatBrand> {
     return this.proCatBrandService.findOne(+id);
+  }
+
+  @ApiOperation({ summary: 'get ProCatBrand by category id' })
+  @ApiResponse({ status: 201, type: ProCatBrand })
+  @Get('category/:id')
+  findByCategoryId(@Param('id') id: number): Promise<ProCatBrand[]> {
+    return this.proCatBrandService.findByCategoryId(id);
   }
 
   @ApiOperation({ summary: 'put/:id ProCatBrand' })
